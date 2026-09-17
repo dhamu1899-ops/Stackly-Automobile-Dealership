@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Blog &amp; News &ndash; Stackly</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<!-- ==============================================================================
+     STACKLY CINEMATIC 3-SECOND PHOTOREALISTIC SUPERCAR PRELOADER
+     ============================================================================== -->
+<div id="stacklyPreloader" class="stackly-preloader-overlay">
+  <div class="preloader-cinematic-stage">
+    <div class="preloader-top-brand">
+      <img src="stackly-logo.svg" alt="Stackly" class="preloader-cinematic-logo"/>
+      <div class="preloader-salem-badge"><i class="fas fa-star" style="color:var(--accent-cyan); font-size:10px;"></i> Luxury Automotive Experience <i class="fas fa-star" style="color:var(--accent-cyan); font-size:10px;"></i></div>
+    </div>
+    <div class="preloader-hud-display">
+      <div class="hud-item">
+        <span class="hud-label">GEAR</span>
+        <span class="hud-value" id="hudGear">1ST GEAR</span>
+      </div>
+      <div class="hud-item hud-center">
+        <span class="hud-label">SPEEDOMETER</span>
+        <span class="hud-value-large"><span id="hudSpeed">0</span> <small>KM/H</small></span>
+      </div>
+      <div class="hud-item">
+        <span class="hud-label">POWERTRAIN</span>
+        <span class="hud-value" id="hudPower">V8 BI-TURBO</span>
+      </div>
+    </div>
+    <div class="preloader-highway-stage" id="preloaderTrack">
+      <div class="speed-streaks-layer">
+        <span class="streak streak-1"></span>
+        <span class="streak streak-2"></span>
+        <span class="streak streak-3"></span>
+        <span class="streak streak-4"></span>
+      </div>
+      <div class="preloader-supercar-wrapper" id="preloaderCar">
+        <div class="supercar-headlight-cone"></div>
+        <div class="supercar-underglow-neon"></div>
+        <img src="assets/supercar-loader.webp" alt="Stackly Supercar" class="preloader-supercar-img"/>
+        <div class="supercar-nitro-exhaust"><span class="nitro-flame"></span></div>
+      </div>
+      <div class="preloader-highway-road"><div class="highway-dashes"></div></div>
+    </div>
+    <div class="preloader-progress-console">
+      <div class="progress-track-neon"><div class="progress-bar-neon" id="preloaderProgressBar"></div></div>
+      <div class="progress-info-row">
+        <span class="progress-status-msg" id="preloaderStatus"><i class="fas fa-tachometer-alt" style="color:var(--accent-pink);"></i> Igniting Twin-Turbo V8 Powertrain...</span>
+        <span class="progress-percent-val" id="preloaderPercent">0%</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<header id="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="logo-link">
+      <img src="stackly-logo.svg" alt="Stackly"/>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="">Home</a></li>
+      <li><a href="about.html" class="">About Us</a></li>
+      <li><a href="service.html" class="">Service</a></li>
+      <li class="has-dropdown">
+        <a href="listing.html" class="">Listing Car</a>
+        <ul class="dropdown-panel">
+          <li><a href="detail.html"><i class="fas fa-car-side"></i> Car Detail Page</a></li>
+          <li><a href="financing.html"><i class="fas fa-calculator"></i> Financing &amp; Loan</a></li>
+        </ul>
+      </li>
+      <li><a href="team.html" class="">Team</a></li>
+      <li><a href="blog.html" class="active">Blog</a></li>
+      <li><a href="contact.html" class="">Contact</a></li>
+    </ul>
+    <div class="header-cta">
+      <a href="login.html" id="authNavBtn" class="btn btn-outline btn-sm" style="border-color:var(--primary); color:var(--primary);"><i class="fas fa-sign-in-alt"></i> Login / Register</a>
+      <a href="listing.html" class="btn btn-primary btn-sm">Inventory</a>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle Navigation"><i class="fas fa-bars"></i></button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-drawer-backdrop" id="mobileDrawerBackdrop"></div>
+<div class="mobile-nav-drawer" id="mobileNavDrawer">
+  <div class="mobile-drawer-header">
+    <a href="index.html" class="drawer-logo">
+      <img src="stackly-logo.svg" alt="Stackly" style="height:32px;"/>
+    </a>
+    <button class="drawer-close" id="drawerClose" aria-label="Close Menu">&times;</button>
+  </div>
+
+  <div class="mobile-drawer-body">
+    <nav class="mobile-menu-list">
+      <a href="index.html" class="mobile-menu-link"><i class="fas fa-home"></i> Home</a>
+      <a href="about.html" class="mobile-menu-link"><i class="fas fa-info-circle"></i> About Us</a>
+      <a href="service.html" class="mobile-menu-link"><i class="fas fa-cogs"></i> Services</a>
+      <a href="listing.html" class="mobile-menu-link"><i class="fas fa-car"></i> Listing Car</a>
+      <div class="mobile-submenu">
+        <a href="detail.html" class="mobile-sublink"><i class="fas fa-angle-right"></i> Car Detail Page</a>
+        <a href="financing.html" class="mobile-sublink"><i class="fas fa-angle-right"></i> Financing &amp; Loan</a>
+      </div>
+      <a href="team.html" class="mobile-menu-link"><i class="fas fa-users"></i> Team</a>
+      <a href="blog.html" class="mobile-menu-link"><i class="fas fa-newspaper"></i> Blog</a>
+      <a href="contact.html" class="mobile-menu-link"><i class="fas fa-envelope"></i> Contact</a>
+    </nav>
+
+    <div class="mobile-drawer-actions">
+      <a href="login.html" class="btn btn-outline btn-sm mobile-action-btn" style="border-color:var(--primary); color:var(--primary); width:100%; justify-content:center;">
+        <i class="fas fa-user-circle"></i> Login / Register
+      </a>
+      <a href="listing.html" class="btn btn-primary btn-sm mobile-action-btn" style="width:100%; justify-content:center;">
+        <i class="fas fa-warehouse"></i> Browse Inventory
+      </a>
+    </div>
+
+    <div class="mobile-drawer-contact">
+      <div class="drawer-contact-item">
+        <i class="fas fa-phone-alt"></i>
+        <div>
+          <small style="display:block; color:var(--text-muted); font-size:11px;">Helpline</small>
+          <strong style="color:#fff; font-size:13px;">+91 98427 12345</strong>
+        </div>
+      </div>
+      <div class="drawer-contact-item">
+        <i class="fas fa-map-marker-alt"></i>
+        <div>
+          <small style="display:block; color:var(--text-muted); font-size:11px;">Showroom</small>
+          <span style="color:#fff; font-size:13px;">Meyyanur Main Rd, Salem</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="mobile-drawer-social">
+      <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="https://x.com" target="_blank" rel="noopener noreferrer" aria-label="X"><i class="fab fa-x-twitter"></i></a>
+      <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+      <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+    </div>
+  </div>
+</div>
+
+<div class="page-hero-banner">
+  <div class="container banner-content">
+    <h1 class="section-title">Blog &amp; News</h1>
+    <div class="breadcrumbs">
+      <a href="index.html">Home</a>
+      <span>/</span>
+      <span>Blog</span>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 1: FEATURED RECENT ARTICLES (EXPANDED TO 6) -->
+<section class="section-pad">
+  <div class="container">
+    <div style="text-align: center; max-width: 600px; margin: 0 auto 50px;" class="reveal-on-scroll">
+      <span class="badge-tag">Editorial Insights</span>
+      <h2 class="section-title">Latest Automotive Stories &amp; Guides</h2>
+      <p class="section-desc">Stay updated on trending models, car financing strategies, and vehicle care tips in Tamil Nadu.</p>
+    </div>
+
+    <div class="news-cards-grid">
+      <div class="news-tile reveal-on-scroll stagger-1">
+        <div class="news-tile-thumb">
+          <img src="assets/driving-into-the-sunset-300x200-59451.webp" alt="News 1"/>
+        </div>
+        <div class="news-tile-body">
+          <span class="news-cat-badge">Industry Trends</span>
+          <h3 class="news-title-h3"><a href="single-post.html">The Shift Toward Premium Hybrid Coupes</a></h3>
+          <p class="news-desc-p">Analysis of changing consumer preferences toward hybrid powertrains and sport convertibles in 2026.</p>
+          <a href="single-post.html" class="read-more-link">Read Full Story <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <div class="news-tile reveal-on-scroll stagger-2">
+        <div class="news-tile-thumb">
+          <img src="assets/test-drive-in-new-car-300x200-d8abf.webp" alt="News 2"/>
+        </div>
+        <div class="news-tile-body">
+          <span class="news-cat-badge">Financing Tips</span>
+          <h3 class="news-title-h3"><a href="single-post.html">How To Negotiate Low APR Auto Loans</a></h3>
+          <p class="news-desc-p">Smart strategies to leverage credit scores and down payments to secure the lowest bank interest rates.</p>
+          <a href="single-post.html" class="read-more-link">Read Full Story <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <div class="news-tile reveal-on-scroll stagger-3">
+        <div class="news-tile-thumb">
+          <img src="assets/new-cars-production-and-sales-300x200-a8740.webp" alt="News 3"/>
+        </div>
+        <div class="news-tile-body">
+          <span class="news-cat-badge">Technology</span>
+          <h3 class="news-title-h3"><a href="single-post.html">All-Wheel Drive Systems Explained</a></h3>
+          <p class="news-desc-p">Performance benchmarks, cornering grip, and road safety benefits of electronic torque vectoring.</p>
+          <a href="single-post.html" class="read-more-link">Read Full Story <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <div class="news-tile reveal-on-scroll stagger-1">
+        <div class="news-tile-thumb">
+          <img src="assets/photo-1617814076367-b759c7d7e738-ebdd4.webp" alt="AMG Story"/>
+        </div>
+        <div class="news-tile-body">
+          <span class="news-cat-badge">Review &amp; Test</span>
+          <h3 class="news-title-h3"><a href="single-post.html">Mercedes-Benz AMG GT: The Track Monster</a></h3>
+          <p class="news-desc-p">We take the 4.0L BiTurbo V8 around Yercaud hill roads to evaluate suspension damping and high-speed braking.</p>
+          <a href="single-post.html" class="read-more-link">Read Full Story <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <div class="news-tile reveal-on-scroll stagger-2">
+        <div class="news-tile-thumb">
+          <img src="assets/photo-1555215695-3004980ad54e-e5075.webp" alt="BMW M4 Story"/>
+        </div>
+        <div class="news-tile-body">
+          <span class="news-cat-badge">Buyer's Guide</span>
+          <h3 class="news-title-h3"><a href="single-post.html">Certified Pre-Owned vs New: What to Choose?</a></h3>
+          <p class="news-desc-p">A financial breakdown of depreciation savings when buying a 150-point certified car from Stackly.</p>
+          <a href="single-post.html" class="read-more-link">Read Full Story <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <div class="news-tile reveal-on-scroll stagger-3">
+        <div class="news-tile-thumb">
+          <img src="assets/photo-1542282088-72c9c27ed0cd-6d059.webp" alt="SUV Trends"/>
+        </div>
+        <div class="news-tile-body">
+          <span class="news-cat-badge">Market Analysis</span>
+          <h3 class="news-title-h3"><a href="single-post.html">Why Luxury SUVs Dominate Salem Highways</a></h3>
+          <p class="news-desc-p">Ground clearance, highway touring comfort, and family seating make premium SUVs the top pick in Tamil Nadu.</p>
+          <a href="single-post.html" class="read-more-link">Read Full Story <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2: TOP CATEGORIES FILTER -->
+<section class="section-pad" style="background: var(--bg-darker);">
+  <div class="container">
+    <div style="text-align: center; margin-bottom: 40px;" class="reveal-on-scroll">
+      <span class="badge-tag">Explore Topics</span>
+      <h2 class="section-title">Popular Blog Categories</h2>
+    </div>
+    <div class="features-grid-4">
+      <div class="feature-box-glass reveal-on-scroll stagger-1" style="text-align:center;">
+        <i class="fas fa-car" style="font-size:32px; color:var(--primary); margin-bottom:12px;"></i>
+        <h4 style="font-size:1.15rem; margin-bottom:6px;">Car Reviews</h4>
+        <span style="font-size:13px; color:var(--text-muted);">24 In-Depth Guides</span>
+      </div>
+      <div class="feature-box-glass reveal-on-scroll stagger-2" style="text-align:center;">
+        <i class="fas fa-coins" style="font-size:32px; color:var(--accent-cyan); margin-bottom:12px;"></i>
+        <h4 style="font-size:1.15rem; margin-bottom:6px;">Finance Advice</h4>
+        <span style="font-size:13px; color:var(--text-muted);">18 Loan Strategies</span>
+      </div>
+      <div class="feature-box-glass reveal-on-scroll stagger-3" style="text-align:center;">
+        <i class="fas fa-tools" style="font-size:32px; color:var(--accent-pink); margin-bottom:12px;"></i>
+        <h4 style="font-size:1.15rem; margin-bottom:6px;">Maintenance Tips</h4>
+        <span style="font-size:13px; color:var(--text-muted);">15 Mechanic Tricks</span>
+      </div>
+      <div class="feature-box-glass reveal-on-scroll stagger-4" style="text-align:center;">
+        <i class="fas fa-charging-station" style="font-size:32px; color:#2ecc71; margin-bottom:12px;"></i>
+        <h4 style="font-size:1.15rem; margin-bottom:6px;">Electric &amp; Hybrid</h4>
+        <span style="font-size:13px; color:var(--text-muted);">12 EV Insights</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3: EDITORIAL SPOTLIGHT -->
+<section class="section-pad">
+  <div class="container">
+    <div class="features-grid-2">
+      <div class="reveal-left">
+        <span class="badge-tag">Editor's Pick</span>
+        <h2 class="section-title">The Complete Tamil Nadu Road Trip Guide</h2>
+        <p class="section-desc">From Salem to Yercaud, Ooty, and Kodaikanal &ndash; our master drivers share the top scenic driving routes, recommended tire pressures, and engine checks before heading into the Western Ghats.</p>
+        <a href="single-post.html" class="btn btn-primary" style="margin-top:20px;"><i class="fas fa-book-open"></i> Read Full Feature</a>
+      </div>
+      <div class="reveal-right">
+        <div class="video-showcase-box">
+          <img src="assets/driving-into-the-sunset-300x200-59451.webp" alt="Road Trip Guide" style="height:320px;"/>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4: NEWSLETTER SIGNUP -->
+<section class="section-pad" style="background: var(--bg-darker);">
+  <div class="container" style="max-width:760px; text-align:center;">
+    <div class="feature-box-glass reveal-on-scroll" style="padding:48px 36px;">
+      <span class="badge-tag">Stay Informed</span>
+      <h2 class="section-title" style="margin:12px 0;">Subscribe To Stackly Motoring Digest</h2>
+      <p class="section-desc" style="margin-bottom:28px;">Receive weekly updates on fresh showroom arrivals, exclusive price drops in Salem, and weekend road trip features.</p>
+      <form onsubmit="handleNewsletterSubmit(event)" style="display:flex; gap:12px; max-width:520px; margin:0 auto; flex-wrap:wrap;">
+        <input type="email" id="newsEmailInput" placeholder="Enter your email address (e.g. name@example.com)" class="form-input" style="flex:1; min-width:240px;" required/>
+        <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Subscribe</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 5: POPULAR SHOWROOM PICKS (CARD VIEW) -->
+<section class="section-pad">
+  <div class="container">
+    <div style="text-align:center; max-width:650px; margin:0 auto 40px;" class="reveal-on-scroll">
+      <span class="badge-tag">Featured Inventory</span>
+      <h2 class="section-title">Cars Trending This Week in Salem</h2>
+      <p class="section-desc">Vehicles generating the highest test drive requests and showroom inquiries.</p>
+    </div>
+    <div class="features-grid-3">
+      <div class="premium-card reveal-on-scroll stagger-1">
+        <div class="card-thumb-wrap">
+          <img src="assets/photo-1503376780353-7e6692767b70-bd819.webp" alt="Porsche 911" class="premium-card-img"/>
+          <span class="card-thumb-badge">Trending #1</span>
+        </div>
+        <div class="premium-card-body">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <h4 class="premium-card-title" style="margin:0;">Porsche 911 Carrera S</h4>
+            <span style="font-size:1.15rem; font-weight:900; color:var(--primary);">$138,000</span>
+          </div>
+          <p class="premium-card-desc">Twin-Turbo Boxer engine with 8-speed dual-clutch transmission and factory sport exhaust.</p>
+          <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border-light); padding-top:14px;">
+            <span style="font-size:12px; color:var(--accent-cyan);"><i class="fas fa-check-circle"></i> Certified Pre-Owned</span>
+            <a href="detail.html" class="btn btn-outline-primary btn-sm">View Details</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="premium-card reveal-on-scroll stagger-2">
+        <div class="card-thumb-wrap">
+          <img src="assets/photo-1555215695-3004980ad54e-b8d80.webp" alt="BMW M4" class="premium-card-img"/>
+          <span class="card-thumb-badge">Trending #2</span>
+        </div>
+        <div class="premium-card-body">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <h4 class="premium-card-title" style="margin:0;">BMW M4 Competition</h4>
+            <span style="font-size:1.15rem; font-weight:900; color:var(--primary);">$78,900</span>
+          </div>
+          <p class="premium-card-desc">High-revving twin-turbo inline-6, M xDrive AWD stability, and lightweight carbon fiber aero roof.</p>
+          <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border-light); padding-top:14px;">
+            <span style="font-size:12px; color:var(--accent-cyan);"><i class="fas fa-check-circle"></i> Clean Title Verified</span>
+            <a href="detail.html" class="btn btn-outline-primary btn-sm">View Details</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="premium-card reveal-on-scroll stagger-3">
+        <div class="card-thumb-wrap">
+          <img src="assets/photo-1542282088-72c9c27ed0cd-07450.webp" alt="Range Rover Sport" class="premium-card-img"/>
+          <span class="card-thumb-badge">Trending #3</span>
+        </div>
+        <div class="premium-card-body">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <h4 class="premium-card-title" style="margin:0;">Range Rover Sport</h4>
+            <span style="font-size:1.15rem; font-weight:900; color:var(--primary);">$94,500</span>
+          </div>
+          <p class="premium-card-desc">Adaptive air suspension, terrain response system, and acoustic double-glazed glass for luxury highway cruising.</p>
+          <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border-light); padding-top:14px;">
+            <span style="font-size:12px; color:var(--accent-cyan);"><i class="fas fa-check-circle"></i> Single Owner</span>
+            <a href="detail.html" class="btn btn-outline-primary btn-sm">View Details</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="site-footer">
+  <div class="container footer-content-wrap">
+    <div class="footer-columns-grid">
+      <div>
+        <div class="footer-logo">
+          <img src="stackly-logo.svg" alt="Stackly"/>
+        </div>
+        <p class="footer-about-text">Stackly is a premier automotive experience provider. We offer transparent pricing, 150-point certified inspections, and customer-first service across Tamil Nadu.</p>
+        <div class="footer-social-icons">
+          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://x.com" target="_blank" rel="noopener noreferrer" aria-label="X"><i class="fab fa-x-twitter"></i></a>
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <div>
+        <h4 class="footer-col-header">Navigation</h4>
+        <ul class="footer-nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="service.html">Services</a></li>
+          <li><a href="listing.html">Car Listings</a></li>
+          <li><a href="team.html">Our Team</a></li>
+          <li><a href="blog.html">Blog &amp; News</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-col-header">Portals &amp; Tools</h4>
+        <ul class="footer-nav-links">
+          <li><a href="detail.html">Car Detail Page</a></li>
+          <li><a href="financing.html">Loan Calculator</a></li>
+          <li><a href="login.html">Login &amp; Sign Up</a></li>
+          <li><a href="customer-dashboard.html">Customer Portal</a></li>
+          <li><a href="admin-dashboard.html">Admin Management</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-col-header">Salem Head Office</h4>
+        <ul class="footer-contact-items">
+          <li><i class="fas fa-map-marker-alt"></i><span>Stackly Tower, Meyyanur Main Road, Salem - 636004, Tamil Nadu, India</span></li>
+          <li><i class="fas fa-phone-alt"></i><span>+91 427 244 8900 / +91 98427 12345</span></li>
+          <li><i class="fas fa-envelope"></i><span>contact@stackly.com</span></li>
+          <li><i class="fas fa-clock"></i><span>Mon &ndash; Sat: 8:00 AM &ndash; 7:00 PM</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-copyright-bar">
+      <span>&copy; 2026 Stackly Pvt. Ltd. All Rights Reserved.</span>
+      <span><a href="#">Privacy Policy</a> &middot; <a href="#">Terms &amp; Conditions</a></span>
+    </div>
+  </div>
+</footer>
+
+<button id="scrollTopBtn" aria-label="Scroll to top"><i class="fas fa-arrow-up"></i></button>
+
+<div id="videoModalWrapper">
+  <div class="video-modal-inner">
+    <button class="video-close-trigger" id="videoCloseTrigger">&times; Close</button>
+    <iframe id="videoFrame" width="100%" height="100%" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen style="border-radius:10px;"></iframe>
+  </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>

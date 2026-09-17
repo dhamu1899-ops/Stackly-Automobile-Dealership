@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Vehicle Inventory &ndash; Stackly</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<!-- ==============================================================================
+     STACKLY CINEMATIC 3-SECOND PHOTOREALISTIC SUPERCAR PRELOADER
+     ============================================================================== -->
+<div id="stacklyPreloader" class="stackly-preloader-overlay">
+  <div class="preloader-cinematic-stage">
+    <div class="preloader-top-brand">
+      <img src="stackly-logo.svg" alt="Stackly" class="preloader-cinematic-logo"/>
+      <div class="preloader-salem-badge"><i class="fas fa-star" style="color:var(--accent-cyan); font-size:10px;"></i> Luxury Automotive Experience <i class="fas fa-star" style="color:var(--accent-cyan); font-size:10px;"></i></div>
+    </div>
+    <div class="preloader-hud-display">
+      <div class="hud-item">
+        <span class="hud-label">GEAR</span>
+        <span class="hud-value" id="hudGear">1ST GEAR</span>
+      </div>
+      <div class="hud-item hud-center">
+        <span class="hud-label">SPEEDOMETER</span>
+        <span class="hud-value-large"><span id="hudSpeed">0</span> <small>KM/H</small></span>
+      </div>
+      <div class="hud-item">
+        <span class="hud-label">POWERTRAIN</span>
+        <span class="hud-value" id="hudPower">V8 BI-TURBO</span>
+      </div>
+    </div>
+    <div class="preloader-highway-stage" id="preloaderTrack">
+      <div class="speed-streaks-layer">
+        <span class="streak streak-1"></span>
+        <span class="streak streak-2"></span>
+        <span class="streak streak-3"></span>
+        <span class="streak streak-4"></span>
+      </div>
+      <div class="preloader-supercar-wrapper" id="preloaderCar">
+        <div class="supercar-headlight-cone"></div>
+        <div class="supercar-underglow-neon"></div>
+        <img src="assets/supercar-loader.webp" alt="Stackly Supercar" class="preloader-supercar-img"/>
+        <div class="supercar-nitro-exhaust"><span class="nitro-flame"></span></div>
+      </div>
+      <div class="preloader-highway-road"><div class="highway-dashes"></div></div>
+    </div>
+    <div class="preloader-progress-console">
+      <div class="progress-track-neon"><div class="progress-bar-neon" id="preloaderProgressBar"></div></div>
+      <div class="progress-info-row">
+        <span class="progress-status-msg" id="preloaderStatus"><i class="fas fa-tachometer-alt" style="color:var(--accent-pink);"></i> Igniting Twin-Turbo V8 Powertrain...</span>
+        <span class="progress-percent-val" id="preloaderPercent">0%</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<header id="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="logo-link">
+      <img src="stackly-logo.svg" alt="Stackly"/>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="">Home</a></li>
+      <li><a href="about.html" class="">About Us</a></li>
+      <li><a href="service.html" class="">Service</a></li>
+      <li class="has-dropdown">
+        <a href="listing.html" class="active">Listing Car</a>
+        <ul class="dropdown-panel">
+          <li><a href="detail.html"><i class="fas fa-car-side"></i> Car Detail Page</a></li>
+          <li><a href="financing.html"><i class="fas fa-calculator"></i> Financing &amp; Loan</a></li>
+        </ul>
+      </li>
+      <li><a href="team.html" class="">Team</a></li>
+      <li><a href="blog.html" class="">Blog</a></li>
+      <li><a href="contact.html" class="">Contact</a></li>
+    </ul>
+    <div class="header-cta">
+      <a href="login.html" id="authNavBtn" class="btn btn-outline btn-sm" style="border-color:var(--primary); color:var(--primary);"><i class="fas fa-sign-in-alt"></i> Login / Register</a>
+      <a href="listing.html" class="btn btn-primary btn-sm">Inventory</a>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle Navigation"><i class="fas fa-bars"></i></button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-drawer-backdrop" id="mobileDrawerBackdrop"></div>
+<div class="mobile-nav-drawer" id="mobileNavDrawer">
+  <div class="mobile-drawer-header">
+    <a href="index.html" class="drawer-logo">
+      <img src="stackly-logo.svg" alt="Stackly" style="height:32px;"/>
+    </a>
+    <button class="drawer-close" id="drawerClose" aria-label="Close Menu">&times;</button>
+  </div>
+
+  <div class="mobile-drawer-body">
+    <nav class="mobile-menu-list">
+      <a href="index.html" class="mobile-menu-link"><i class="fas fa-home"></i> Home</a>
+      <a href="about.html" class="mobile-menu-link"><i class="fas fa-info-circle"></i> About Us</a>
+      <a href="service.html" class="mobile-menu-link"><i class="fas fa-cogs"></i> Services</a>
+      <a href="listing.html" class="mobile-menu-link"><i class="fas fa-car"></i> Listing Car</a>
+      <div class="mobile-submenu">
+        <a href="detail.html" class="mobile-sublink"><i class="fas fa-angle-right"></i> Car Detail Page</a>
+        <a href="financing.html" class="mobile-sublink"><i class="fas fa-angle-right"></i> Financing &amp; Loan</a>
+      </div>
+      <a href="team.html" class="mobile-menu-link"><i class="fas fa-users"></i> Team</a>
+      <a href="blog.html" class="mobile-menu-link"><i class="fas fa-newspaper"></i> Blog</a>
+      <a href="contact.html" class="mobile-menu-link"><i class="fas fa-envelope"></i> Contact</a>
+    </nav>
+
+    <div class="mobile-drawer-actions">
+      <a href="login.html" class="btn btn-outline btn-sm mobile-action-btn" style="border-color:var(--primary); color:var(--primary); width:100%; justify-content:center;">
+        <i class="fas fa-user-circle"></i> Login / Register
+      </a>
+      <a href="listing.html" class="btn btn-primary btn-sm mobile-action-btn" style="width:100%; justify-content:center;">
+        <i class="fas fa-warehouse"></i> Browse Inventory
+      </a>
+    </div>
+
+    <div class="mobile-drawer-contact">
+      <div class="drawer-contact-item">
+        <i class="fas fa-phone-alt"></i>
+        <div>
+          <small style="display:block; color:var(--text-muted); font-size:11px;">Helpline</small>
+          <strong style="color:#fff; font-size:13px;">+91 98427 12345</strong>
+        </div>
+      </div>
+      <div class="drawer-contact-item">
+        <i class="fas fa-map-marker-alt"></i>
+        <div>
+          <small style="display:block; color:var(--text-muted); font-size:11px;">Showroom</small>
+          <span style="color:#fff; font-size:13px;">Meyyanur Main Rd, Salem</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="mobile-drawer-social">
+      <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="https://x.com" target="_blank" rel="noopener noreferrer" aria-label="X"><i class="fab fa-x-twitter"></i></a>
+      <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+      <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+    </div>
+  </div>
+</div>
+
+
+
+  
+
+
+
+</header>
+
+
+
+  
+<div class="page-hero-banner">
+  <div class="container banner-content">
+    <h1 class="section-title">Car Listing</h1>
+    <div class="breadcrumbs">
+      <a href="index.html">Home</a>
+      <span>/</span>
+      <span>Listing Car</span>
+    </div>
+  </div>
+</div>
+
+<section class="search-filter-box" style="padding: 24px 0;">
+  <div class="container">
+    <div class="filter-controls-grid">
+      <select class="filter-select-input" id="filterMake">
+        <option>All Makes</option>
+        <option>Timor</option>
+        <option>Toyota</option>
+        <option>Mobilist</option>
+      </select>
+      <select class="filter-select-input" id="filterBody">
+        <option>All Body Types</option>
+        <option>Hatchback</option>
+        <option>Sedan</option>
+        <option>Convertible</option>
+      </select>
+      <select class="filter-select-input" id="filterTrans">
+        <option>Transmission</option>
+        <option>Automatic</option>
+        <option>Manual</option>
+      </select>
+      <select class="filter-select-input" id="filterCond">
+        <option>Condition</option>
+        <option>New Arrivals</option>
+        <option>Certified Pre-Owned</option>
+      </select>
+      <button class="btn btn-primary" id="applyFilterBtn" style="padding:14px;"><i class="fas fa-filter"></i> Apply Filter</button>
+    </div>
+  </div>
+</section>
+
+<section class="section-pad">
+  <div class="container">
+    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 36px; flex-wrap: wrap; gap: 16px;">
+      <p style="color: var(--text-muted); font-size: 14px;">Showing <strong id="carCounterDisplay">12 of 12</strong> certified vehicles in Salem</p>
+      <select class="filter-select-input" id="sortPriceSelect" style="width: 220px; padding: 10px 14px;">
+        <option>Sort by: Featured</option>
+        <option>Price: Low to High</option>
+        <option>Price: High to Low</option>
+        <option>Mileage: Low to High</option>
+      </select>
+    </div>
+
+    
+    <div class="car-catalog-grid">
+      <div class="car-inventory-tile" data-make="Timor" data-body="Hatchback" data-transmission="Automatic" data-condition="New Arrivals" data-price="24495">
+        <div class="car-thumb-wrap">
+          <img src="assets/car-3-e1623321014259-83cf6.webp" alt="Timor Hatchback V2" loading="lazy"/>
+          <span class="condition-pill">New</span>
+        </div>
+        <div class="car-meta-body">
+          <h3 class="car-name-heading"><a href="detail.html">Timor Hatchback V2</a></h3>
+          <div class="specs-bar">
+            <span><i class="fas fa-tachometer-alt"></i> 7,215 km</span>
+            <span><i class="fas fa-cog"></i> Automatic</span>
+            <span><i class="fas fa-gas-pump"></i> Autogas</span>
+          </div>
+          <div class="pricing-row">
+            <div>
+              <div class="msrp-struck">MSRP: $25,495</div>
+              <div class="net-price-val">$24,495</div>
+            </div>
+            <a href="detail.html" class="btn btn-outline-primary btn-sm">Details</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="car-inventory-tile" data-make="Timor" data-body="Coupe" data-transmission="Automatic" data-condition="New Arrivals" data-price="124495">
+        <div class="car-thumb-wrap">
+          <img src="assets/sport-car-1-e1623321077599-2b4e7.webp" alt="Timor Ventura" loading="lazy"/>
+          <span class="condition-pill">New</span>
+        </div>
+        <div class="car-meta-body">
+          <h3 class="car-name-heading"><a href="detail.html">Timor Ventura</a></h3>
+          <div class="specs-bar">
+            <span><i class="fas fa-tachometer-alt"></i> 212 km</span>
+            <span><i class="fas fa-cog"></i> Automatic</span>
+            <span><i class="fas fa-gas-pump"></i> Autogas</span>
+          </div>
+          <div class="pricing-row">
+            <div>
+              <div class="msrp-struck">MSRP: $125,495</div>
+              <div class="net-price-val">$124,495</div>
+            </div>
+            <a href="detail.html" class="btn btn-outline-primary btn-sm">Details</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="car-inventory-tile" data-make="Toyota" data-body="Convertible" data-transmission="Automatic" data-condition="Certified Pre-Owned" data-price="64495">
+        <div class="car-thumb-wrap">
+          <img src="assets/studio-shot-of-three-dimensional-yellow-convertible-fd38c.webp" alt="Toyota Convertible" loading="lazy"/>
+          <span class="condition-pill condition-used">Used</span>
+        </div>
+        <div class="car-meta-body">
+          <h3 class="car-name-heading"><a href="detail.html">Toyota Convertible</a></h3>
+          <div class="specs-bar">
+            <span><i class="fas fa-tachometer-alt"></i> 7,215 km</span>
+            <span><i class="fas fa-cog"></i> Automatic</span>
+            <span><i class="fas fa-gas-pump"></i> Autogas</span>
+          </div>
+          <div class="pricing-row">
+            <div>
+              <div class="msrp-struck">MSRP: $65,495</div>
+              <div class="net-price-val">$64,495</div>
+            </div>
+            <a href="detail.html" class="btn btn-outline-primary btn-sm">Details</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="car-inventory-tile" data-make="Timor" data-body="Sedan" data-transmission="Automatic" data-condition="New Arrivals" data-price="24495">
+        <div class="car-thumb-wrap">
+          <img src="assets/luxury-silver-sports-car-241de.webp" alt="Timor Ventura V2" loading="lazy"/>
+          <span class="condition-pill">New</span>
+        </div>
+        <div class="car-meta-body">
+          <h3 class="car-name-heading"><a href="detail.html">Timor Ventura V2</a></h3>
+          <div class="specs-bar">
+            <span><i class="fas fa-tachometer-alt"></i> 7,215 km</span>
+            <span><i class="fas fa-cog"></i> Automatic</span>
+            <span><i class="fas fa-gas-pump"></i> Autogas</span>
+          </div>
+          <div class="pricing-row">
+            <div>
+              <div class="msrp-struck">MSRP: $25,495</div>
+              <div class="net-price-val">$24,495</div>
+            </div>
+            <a href="detail.html" class="btn btn-outline-primary btn-sm">Details</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="car-inventory-tile" data-make="Mobilist" data-body="Sedan" data-transmission="Automatic" data-condition="Certified Pre-Owned" data-price="124495">
+        <div class="car-thumb-wrap">
+          <img src="assets/hybrid-car-1-c0f20.webp" alt="Mobilist Greenia" loading="lazy"/>
+          <span class="condition-pill condition-used">Used</span>
+        </div>
+        <div class="car-meta-body">
+          <h3 class="car-name-heading"><a href="detail.html">Mobilist Greenia</a></h3>
+          <div class="specs-bar">
+            <span><i class="fas fa-tachometer-alt"></i> 212 km</span>
+            <span><i class="fas fa-cog"></i> Automatic</span>
+            <span><i class="fas fa-gas-pump"></i> Autogas</span>
+          </div>
+          <div class="pricing-row">
+            <div>
+              <div class="msrp-struck">MSRP: $125,495</div>
+              <div class="net-price-val">$124,495</div>
+            </div>
+            <a href="detail.html" class="btn btn-outline-primary btn-sm">Details</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="car-inventory-tile" data-make="Mobilist" data-body="Hatchback" data-transmission="Automatic" data-condition="New Arrivals" data-price="64495">
+        <div class="car-thumb-wrap">
+          <img src="assets/white-smart-car-07bdf.webp" alt="Mobilist Loka" loading="lazy"/>
+          <span class="condition-pill">New</span>
+        </div>
+        <div class="car-meta-body">
+          <h3 class="car-name-heading"><a href="detail.html">Mobilist Loka</a></h3>
+          <div class="specs-bar">
+            <span><i class="fas fa-tachometer-alt"></i> 7,215 km</span>
+            <span><i class="fas fa-cog"></i> Automatic</span>
+            <span><i class="fas fa-gas-pump"></i> Autogas</span>
+          </div>
+          <div class="pricing-row">
+            <div>
+              <div class="msrp-struck">MSRP: $65,495</div>
+              <div class="net-price-val">$64,495</div>
+            </div>
+            <a href="detail.html" class="btn btn-outline-primary btn-sm">Details</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="car-inventory-tile" data-make="Toyota" data-body="Sedan" data-transmission="Automatic" data-condition="New Arrivals" data-price="89500">
+        <div class="car-thumb-wrap">
+          <img src="assets/photo-1617814076367-b759c7d7e738-8b090.webp" alt="Mercedes-Benz AMG GT Coupe" loading="lazy"/>
+          <span class="condition-pill">New</span>
+        </div>
+        <div class="car-meta-body">
+          <h3 class="car-name-heading"><a href="detail.html">Mercedes-Benz AMG GT Coupe</a></h3>
+          <div class="specs-bar">
+            <span><i class="fas fa-tachometer-alt"></i> 1,450 km</span>
+            <span><i class="fas fa-cog"></i> Automatic</span>
+            <span><i class="fas fa-gas-pump"></i> Twin-Turbo V8</span>
+          </div>
+          <div class="pricing-row">
+            <div>
+              <div class="msrp-struck">MSRP: $92,000</div>
+              <div class="net-price-val">$89,500</div>
+            </div>
+            <a href="detail.html" class="btn btn-outline-primary btn-sm">Details</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="car-inventory-tile" data-make="Timor" data-body="Sedan" data-transmission="Automatic" data-condition="Certified Pre-Owned" data-price="78900">
+        <div class="car-thumb-wrap">
+          <img src="assets/photo-1555215695-3004980ad54e-4cd18.webp" alt="BMW M4 Competition" loading="lazy"/>
+          <span class="condition-pill condition-used">Used</span>
+        </div>
+        <div class="car-meta-body">
+          <h3 class="car-name-heading"><a href="detail.html">BMW M4 Competition</a></h3>
+          <div class="specs-bar">
+            <span><i class="fas fa-tachometer-alt"></i> 8,200 km</span>
+            <span><i class="fas fa-cog"></i> Steptronic</span>
+            <span><i class="fas fa-gas-pump"></i> Inline-6 Petrol</span>
+          </div>
+          <div class="pricing-row">
+            <div>
+              <div class="msrp-struck">MSRP: $84,500</div>
+              <div class="net-price-val">$78,900</div>
+            </div>
+            <a href="detail.html" class="btn btn-outline-primary btn-sm">Details</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="car-inventory-tile" data-make="Mobilist" data-body="Sedan" data-transmission="Automatic" data-condition="New Arrivals" data-price="105000">
+        <div class="car-thumb-wrap">
+          <img src="assets/photo-1603584173870-7f23fdae1b7a-6072e.webp" alt="Audi RS7 Sportback Quattro" loading="lazy"/>
+          <span class="condition-pill">New</span>
+        </div>
+        <div class="car-meta-body">
+          <h3 class="car-name-heading"><a href="detail.html">Audi RS7 Sportback Quattro</a></h3>
+          <div class="specs-bar">
+            <span><i class="fas fa-tachometer-alt"></i> 520 km</span>
+            <span><i class="fas fa-cog"></i> Tiptronic</span>
+            <span><i class="fas fa-gas-pump"></i> Mild Hybrid</span>
+          </div>
+          <div class="pricing-row">
+            <div>
+              <div class="msrp-struck">MSRP: $109,000</div>
+              <div class="net-price-val">$105,000</div>
+            </div>
+            <a href="detail.html" class="btn btn-outline-primary btn-sm">Details</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="car-inventory-tile" data-make="Mobilist" data-body="Hatchback" data-transmission="Automatic" data-condition="Certified Pre-Owned" data-price="94500">
+        <div class="car-thumb-wrap">
+          <img src="assets/photo-1542282088-72c9c27ed0cd-345ee.webp" alt="Range Rover Sport Dynamic" loading="lazy"/>
+          <span class="condition-pill condition-used">Used</span>
+        </div>
+        <div class="car-meta-body">
+          <h3 class="car-name-heading"><a href="detail.html">Range Rover Sport Dynamic</a></h3>
+          <div class="specs-bar">
+            <span><i class="fas fa-tachometer-alt"></i> 14,800 km</span>
+            <span><i class="fas fa-cog"></i> 8-Speed AWD</span>
+            <span><i class="fas fa-gas-pump"></i> Turbo Diesel</span>
+          </div>
+          <div class="pricing-row">
+            <div>
+              <div class="msrp-struck">MSRP: $99,500</div>
+              <div class="net-price-val">$94,500</div>
+            </div>
+            <a href="detail.html" class="btn btn-outline-primary btn-sm">Details</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="car-inventory-tile" data-make="Toyota" data-body="Convertible" data-transmission="Manual" data-condition="New Arrivals" data-price="56800">
+        <div class="car-thumb-wrap">
+          <img src="assets/photo-1584345604476-8ec5e12e42dd-aee8e.webp" alt="Ford Mustang GT Fastback" loading="lazy"/>
+          <span class="condition-pill">New</span>
+        </div>
+        <div class="car-meta-body">
+          <h3 class="car-name-heading"><a href="detail.html">Ford Mustang GT Fastback</a></h3>
+          <div class="specs-bar">
+            <span><i class="fas fa-tachometer-alt"></i> 850 km</span>
+            <span><i class="fas fa-cog"></i> 6-Speed Manual</span>
+            <span><i class="fas fa-gas-pump"></i> 5.0L Coyote V8</span>
+          </div>
+          <div class="pricing-row">
+            <div>
+              <div class="msrp-struck">MSRP: $59,900</div>
+              <div class="net-price-val">$56,800</div>
+            </div>
+            <a href="detail.html" class="btn btn-outline-primary btn-sm">Details</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="car-inventory-tile" data-make="Timor" data-body="Convertible" data-transmission="Automatic" data-condition="Certified Pre-Owned" data-price="138000">
+        <div class="car-thumb-wrap">
+          <img src="assets/photo-1503376780353-7e6692767b70-80981.webp" alt="Porsche 911 Carrera S" loading="lazy"/>
+          <span class="condition-pill condition-used">Used</span>
+        </div>
+        <div class="car-meta-body">
+          <h3 class="car-name-heading"><a href="detail.html">Porsche 911 Carrera S</a></h3>
+          <div class="specs-bar">
+            <span><i class="fas fa-tachometer-alt"></i> 4,100 km</span>
+            <span><i class="fas fa-cog"></i> 8-Speed PDK</span>
+            <span><i class="fas fa-gas-pump"></i> Twin-Turbo Boxer</span>
+          </div>
+          <div class="pricing-row">
+            <div>
+              <div class="msrp-struck">MSRP: $145,000</div>
+              <div class="net-price-val">$138,000</div>
+            </div>
+            <a href="detail.html" class="btn btn-outline-primary btn-sm">Details</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+  
+
+<!-- SECTION 3: WHY BUY CERTIFIED PRE-OWNED (CARD VIEW) -->
+<section class="section-pad" style="background: var(--bg-darker);">
+  <div class="container">
+    <div style="text-align:center; max-width:650px; margin:0 auto 48px;" class="reveal-on-scroll">
+      <span class="badge-tag">Salem Quality Promise</span>
+      <h2 class="section-title">Why Buy From Stackly Salem?</h2>
+      <p class="section-desc">Every vehicle is backed by Salem's highest certification criteria and customer guarantees.</p>
+    </div>
+    <div class="features-grid-3">
+      <div class="premium-card reveal-on-scroll stagger-1">
+        <div class="card-thumb-wrap">
+          <img src="assets/photo-1517524008697-84bbe3c3fd98-23199.webp" alt="150-Point Inspection" class="premium-card-img"/>
+          <span class="card-thumb-badge">150-Point Audit</span>
+        </div>
+        <div class="premium-card-body">
+          <h3 class="premium-card-title">Master 150-Pt Inspection</h3>
+          <p class="premium-card-desc">Exhaustive mechanical, electrical, computer, and multi-speed road tests certified by master technicians.</p>
+          <span style="font-size:13px; color:var(--accent-cyan); font-weight:600;"><i class="fas fa-check-double"></i> Full Report Included</span>
+        </div>
+      </div>
+
+      <div class="premium-card reveal-on-scroll stagger-2">
+        <div class="card-thumb-wrap">
+          <img src="assets/photo-1551522435-a13afa10f103-c3489.webp" alt="Clear Title" class="premium-card-img"/>
+          <span class="card-thumb-badge">Clean RTO Title</span>
+        </div>
+        <div class="premium-card-body">
+          <h3 class="premium-card-title">Clear Title Guarantee</h3>
+          <p class="premium-card-desc">Zero salvage, flood, or frame accident history with authentic verified mileage from Tamil Nadu RTO registers.</p>
+          <span style="font-size:13px; color:var(--accent-cyan); font-weight:600;"><i class="fas fa-certificate"></i> Guaranteed Buyback</span>
+        </div>
+      </div>
+
+      <div class="premium-card reveal-on-scroll stagger-3">
+        <div class="card-thumb-wrap">
+          <img src="assets/photo-1571127236794-81c0bbfe1ce3-0aaeb.webp" alt="Doorstep Delivery" class="premium-card-img"/>
+          <span class="card-thumb-badge">Salem Concierge</span>
+        </div>
+        <div class="premium-card-body">
+          <h3 class="premium-card-title">Doorstep Delivery Across Salem</h3>
+          <p class="premium-card-desc">VIP test drive or receive delivery of your purchased car at your home or office in an enclosed carrier.</p>
+          <span style="font-size:13px; color:var(--accent-cyan); font-weight:600;"><i class="fas fa-truck"></i> Free Within 50 km</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4: INVENTORY FAQ -->
+<section class="section-pad">
+  <div class="container" style="max-width:860px;">
+    <div style="text-align:center; margin-bottom:40px;" class="reveal-on-scroll">
+      <span class="badge-tag">Inventory FAQ</span>
+      <h2 class="section-title">Common Vehicle Buying Questions</h2>
+    </div>
+    <div class="faq-accordion-item active">
+      <div class="faq-header" onclick="toggleFaq(this)">
+        <span>Can I hold or reserve a vehicle online?</span>
+        <i class="fas fa-chevron-down"></i>
+      </div>
+      <div class="faq-body">
+        Yes! Click "Details" on any vehicle and submit the VIP Test Drive form or speak to our concierge. We will hold the keys for 48 hours for your private inspection.
+      </div>
+    </div>
+    <div class="faq-accordion-item">
+      <div class="faq-header" onclick="toggleFaq(this)">
+        <span>Are prices negotiable or fixed?</span>
+        <i class="fas fa-chevron-down"></i>
+      </div>
+      <div class="faq-body">
+        We practice upfront transparent pricing. Our listed prices are benchmarked against live Tamil Nadu market databases to ensure you get the best market value with zero dealer markups.
+      </div>
+    </div>
+    <div class="faq-accordion-item">
+      <div class="faq-header" onclick="toggleFaq(this)">
+        <span>Do you accept trade-in vehicles of other brands?</span>
+        <i class="fas fa-chevron-down"></i>
+      </div>
+      <div class="faq-body">
+        Yes, we accept vehicles from any manufacturer. Bring your vehicle to our Meyyanur showroom for a free 20-minute valuation.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 5: CALL TO ACTION BANNER -->
+<section class="section-pad" style="background: var(--bg-darker); text-align:center;">
+  <div class="container" style="max-width:720px;">
+    <div class="reveal-on-scroll">
+      <span class="badge-tag">Can't Find What You're Looking For?</span>
+      <h2 class="section-title" style="margin:12px 0;">Request A Custom Vehicle Source</h2>
+      <p class="section-desc" style="margin-bottom:28px;">Looking for a specific model, exterior color, or trim? Our vehicle acquisition team will source it for you within 7 business days.</p>
+      <a href="contact.html" class="btn btn-primary"><i class="fas fa-search"></i> Request Custom Sourcing</a>
+    </div>
+  </div>
+</section>
+<footer id="site-footer">
+  <div class="container footer-content-wrap">
+    <div class="footer-columns-grid">
+      <div>
+        <div class="footer-logo">
+          <img src="stackly-logo.svg" alt="Stackly"/>
+        </div>
+        <p class="footer-about-text">Stackly is a premier automotive experience provider. We offer transparent pricing, 150-point certified inspections, and customer-first service across Tamil Nadu.</p>
+        <div class="footer-social-icons">
+          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://x.com" target="_blank" rel="noopener noreferrer" aria-label="X"><i class="fab fa-x-twitter"></i></a>
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <div>
+        <h4 class="footer-col-header">Quick Links</h4>
+        <ul class="footer-nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="service.html">Services</a></li>
+          <li><a href="listing.html">Inventory</a></li>
+          <li><a href="blog.html">Latest News</a></li>
+          <li><a href="financing.html">Financing</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-col-header">Our Services</h4>
+        <ul class="footer-nav-links">
+          <li><a href="listing.html">New Car Sales</a></li>
+          <li><a href="listing.html">Certified Pre-Owned</a></li>
+          <li><a href="service.html">Vehicle Trade-In</a></li>
+          <li><a href="financing.html">Auto Financing</a></li>
+          <li><a href="service.html">Certified Maintenance</a></li>
+          <li><a href="detail.html">VIP Test Drive</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-col-header">Salem Head Office</h4>
+        <ul class="footer-contact-items">
+          <li><i class="fas fa-map-marker-alt"></i><span>Stackly Tower, Meyyanur Main Road, Salem - 636004, Tamil Nadu, India</span></li>
+          <li><i class="fas fa-phone-alt"></i><span>+91 427 244 8900 / +91 98427 12345</span></li>
+          <li><i class="fas fa-envelope"></i><span>contact@stackly.com</span></li>
+          <li><i class="fas fa-clock"></i><span>Mon &ndash; Sat: 8:00 AM &ndash; 7:00 PM</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-copyright-bar">
+      <span>&copy; 2026 Stackly Pvt. Ltd. All Rights Reserved.</span>
+      <span><a href="#">Privacy Policy</a> &middot; <a href="#">Terms &amp; Conditions</a></span>
+    </div>
+  </div>
+</footer>
+
+<button id="scrollTopBtn" aria-label="Scroll to top"><i class="fas fa-arrow-up"></i></button>
+
+<div id="videoModalWrapper">
+  <div class="video-modal-inner">
+    <button class="video-close-trigger" id="videoCloseTrigger">&times; Close</button>
+    <iframe id="videoFrame" width="100%" height="100%" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen style="border-radius:10px;"></iframe>
+  </div>
+</div>
+
+  <script src="script.js"></script>
+</body>
+</html>

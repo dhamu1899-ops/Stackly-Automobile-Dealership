@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login &amp; Sign Up &ndash; Stackly</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body style="margin:0; padding:0; background:#06001d; overflow-x:hidden;">
+
+<!-- ==============================================================================
+     STACKLY CINEMATIC 3-SECOND PHOTOREALISTIC SUPERCAR PRELOADER
+     ============================================================================== -->
+<div id="stacklyPreloader" class="stackly-preloader-overlay">
+  <div class="preloader-cinematic-stage">
+    <div class="preloader-top-brand">
+      <img src="stackly-logo.svg" alt="Stackly" class="preloader-cinematic-logo"/>
+      <div class="preloader-salem-badge"><i class="fas fa-star" style="color:var(--accent-cyan); font-size:10px;"></i> Luxury Automotive Experience <i class="fas fa-star" style="color:var(--accent-cyan); font-size:10px;"></i></div>
+    </div>
+    <div class="preloader-hud-display">
+      <div class="hud-item">
+        <span class="hud-label">GEAR</span>
+        <span class="hud-value" id="hudGear">1ST GEAR</span>
+      </div>
+      <div class="hud-item hud-center">
+        <span class="hud-label">SPEEDOMETER</span>
+        <span class="hud-value-large"><span id="hudSpeed">0</span> <small>KM/H</small></span>
+      </div>
+      <div class="hud-item">
+        <span class="hud-label">POWERTRAIN</span>
+        <span class="hud-value" id="hudPower">V8 BI-TURBO</span>
+      </div>
+    </div>
+    <div class="preloader-highway-stage" id="preloaderTrack">
+      <div class="speed-streaks-layer">
+        <span class="streak streak-1"></span>
+        <span class="streak streak-2"></span>
+        <span class="streak streak-3"></span>
+        <span class="streak streak-4"></span>
+      </div>
+      <div class="preloader-supercar-wrapper" id="preloaderCar">
+        <div class="supercar-headlight-cone"></div>
+        <div class="supercar-underglow-neon"></div>
+        <img src="assets/supercar-loader.webp" alt="Stackly Supercar" class="preloader-supercar-img"/>
+        <div class="supercar-nitro-exhaust"><span class="nitro-flame"></span></div>
+      </div>
+      <div class="preloader-highway-road"><div class="highway-dashes"></div></div>
+    </div>
+    <div class="preloader-progress-console">
+      <div class="progress-track-neon"><div class="progress-bar-neon" id="preloaderProgressBar"></div></div>
+      <div class="progress-info-row">
+        <span class="progress-status-msg" id="preloaderStatus"><i class="fas fa-tachometer-alt" style="color:var(--accent-pink);"></i> Igniting Twin-Turbo V8 Powertrain...</span>
+        <span class="progress-percent-val" id="preloaderPercent">0%</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="auth-portal-page">
+  <!-- LEFT SHOWCASE PANEL -->
+  <div class="auth-showcase-panel">
+    <div class="auth-showcase-top">
+      <a href="index.html" class="auth-logo-link">
+        <img src="stackly-logo.svg" alt="Stackly" style="height:44px; filter:drop-shadow(0 0 12px rgba(254,76,40,0.5));"/>
+      </a>
+      <a href="index.html" class="auth-back-btn">
+        <i class="fas fa-arrow-left"></i> Return to Showroom
+      </a>
+    </div>
+
+    <div class="auth-showcase-center">
+      <div class="vip-shield-pill">
+        <i class="fas fa-crown"></i> Stackly VIP Concierge
+      </div>
+      <h1 class="auth-showcase-title">
+        The Pinnacle of Salem's Luxury Automotive Marketplace.
+      </h1>
+      <p class="auth-showcase-desc">
+        Welcome to the official digital portal for Stackly. Securely manage your private vehicle reservations, track certified 150-point inspection dossiers, and access pre-approved premium financing.
+      </p>
+
+      <div class="auth-feature-list">
+        <div class="auth-feature-item">
+          <div class="auth-feature-icon"><i class="fas fa-certificate"></i></div>
+          <div class="auth-feature-text">
+            <strong>150-Point Certified Inspection</strong>
+            <span>Rigorous multi-stage mechanical and diagnostic benchmarking.</span>
+          </div>
+        </div>
+        <div class="auth-feature-item">
+          <div class="auth-feature-icon" style="background:rgba(1,240,221,0.15); color:var(--accent-cyan);"><i class="fas fa-bolt"></i></div>
+          <div class="auth-feature-text">
+            <strong>Instant Pre-Approved Financing</strong>
+            <span>Exclusive Salem bank partnerships with sub-15-minute approvals.</span>
+          </div>
+        </div>
+        <div class="auth-feature-item">
+          <div class="auth-feature-icon" style="background:rgba(248,13,118,0.15); color:var(--accent-pink);"><i class="fas fa-shield-alt"></i></div>
+          <div class="auth-feature-text">
+            <strong>VIP Concierge &amp; Dealership Console</strong>
+            <span>Seamless role-based portal for clients and showroom executives.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="auth-showcase-bottom">
+      <i class="fas fa-circle" style="color:#2ecc71; font-size:10px;"></i>
+      <span>Salem Showroom Open &bull; Meyyanur Main Road &bull; 12 Vehicles in Yard</span>
+    </div>
+  </div>
+
+  <!-- RIGHT AUTH FORM PANEL -->
+  <div class="auth-form-panel">
+    <div class="auth-form-card">
+      <div class="auth-form-header">
+        <span class="badge-tag">Secure Access</span>
+        <h2>Authentication Portal</h2>
+        <p>Sign in to your client dashboard or dealership management console.</p>
+      </div>
+
+      <!-- Sign In / Sign Up Tab Switcher -->
+      <div class="auth-nav-tabs">
+        <button class="auth-tab-btn active" id="loginTabBtn" onclick="switchAuthTab('login')">Sign In</button>
+        <button class="auth-tab-btn" id="signupTabBtn" onclick="switchAuthTab('signup')">Create Account</button>
+      </div>
+
+      <!-- LOGIN FORM -->
+      <form id="loginForm" onsubmit="handleLoginSubmit(event)">
+        <label class="auth-input-label">Select Account Role:</label>
+        <div class="role-pills-wrap">
+          <label class="role-pill selected" onclick="selectRole(this, 'customer')">
+            <input type="radio" name="loginRole" value="customer" checked/>
+            <i class="fas fa-user"></i> Customer
+          </label>
+          <label class="role-pill" onclick="selectRole(this, 'admin')">
+            <input type="radio" name="loginRole" value="admin"/>
+            <i class="fas fa-shield-alt"></i> Dealership Admin
+          </label>
+        </div>
+
+        <div class="auth-input-group">
+          <label class="auth-input-label">Email Address</label>
+          <div class="auth-input-box">
+            <i class="fas fa-envelope input-icon"></i>
+            <input type="email" id="loginEmail" placeholder="Enter your email address (e.g. dhamu@gmail.com)" required/>
+          </div>
+        </div>
+
+        <div class="auth-input-group">
+          <label class="auth-input-label">Password</label>
+          <div class="auth-input-box">
+            <i class="fas fa-lock input-icon"></i>
+            <input type="password" id="loginPassword" placeholder="Enter your password" required/>
+            <i class="fas fa-eye auth-toggle-pwd" onclick="togglePasswordVisibility('loginPassword', this)"></i>
+          </div>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; font-size:13px;">
+          <label style="display:flex; align-items:center; gap:6px; cursor:pointer; color:var(--text-muted);">
+            <input type="checkbox" checked/> Remember Device
+          </label>
+          <a href="javascript:void(0)" onclick="openResetPasswordForm()" style="color:var(--primary); font-weight:600; text-decoration:none;">Forgot Password?</a>
+        </div>
+
+        <button type="submit" class="auth-submit-btn">
+          Sign In to Dashboard <i class="fas fa-arrow-right"></i>
+        </button>
+      </form>
+
+      <!-- SIGNUP FORM -->
+      <form id="signupForm" style="display:none;" onsubmit="handleSignupSubmit(event)">
+        <label class="auth-input-label">Select Account Role:</label>
+        <div class="role-pills-wrap">
+          <label class="role-pill selected" onclick="selectRole(this, 'customer')">
+            <input type="radio" name="signupRole" value="customer" checked/>
+            <i class="fas fa-user"></i> Customer
+          </label>
+          <label class="role-pill" onclick="selectRole(this, 'admin')">
+            <input type="radio" name="signupRole" value="admin"/>
+            <i class="fas fa-shield-alt"></i> Dealership Admin
+          </label>
+        </div>
+
+        <div class="auth-input-group">
+          <label class="auth-input-label">Full Name / Username</label>
+          <div class="auth-input-box">
+            <i class="fas fa-user input-icon"></i>
+            <input type="text" id="signupName" placeholder="Enter your full name (e.g. Dhamu)" required/>
+          </div>
+        </div>
+
+        <div class="auth-input-group">
+          <label class="auth-input-label">Email Address</label>
+          <div class="auth-input-box">
+            <i class="fas fa-envelope input-icon"></i>
+            <input type="email" id="signupEmail" placeholder="Enter your email address (e.g. dhamu@gmail.com)" required/>
+          </div>
+        </div>
+
+        <div class="auth-input-group">
+          <label class="auth-input-label">Mobile Phone (Salem / India)</label>
+          <div class="auth-input-box">
+            <i class="fas fa-phone-alt input-icon"></i>
+            <input type="tel" id="signupPhone" placeholder="Enter your mobile number (e.g. +91 98427 00000)"/>
+          </div>
+        </div>
+
+        <div class="auth-input-group">
+          <label class="auth-input-label">Create Password</label>
+          <div class="auth-input-box">
+            <i class="fas fa-lock input-icon"></i>
+            <input type="password" id="signupPassword" placeholder="Create strong password (min. 8 characters)" required/>
+            <i class="fas fa-eye auth-toggle-pwd" onclick="togglePasswordVisibility('signupPassword', this)"></i>
+          </div>
+        </div>
+
+        <button type="submit" class="auth-submit-btn">
+          Create Account &amp; Access <i class="fas fa-user-plus"></i>
+        </button>
+      </form>
+
+      <!-- FORGOT / RESET PASSWORD FORM -->
+      <form id="resetPasswordForm" style="display:none;" onsubmit="handleResetPassword(event)">
+        <div style="text-align:center; margin-bottom:20px;">
+          <div style="width:50px; height:50px; border-radius:50%; background:rgba(254,76,40,0.15); color:var(--primary); display:flex; align-items:center; justify-content:center; font-size:20px; margin:0 auto 12px; border:1px solid rgba(254,76,40,0.3);">
+            <i class="fas fa-key"></i>
+          </div>
+          <h3 style="font-size:1.35rem; font-weight:800; color:#fff; margin-bottom:6px;">Reset Your Password</h3>
+          <p style="font-size:13px; color:var(--text-muted); margin:0;">Enter your registered account email to initiate security verification.</p>
+        </div>
+
+        <div class="auth-input-group">
+          <label class="auth-input-label">Registered Email Address</label>
+          <div class="auth-input-box">
+            <i class="fas fa-envelope input-icon"></i>
+            <input type="email" id="resetEmail" placeholder="Enter your registered email (e.g. dhamu@gmail.com)" required/>
+          </div>
+        </div>
+
+        <button type="submit" class="auth-submit-btn" style="margin-top:14px;">
+          <i class="fas fa-paper-plane"></i> Reset Password
+        </button>
+
+        <div style="text-align:center; margin-top:20px;">
+          <a href="javascript:void(0)" onclick="switchAuthTab('login')" style="font-size:13.5px; color:var(--accent-cyan); font-weight:600; text-decoration:none; display:inline-flex; align-items:center; gap:6px;">
+            <i class="fas fa-arrow-left"></i> Back to Sign In
+          </a>
+        </div>
+      </form>
+
+      <div class="auth-footer-security">
+        <i class="fas fa-lock" style="color:var(--accent-cyan);"></i>
+        <span>256-Bit SSL Encrypted &bull; Stackly HQ</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Timor Ventura Premium &ndash; Stackly</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<!-- ==============================================================================
+     STACKLY CINEMATIC 3-SECOND PHOTOREALISTIC SUPERCAR PRELOADER
+     ============================================================================== -->
+<div id="stacklyPreloader" class="stackly-preloader-overlay">
+  <div class="preloader-cinematic-stage">
+    <div class="preloader-top-brand">
+      <img src="stackly-logo.svg" alt="Stackly" class="preloader-cinematic-logo"/>
+      <div class="preloader-salem-badge"><i class="fas fa-star" style="color:var(--accent-cyan); font-size:10px;"></i> Luxury Automotive Experience <i class="fas fa-star" style="color:var(--accent-cyan); font-size:10px;"></i></div>
+    </div>
+    <div class="preloader-hud-display">
+      <div class="hud-item">
+        <span class="hud-label">GEAR</span>
+        <span class="hud-value" id="hudGear">1ST GEAR</span>
+      </div>
+      <div class="hud-item hud-center">
+        <span class="hud-label">SPEEDOMETER</span>
+        <span class="hud-value-large"><span id="hudSpeed">0</span> <small>KM/H</small></span>
+      </div>
+      <div class="hud-item">
+        <span class="hud-label">POWERTRAIN</span>
+        <span class="hud-value" id="hudPower">V8 BI-TURBO</span>
+      </div>
+    </div>
+    <div class="preloader-highway-stage" id="preloaderTrack">
+      <div class="speed-streaks-layer">
+        <span class="streak streak-1"></span>
+        <span class="streak streak-2"></span>
+        <span class="streak streak-3"></span>
+        <span class="streak streak-4"></span>
+      </div>
+      <div class="preloader-supercar-wrapper" id="preloaderCar">
+        <div class="supercar-headlight-cone"></div>
+        <div class="supercar-underglow-neon"></div>
+        <img src="assets/supercar-loader.webp" alt="Stackly Supercar" class="preloader-supercar-img"/>
+        <div class="supercar-nitro-exhaust"><span class="nitro-flame"></span></div>
+      </div>
+      <div class="preloader-highway-road"><div class="highway-dashes"></div></div>
+    </div>
+    <div class="preloader-progress-console">
+      <div class="progress-track-neon"><div class="progress-bar-neon" id="preloaderProgressBar"></div></div>
+      <div class="progress-info-row">
+        <span class="progress-status-msg" id="preloaderStatus"><i class="fas fa-tachometer-alt" style="color:var(--accent-pink);"></i> Igniting Twin-Turbo V8 Powertrain...</span>
+        <span class="progress-percent-val" id="preloaderPercent">0%</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<header id="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="logo-link">
+      <img src="stackly-logo.svg" alt="Stackly"/>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="">Home</a></li>
+      <li><a href="about.html" class="">About Us</a></li>
+      <li><a href="service.html" class="">Service</a></li>
+      <li class="has-dropdown">
+        <a href="listing.html" class="active">Listing Car</a>
+        <ul class="dropdown-panel">
+          <li><a href="detail.html"><i class="fas fa-car-side"></i> Car Detail Page</a></li>
+          <li><a href="financing.html"><i class="fas fa-calculator"></i> Financing &amp; Loan</a></li>
+        </ul>
+      </li>
+      <li><a href="team.html" class="">Team</a></li>
+      <li><a href="blog.html" class="">Blog</a></li>
+      <li><a href="contact.html" class="">Contact</a></li>
+    </ul>
+    <div class="header-cta">
+      <a href="login.html" id="authNavBtn" class="btn btn-outline btn-sm" style="border-color:var(--primary); color:var(--primary);"><i class="fas fa-sign-in-alt"></i> Login / Register</a>
+      <a href="listing.html" class="btn btn-primary btn-sm">Inventory</a>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle Navigation"><i class="fas fa-bars"></i></button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-drawer-backdrop" id="mobileDrawerBackdrop"></div>
+<div class="mobile-nav-drawer" id="mobileNavDrawer">
+  <div class="mobile-drawer-header">
+    <a href="index.html" class="drawer-logo">
+      <img src="stackly-logo.svg" alt="Stackly" style="height:32px;"/>
+    </a>
+    <button class="drawer-close" id="drawerClose" aria-label="Close Menu">&times;</button>
+  </div>
+
+  <div class="mobile-drawer-body">
+    <nav class="mobile-menu-list">
+      <a href="index.html" class="mobile-menu-link"><i class="fas fa-home"></i> Home</a>
+      <a href="about.html" class="mobile-menu-link"><i class="fas fa-info-circle"></i> About Us</a>
+      <a href="service.html" class="mobile-menu-link"><i class="fas fa-cogs"></i> Services</a>
+      <a href="listing.html" class="mobile-menu-link"><i class="fas fa-car"></i> Listing Car</a>
+      <div class="mobile-submenu">
+        <a href="detail.html" class="mobile-sublink"><i class="fas fa-angle-right"></i> Car Detail Page</a>
+        <a href="financing.html" class="mobile-sublink"><i class="fas fa-angle-right"></i> Financing &amp; Loan</a>
+      </div>
+      <a href="team.html" class="mobile-menu-link"><i class="fas fa-users"></i> Team</a>
+      <a href="blog.html" class="mobile-menu-link"><i class="fas fa-newspaper"></i> Blog</a>
+      <a href="contact.html" class="mobile-menu-link"><i class="fas fa-envelope"></i> Contact</a>
+    </nav>
+
+    <div class="mobile-drawer-actions">
+      <a href="login.html" class="btn btn-outline btn-sm mobile-action-btn" style="border-color:var(--primary); color:var(--primary); width:100%; justify-content:center;">
+        <i class="fas fa-user-circle"></i> Login / Register
+      </a>
+      <a href="listing.html" class="btn btn-primary btn-sm mobile-action-btn" style="width:100%; justify-content:center;">
+        <i class="fas fa-warehouse"></i> Browse Inventory
+      </a>
+    </div>
+
+    <div class="mobile-drawer-contact">
+      <div class="drawer-contact-item">
+        <i class="fas fa-phone-alt"></i>
+        <div>
+          <small style="display:block; color:var(--text-muted); font-size:11px;">Helpline</small>
+          <strong style="color:#fff; font-size:13px;">+91 98427 12345</strong>
+        </div>
+      </div>
+      <div class="drawer-contact-item">
+        <i class="fas fa-map-marker-alt"></i>
+        <div>
+          <small style="display:block; color:var(--text-muted); font-size:11px;">Showroom</small>
+          <span style="color:#fff; font-size:13px;">Meyyanur Main Rd, Salem</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="mobile-drawer-social">
+      <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="https://x.com" target="_blank" rel="noopener noreferrer" aria-label="X"><i class="fab fa-x-twitter"></i></a>
+      <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+      <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+    </div>
+  </div>
+</div>
+
+<div class="page-hero-banner">
+  <div class="container banner-content">
+    <h1 class="section-title">Timor Ventura Premium Edition</h1>
+    <div class="breadcrumbs">
+      <a href="index.html">Home</a>
+      <span>/</span>
+      <a href="listing.html">Listing Car</a>
+      <span>/</span>
+      <span>Timor Ventura</span>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 1: DUAL MEDIA GALLERY & VIP BOOKING PANEL -->
+<section class="section-pad">
+  <div class="container">
+    <div class="detail-dual-layout">
+      <div>
+        <div class="detail-main-img-box reveal-on-scroll">
+          <img id="detailMainImg" src="assets/sport-car-1-e1623321077599-2b4e7.webp" alt="Timor Ventura"/>
+        </div>
+        
+        <div class="gallery-thumbs-row reveal-on-scroll">
+          <img class="gallery-thumb-click active" src="assets/sport-car-1-e1623321077599-2b4e7.webp" alt="Angle 1"/>
+          <img class="gallery-thumb-click" src="assets/luxury-silver-sports-car-241de.webp" alt="Angle 2"/>
+          <img class="gallery-thumb-click" src="assets/studio-shot-of-three-dimensional-yellow-convertible-fd38c.webp" alt="Angle 3"/>
+          <img class="gallery-thumb-click" src="assets/white-smart-car-07bdf.webp" alt="Angle 4"/>
+        </div>
+
+        <div style="margin-top: 40px;" class="reveal-on-scroll">
+          <h3 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 20px;">Detailed Specifications &amp; VIN Log</h3>
+          <table class="specs-detail-table">
+            <tr><td>Brand / Manufacturer</td><td>Timor Motors Luxury Division</td></tr>
+            <tr><td>Model &amp; Edition</td><td>Ventura Premium Edition V2</td></tr>
+            <tr><td>Year of Manufacture</td><td>2024 (Certified Delivery Spec)</td></tr>
+            <tr><td>Current Mileage</td><td>212 km (Delivery Miles Only)</td></tr>
+            <tr><td>Transmission</td><td>7-Speed Dual-Clutch Automatic</td></tr>
+            <tr><td>Engine Configuration</td><td>3.8L Twin-Turbo Flat-6</td></tr>
+            <tr><td>Power Output</td><td>440 HP / 530 Nm Torque</td></tr>
+            <tr><td>Fuel System</td><td>Autogas / Unleaded Hybrid Ready</td></tr>
+            <tr><td>Drivetrain</td><td>All-Wheel Drive (AWD) with Dynamic Torque Split</td></tr>
+            <tr><td>Exterior Finish</td><td>Metallic Obsidian Gray</td></tr>
+            <tr><td>Interior Upholstery</td><td>Perforated Nappa Leather (Red Stitching)</td></tr>
+            <tr><td>VIN Serial Number</td><td>1HGBH41JXMN109186</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <div>
+        <div class="detail-sidebar-card reveal-on-scroll">
+          <div class="detail-pricing-panel">
+            <span style="font-size: 12px; color: var(--text-dim); text-decoration: line-through;">MSRP: $125,495</span>
+            <div style="font-size: 2.4rem; font-weight: 900; color: var(--primary); margin: 4px 0;">$124,495</div>
+            <span style="color: var(--accent-cyan); font-size: 13px; font-weight: 700;"><i class="fas fa-check-circle"></i> Instant Online Savings: $1,000</span>
+          </div>
+
+          <h3 style="font-size: 1.2rem; margin-bottom: 16px;">Schedule VIP Test Drive in Salem</h3>
+          <form id="detailTestDriveForm" onsubmit="handleDetailBooking(event)">
+            <div class="form-field-group">
+              <label>Full Name</label>
+              <input type="text" id="detailDriveName" placeholder="Enter your full name (e.g. John Doe)" required/>
+            </div>
+            <div class="form-field-group">
+              <label>Phone Number</label>
+              <input type="tel" id="detailDrivePhone" placeholder="Enter your phone number (e.g. +91 98427 00000)" required/>
+            </div>
+            <div class="form-field-group">
+              <label>Preferred Date</label>
+              <input type="date" id="detailDriveDate" placeholder="Select test drive date (YYYY-MM-DD)" required/>
+            </div>
+            <div class="form-field-group">
+              <label>Location</label>
+              <select id="detailDriveLoc">
+                <option>Stackly Tower Showroom, Meyyanur</option>
+                <option>Doorstep Delivery (Home / Office in Salem)</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px;"><i class="fas fa-calendar-check"></i> Reserve My Slot</button>
+          </form>
+
+          <div style="margin-top: 24px; text-align: center;">
+            <a href="financing.html" class="btn btn-outline" style="width: 100%; font-size: 13px;"><i class="fas fa-calculator"></i> Calculate Monthly Finance</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2: 150-POINT INSPECTION SCORECARD FOR THIS CAR -->
+<section class="section-pad" style="background: var(--bg-darker);">
+  <div class="container">
+    <div style="text-align:center; max-width:650px; margin:0 auto 40px;" class="reveal-on-scroll">
+      <span class="badge-tag">Quality Audit</span>
+      <h2 class="section-title">Certified 150-Point Inspection Scorecard</h2>
+      <p class="section-desc">Completed by Master Technician Keith Connolly at Salem Diagnostic Hub on Sep 10, 2026.</p>
+    </div>
+    <div class="features-grid-4">
+      <div class="feature-box-glass reveal-on-scroll stagger-1" style="text-align:center;">
+        <div style="font-size:2.2rem; font-weight:900; color:#2ecc71; margin-bottom:8px;">100%</div>
+        <h4 style="font-size:1.1rem; margin-bottom:6px;">Engine Compression</h4>
+        <span class="status-tag status-confirmed">Factory Baseline</span>
+      </div>
+      <div class="feature-box-glass reveal-on-scroll stagger-2" style="text-align:center;">
+        <div style="font-size:2.2rem; font-weight:900; color:#2ecc71; margin-bottom:8px;">99%</div>
+        <h4 style="font-size:1.1rem; margin-bottom:6px;">Brake Rotors &amp; Pads</h4>
+        <span class="status-tag status-confirmed">Brembo Ceramic</span>
+      </div>
+      <div class="feature-box-glass reveal-on-scroll stagger-3" style="text-align:center;">
+        <div style="font-size:2.2rem; font-weight:900; color:#2ecc71; margin-bottom:8px;">0 Errors</div>
+        <h4 style="font-size:1.1rem; margin-bottom:6px;">OBD-II ECU Scan</h4>
+        <span class="status-tag status-confirmed">Zero DTC Codes</span>
+      </div>
+      <div class="feature-box-glass reveal-on-scroll stagger-4" style="text-align:center;">
+        <div style="font-size:2.2rem; font-weight:900; color:#2ecc71; margin-bottom:8px;">Clean</div>
+        <h4 style="font-size:1.1rem; margin-bottom:6px;">Accident History</h4>
+        <span class="status-tag status-confirmed">Verified Title</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3: KEY HIGHLIGHTS & FEATURES (CARD VIEW) -->
+<section class="section-pad">
+  <div class="container">
+    <div style="text-align:center; max-width:650px; margin:0 auto 48px;" class="reveal-on-scroll">
+      <span class="badge-tag">Premium Comfort</span>
+      <h2 class="section-title">Factory Installed Options &amp; Technology</h2>
+      <p class="section-desc">Key engineering features and luxury appointments equipped on this specific chassis.</p>
+    </div>
+    <div class="features-grid-3">
+      <div class="premium-card reveal-on-scroll stagger-1">
+        <div class="card-thumb-wrap">
+          <img src="assets/photo-1617788138017-80ad40651399-3aff2.webp" alt="Burmester Audio" class="premium-card-img"/>
+          <span class="card-thumb-badge">Audiophile Spec</span>
+        </div>
+        <div class="premium-card-body">
+          <h3 class="premium-card-title">Burmester 3D Surround</h3>
+          <p class="premium-card-desc">15 high-performance speakers with 710 watts digital amplification and active road noise cancellation.</p>
+        </div>
+      </div>
+
+      <div class="premium-card reveal-on-scroll stagger-2">
+        <div class="card-thumb-wrap">
+          <img src="assets/photo-1549399542-7e3f8b79c341-bda15.webp" alt="Night Vision & HUD" class="premium-card-img"/>
+          <span class="card-thumb-badge">Safety Radar</span>
+        </div>
+        <div class="premium-card-body">
+          <h3 class="premium-card-title">360&deg; Night Vision Camera</h3>
+          <p class="premium-card-desc">Thermal infrared camera with pedestrian alert and heads-up windshield projection.</p>
+        </div>
+      </div>
+
+      <div class="premium-card reveal-on-scroll stagger-3">
+        <div class="card-thumb-wrap">
+          <img src="assets/photo-1492144534655-ae79c964c9d7-7a2a0.webp" alt="Sport Chrono" class="premium-card-img"/>
+          <span class="card-thumb-badge">Track Mode</span>
+        </div>
+        <div class="premium-card-body">
+          <h3 class="premium-card-title">Sport Chrono Package</h3>
+          <p class="premium-card-desc">Dynamic magneto-rheological engine mounts, launch control sequence, and lap stopwatch.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4: SIMILAR ALTERNATIVE VEHICLES -->
+<section class="section-pad" style="background: var(--bg-darker);">
+  <div class="container">
+    <div style="text-align:center; margin-bottom:40px;" class="reveal-on-scroll">
+      <span class="badge-tag">Compare Vehicles</span>
+      <h2 class="section-title">Similar Cars in Salem Stock</h2>
+    </div>
+    <div class="features-grid-3">
+      <div class="car-inventory-tile reveal-on-scroll stagger-1">
+        <div class="car-thumb-wrap">
+          <img src="assets/photo-1617814076367-b759c7d7e738-2188a.webp" alt="Mercedes AMG"/>
+          <span class="condition-pill">New</span>
+        </div>
+        <div class="car-meta-body">
+          <h3 class="car-name-heading"><a href="detail.html">Mercedes-Benz AMG GT Coupe</a></h3>
+          <div class="pricing-row">
+            <div><div class="net-price-val">$89,500</div></div>
+            <a href="detail.html" class="btn btn-outline-primary btn-sm">Details</a>
+          </div>
+        </div>
+      </div>
+      <div class="car-inventory-tile reveal-on-scroll stagger-2">
+        <div class="car-thumb-wrap">
+          <img src="assets/photo-1555215695-3004980ad54e-b8d80.webp" alt="BMW M4"/>
+          <span class="condition-pill condition-used">Used</span>
+        </div>
+        <div class="car-meta-body">
+          <h3 class="car-name-heading"><a href="detail.html">BMW M4 Competition</a></h3>
+          <div class="pricing-row">
+            <div><div class="net-price-val">$78,900</div></div>
+            <a href="detail.html" class="btn btn-outline-primary btn-sm">Details</a>
+          </div>
+        </div>
+      </div>
+      <div class="car-inventory-tile reveal-on-scroll stagger-3">
+        <div class="car-thumb-wrap">
+          <img src="assets/photo-1503376780353-7e6692767b70-bd819.webp" alt="Porsche 911"/>
+          <span class="condition-pill condition-used">Used</span>
+        </div>
+        <div class="car-meta-body">
+          <h3 class="car-name-heading"><a href="detail.html">Porsche 911 Carrera S</a></h3>
+          <div class="pricing-row">
+            <div><div class="net-price-val">$138,000</div></div>
+            <a href="detail.html" class="btn btn-outline-primary btn-sm">Details</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 5: BUYING GUARANTEES IN SALEM -->
+<section class="section-pad">
+  <div class="container" style="max-width:860px; text-align:center;">
+    <div class="reveal-on-scroll">
+      <span class="badge-tag">Salem Assurance</span>
+      <h2 class="section-title">Our Triple Buyer Guarantee</h2>
+      <p class="section-desc" style="margin-bottom:30px;">Every car sold at Stackly comes backed with our 3-year warranty, 7-day exchange promise, and guaranteed clear title transfer.</p>
+      <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap;">
+        <a href="contact.html" class="btn btn-primary"><i class="fas fa-calendar-check"></i> Book Showroom Viewing</a>
+        <a href="listing.html" class="btn btn-outline"><i class="fas fa-car"></i> Back To Inventory</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="site-footer">
+  <div class="container footer-content-wrap">
+    <div class="footer-columns-grid">
+      <div>
+        <div class="footer-logo">
+          <img src="stackly-logo.svg" alt="Stackly"/>
+        </div>
+        <p class="footer-about-text">Stackly is a premier automotive experience provider. We offer transparent pricing, 150-point certified inspections, and customer-first service across Tamil Nadu.</p>
+        <div class="footer-social-icons">
+          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://x.com" target="_blank" rel="noopener noreferrer" aria-label="X"><i class="fab fa-x-twitter"></i></a>
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <div>
+        <h4 class="footer-col-header">Navigation</h4>
+        <ul class="footer-nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="service.html">Services</a></li>
+          <li><a href="listing.html">Car Listings</a></li>
+          <li><a href="team.html">Our Team</a></li>
+          <li><a href="blog.html">Blog &amp; News</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-col-header">Portals &amp; Tools</h4>
+        <ul class="footer-nav-links">
+          <li><a href="detail.html">Car Detail Page</a></li>
+          <li><a href="financing.html">Loan Calculator</a></li>
+          <li><a href="login.html">Login &amp; Sign Up</a></li>
+          <li><a href="customer-dashboard.html">Customer Portal</a></li>
+          <li><a href="admin-dashboard.html">Admin Management</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-col-header">Salem Head Office</h4>
+        <ul class="footer-contact-items">
+          <li><i class="fas fa-map-marker-alt"></i><span>Stackly Tower, Meyyanur Main Road, Salem - 636004, Tamil Nadu, India</span></li>
+          <li><i class="fas fa-phone-alt"></i><span>+91 427 244 8900 / +91 98427 12345</span></li>
+          <li><i class="fas fa-envelope"></i><span>contact@stackly.com</span></li>
+          <li><i class="fas fa-clock"></i><span>Mon &ndash; Sat: 8:00 AM &ndash; 7:00 PM</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-copyright-bar">
+      <span>&copy; 2026 Stackly Pvt. Ltd. All Rights Reserved.</span>
+      <span><a href="#">Privacy Policy</a> &middot; <a href="#">Terms &amp; Conditions</a></span>
+    </div>
+  </div>
+</footer>
+
+<button id="scrollTopBtn" aria-label="Scroll to top"><i class="fas fa-arrow-up"></i></button>
+
+<div id="videoModalWrapper">
+  <div class="video-modal-inner">
+    <button class="video-close-trigger" id="videoCloseTrigger">&times; Close</button>
+    <iframe id="videoFrame" width="100%" height="100%" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen style="border-radius:10px;"></iframe>
+  </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Console &ndash; Stackly</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<!-- ==============================================================================
+     STACKLY CINEMATIC 3-SECOND PHOTOREALISTIC SUPERCAR PRELOADER
+     ============================================================================== -->
+<div id="stacklyPreloader" class="stackly-preloader-overlay">
+  <div class="preloader-cinematic-stage">
+    <div class="preloader-top-brand">
+      <img src="stackly-logo.svg" alt="Stackly" class="preloader-cinematic-logo"/>
+      <div class="preloader-salem-badge"><i class="fas fa-star" style="color:var(--accent-cyan); font-size:10px;"></i> Luxury Automotive Experience <i class="fas fa-star" style="color:var(--accent-cyan); font-size:10px;"></i></div>
+    </div>
+    <div class="preloader-hud-display">
+      <div class="hud-item">
+        <span class="hud-label">GEAR</span>
+        <span class="hud-value" id="hudGear">1ST GEAR</span>
+      </div>
+      <div class="hud-item hud-center">
+        <span class="hud-label">SPEEDOMETER</span>
+        <span class="hud-value-large"><span id="hudSpeed">0</span> <small>KM/H</small></span>
+      </div>
+      <div class="hud-item">
+        <span class="hud-label">POWERTRAIN</span>
+        <span class="hud-value" id="hudPower">V8 BI-TURBO</span>
+      </div>
+    </div>
+    <div class="preloader-highway-stage" id="preloaderTrack">
+      <div class="speed-streaks-layer">
+        <span class="streak streak-1"></span>
+        <span class="streak streak-2"></span>
+        <span class="streak streak-3"></span>
+        <span class="streak streak-4"></span>
+      </div>
+      <div class="preloader-supercar-wrapper" id="preloaderCar">
+        <div class="supercar-headlight-cone"></div>
+        <div class="supercar-underglow-neon"></div>
+        <img src="assets/supercar-loader.webp" alt="Stackly Supercar" class="preloader-supercar-img"/>
+        <div class="supercar-nitro-exhaust"><span class="nitro-flame"></span></div>
+      </div>
+      <div class="preloader-highway-road"><div class="highway-dashes"></div></div>
+    </div>
+    <div class="preloader-progress-console">
+      <div class="progress-track-neon"><div class="progress-bar-neon" id="preloaderProgressBar"></div></div>
+      <div class="progress-info-row">
+        <span class="progress-status-msg" id="preloaderStatus"><i class="fas fa-tachometer-alt" style="color:var(--accent-pink);"></i> Igniting Twin-Turbo V8 Powertrain...</span>
+        <span class="progress-percent-val" id="preloaderPercent">0%</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="dash-wrapper">
+  <aside class="dash-sidebar">
+    <div class="dash-brand-bar">
+      <a href="index.html">
+        <img src="stackly-logo.svg" alt="Stackly" style="height:32px;"/>
+      </a>
+      <a href="index.html" class="btn btn-outline btn-sm" style="font-size:11px; padding:4px 10px; border-color:var(--accent-pink); color:var(--accent-pink);">
+        <i class="fas fa-external-link-alt"></i> Showroom
+      </a>
+    </div>
+    <div class="dash-user-card">
+      <div class="dash-avatar" id="adminAvatar" style="background:var(--accent-pink);"><i class="fas fa-user-shield"></i></div>
+      <h3 id="adminProfileName" style="font-size:1.15rem; font-weight:700;">Super Admin</h3>
+      <span class="status-tag status-confirmed" style="margin-top:6px; background:rgba(248,13,118,0.2); color:var(--accent-pink);">General Manager</span>
+      <p id="adminProfileEmail" style="font-size:13px; color:var(--text-muted); margin-top:8px;">admin@stackly.com</p>
+      <p style="font-size:12px; color:var(--accent-cyan); margin-top:4px;"><i class="fas fa-circle" style="color:#2ecc71; font-size:9px;"></i> Operational Online</p>
+    </div>
+
+    <nav class="dash-nav">
+      <a href="#analytics" class="dash-nav-btn active" data-tab="adminAnalytics"><i class="fas fa-chart-line"></i> Operations Overview</a>
+      <a href="#inventory" class="dash-nav-btn" data-tab="adminInventory"><i class="fas fa-warehouse"></i> Inventory Stock (<span id="adminStockCount">12</span>)</a>
+      <a href="#leads" class="dash-nav-btn" data-tab="adminLeads"><i class="fas fa-tasks"></i> Customer Leads (<span id="adminLeadCount">3</span>)</a>
+      <a href="#staff" class="dash-nav-btn" data-tab="adminStaff"><i class="fas fa-id-badge"></i> Sales Executives (6)</a>
+      <a href="#reports" class="dash-nav-btn" data-tab="adminReports"><i class="fas fa-receipt"></i> Monthly Reports</a>
+      <a href="javascript:void(0)" onclick="handleLogout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    </nav>
+  </aside>
+
+  <main class="dash-main">
+    <!-- TAB 1: OPERATIONS & ANALYTICS -->
+    <div id="adminAnalytics" class="dash-tab-panel active-panel">
+      <div class="dash-header-bar">
+        <div>
+          <span class="badge-tag">Management Console</span>
+          <h1 id="adminWelcomeGreeting" style="font-size:2rem; font-weight:800;">Salem Dealership Operations</h1>
+          <p class="section-desc">Real-time overview of vehicle bookings, dealership inventory, and sales leads in Tamil Nadu.</p>
+        </div>
+        <div style="display:flex; gap:12px;">
+          <button onclick="exportReportCSV()" class="btn btn-outline-primary btn-sm"><i class="fas fa-download"></i> Export CSV Report</button>
+          <button onclick="openAddCarModal()" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> Add New Vehicle</button>
+        </div>
+      </div>
+
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-icon"><i class="fas fa-car-side"></i></div>
+          <div>
+            <div class="kpi-val" id="kpiAdminStock">12</div>
+            <div class="kpi-label">Stock In Salem Yard</div>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon" style="color:var(--accent-cyan); background:rgba(1,240,221,0.15);"><i class="fas fa-coins"></i></div>
+          <div>
+            <div class="kpi-val">$2.85M</div>
+            <div class="kpi-label">Monthly Gross Booked</div>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon"><i class="fas fa-user-friends"></i></div>
+          <div>
+            <div class="kpi-val" id="kpiAdminLeads">142</div>
+            <div class="kpi-label">Active Salem Leads</div>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon" style="color:#2ecc71; background:rgba(46,204,113,0.15);"><i class="fas fa-check-double"></i></div>
+          <div>
+            <div class="kpi-val">38</div>
+            <div class="kpi-label">Completed Test Drives</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Customer Inquiries Table -->
+      <div class="dash-table-wrap">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; flex-wrap:wrap; gap:12px;">
+          <div>
+            <h3 style="font-size:1.25rem; font-weight:700;">Customer Inquiries &amp; Test Drive Requests</h3>
+            <span style="font-size:13px; color:var(--text-muted);">Real-time leads submitted via Stackly website</span>
+          </div>
+          <input type="text" id="leadSearchInput" onkeyup="filterAdminLeads()" placeholder="Search customer name, vehicle, or rep (e.g. Priya, AMG)..." class="table-search-input"/>
+        </div>
+        <table class="dash-table">
+          <thead>
+            <tr>
+              <th>Customer</th>
+              <th>Phone</th>
+              <th>Vehicle Requested</th>
+              <th>Inquiry Type</th>
+              <th>Status</th>
+              <th>Assigned Rep</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="adminLeadsTableBody">
+            <tr id="lead-row-1">
+              <td><strong>Priya Sundaram</strong></td>
+              <td>+91 94432 18902</td>
+              <td>Mercedes-Benz AMG GT</td>
+              <td>VIP Test Drive</td>
+              <td><span class="status-tag status-pending" id="lead-status-1">Action Needed</span></td>
+              <td id="lead-rep-1">Marcus Vance</td>
+              <td>
+                <button onclick="approveLead(1)" class="btn btn-primary btn-sm" style="padding:4px 8px; font-size:11px;"><i class="fas fa-check"></i> Approve</button>
+                <button onclick="reassignLead(1)" class="btn btn-outline btn-sm" style="padding:4px 8px; font-size:11px; margin-left:4px;"><i class="fas fa-user-edit"></i></button>
+              </td>
+            </tr>
+            <tr id="lead-row-2">
+              <td><strong>Karthik Raja</strong></td>
+              <td>+91 98941 77210</td>
+              <td>Toyota Convertible</td>
+              <td>Loan Pre-Approval</td>
+              <td><span class="status-tag status-confirmed" id="lead-status-2">In Progress</span></td>
+              <td id="lead-rep-2">Lynn Roberts</td>
+              <td>
+                <button onclick="approveLead(2)" class="btn btn-primary btn-sm" style="padding:4px 8px; font-size:11px;"><i class="fas fa-check"></i> Approve</button>
+                <button onclick="reassignLead(2)" class="btn btn-outline btn-sm" style="padding:4px 8px; font-size:11px; margin-left:4px;"><i class="fas fa-user-edit"></i></button>
+              </td>
+            </tr>
+            <tr id="lead-row-3">
+              <td><strong>Siddharth M</strong></td>
+              <td>+91 97890 44321</td>
+              <td>Porsche 911 Carrera S</td>
+              <td>Showroom Inspection</td>
+              <td><span class="status-tag status-completed" id="lead-status-3">Completed</span></td>
+              <td id="lead-rep-3">Keith Connolly</td>
+              <td>
+                <button onclick="archiveLead(3)" class="btn btn-outline btn-sm" style="padding:4px 8px; font-size:11px;">Archive</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Quick Inventory Table -->
+      <div class="dash-table-wrap" style="margin-top:30px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; flex-wrap:wrap; gap:12px;">
+          <h3 style="font-size:1.25rem; font-weight:700;">Showroom Inventory Summary</h3>
+          <button onclick="openAddCarModal()" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> Add New Vehicle</button>
+        </div>
+        <table class="dash-table">
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th>Category</th>
+              <th>VIN</th>
+              <th>Net Price</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="adminQuickInventoryBody">
+            <tr id="car-inv-1">
+              <td><strong>Mercedes-Benz AMG GT Coupe</strong></td>
+              <td>Coupe</td>
+              <td>1HGBH41JXMN109186</td>
+              <td>$89,500</td>
+              <td><span class="status-tag status-confirmed">Ready for Delivery</span></td>
+              <td><button onclick="deleteCarRow('car-inv-1')" class="btn btn-outline btn-sm" style="color:#e74c3c; border-color:rgba(231,76,60,0.3); padding:4px 8px; font-size:11px;"><i class="fas fa-trash"></i></button></td>
+            </tr>
+            <tr id="car-inv-2">
+              <td><strong>BMW M4 Competition</strong></td>
+              <td>Sports Sedan</td>
+              <td>2T1BR32E8FC109822</td>
+              <td>$78,900</td>
+              <td><span class="status-tag status-confirmed">On Showroom Floor</span></td>
+              <td><button onclick="deleteCarRow('car-inv-2')" class="btn btn-outline btn-sm" style="color:#e74c3c; border-color:rgba(231,76,60,0.3); padding:4px 8px; font-size:11px;"><i class="fas fa-trash"></i></button></td>
+            </tr>
+            <tr id="car-inv-3">
+              <td><strong>Porsche 911 Carrera S</strong></td>
+              <td>Convertible</td>
+              <td>3VW2K7AJ0HM289114</td>
+              <td>$138,000</td>
+              <td><span class="status-tag status-pending">Inspection Pending</span></td>
+              <td><button onclick="deleteCarRow('car-inv-3')" class="btn btn-outline btn-sm" style="color:#e74c3c; border-color:rgba(231,76,60,0.3); padding:4px 8px; font-size:11px;"><i class="fas fa-trash"></i></button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- TAB 2: INVENTORY STOCK MANAGEMENT -->
+    <div id="adminInventory" class="dash-tab-panel">
+      <div class="dash-header-bar">
+        <div>
+          <span class="badge-tag">Stock Registry</span>
+          <h2 style="font-size:1.8rem; font-weight:800;">Dealership Yard Inventory</h2>
+          <p class="section-desc">Manage all 12 certified vehicles located at Stackly showroom.</p>
+        </div>
+        <button onclick="openAddCarModal()" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> Add New Vehicle</button>
+      </div>
+      <div class="dash-table-wrap">
+        <div style="display:flex; justify-content:space-between; margin-bottom:16px; flex-wrap:wrap; gap:12px;">
+          <input type="text" id="inventorySearchInput" onkeyup="filterStockTable()" placeholder="Search model or VIN (e.g. BMW, 1HGBH)..." class="table-search-input" style="width:280px;"/>
+          <a href="listing.html" target="_blank" class="btn btn-outline-primary btn-sm"><i class="fas fa-external-link-alt"></i> View Public Listing</a>
+        </div>
+        <table class="dash-table" id="fullStockTable">
+          <thead>
+            <tr>
+              <th>Model Name</th>
+              <th>Make</th>
+              <th>Type</th>
+              <th>Price</th>
+              <th>Mileage</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="fullStockTableBody">
+            <!-- Populated from script -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- TAB 3: LEADS -->
+    <div id="adminLeads" class="dash-tab-panel">
+      <div class="dash-header-bar">
+        <div>
+          <span class="badge-tag">CRM Leads</span>
+          <h2 style="font-size:1.8rem; font-weight:800;">Customer Inquiries Pipeline</h2>
+          <p class="section-desc">Follow up on prospective car buyers in Salem, Namakkal, Erode, and Dharmapuri.</p>
+        </div>
+      </div>
+      <div class="dash-table-wrap">
+        <div style="padding:16px; background:rgba(254,76,40,0.08); border:1px solid rgba(254,76,40,0.2); border-radius:8px; margin-bottom:20px;">
+          <p style="color:#fff; font-size:14px;"><i class="fas fa-info-circle" style="color:var(--primary);"></i> <strong>Quick Tip:</strong> Ensure test drive bookings are assigned to certified product specialists within 30 minutes of receipt.</p>
+        </div>
+        <table class="dash-table">
+          <thead>
+            <tr>
+              <th>Lead Name</th>
+              <th>Contact #</th>
+              <th>Location</th>
+              <th>Car Preference</th>
+              <th>Budget</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Anand Venkat</strong></td>
+              <td>+91 98421 11200</td>
+              <td>Fairlands, Salem</td>
+              <td>BMW M4 Competition</td>
+              <td>$80,000</td>
+              <td><button onclick="showToast('Lead follow-up logged for Anand Venkat!', 'success')" class="btn btn-primary btn-sm" style="padding:4px 10px; font-size:11px;">Call Customer</button></td>
+            </tr>
+            <tr>
+              <td><strong>Kavitha Murugan</strong></td>
+              <td>+91 97899 55432</td>
+              <td>Hasthampatti, Salem</td>
+              <td>Range Rover Sport</td>
+              <td>$95,000</td>
+              <td><button onclick="showToast('Test drive confirmed for Kavitha Murugan!', 'success')" class="btn btn-primary btn-sm" style="padding:4px 10px; font-size:11px;">Schedule Drive</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- TAB 4: SALES EXECUTIVES -->
+    <div id="adminStaff" class="dash-tab-panel">
+      <div class="dash-header-bar">
+        <div>
+          <span class="badge-tag">Salem Staff</span>
+          <h2 style="font-size:1.8rem; font-weight:800;">Sales Executives &amp; Specialists</h2>
+          <p class="section-desc">Staff performance, active test drives assigned, and sales quotas.</p>
+        </div>
+      </div>
+      <div class="dash-table-wrap">
+        <table class="dash-table">
+          <thead>
+            <tr>
+              <th>Executive</th>
+              <th>Role</th>
+              <th>Phone</th>
+              <th>Assigned Drives</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Marcus Vance</strong></td>
+              <td>Senior Product Specialist</td>
+              <td>+91 427 244 8901</td>
+              <td>8 Active</td>
+              <td><span class="status-tag status-confirmed">On Floor</span></td>
+            </tr>
+            <tr>
+              <td><strong>Lynn Roberts</strong></td>
+              <td>Finance &amp; Lease Manager</td>
+              <td>+91 427 244 8902</td>
+              <td>5 Active</td>
+              <td><span class="status-tag status-confirmed">Available</span></td>
+            </tr>
+            <tr>
+              <td><strong>Keith Connolly</strong></td>
+              <td>Certified Pre-Owned Appraiser</td>
+              <td>+91 427 244 8903</td>
+              <td>3 Active</td>
+              <td><span class="status-tag status-pending">In Yard</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- TAB 5: REPORTS -->
+    <div id="adminReports" class="dash-tab-panel">
+      <div class="dash-header-bar">
+        <div>
+          <span class="badge-tag">Financials</span>
+          <h2 style="font-size:1.8rem; font-weight:800;">Dealership Monthly Reports</h2>
+          <p class="section-desc">Revenue breakdown by luxury segment and certified pre-owned units.</p>
+        </div>
+        <button onclick="exportReportCSV()" class="btn btn-primary btn-sm"><i class="fas fa-file-download"></i> Download Full Report (CSV)</button>
+      </div>
+      <div class="dash-table-wrap">
+        <table class="dash-table">
+          <thead>
+            <tr>
+              <th>Month</th>
+              <th>Units Sold</th>
+              <th>Gross Revenue</th>
+              <th>Top Selling Model</th>
+              <th>Customer Satisfaction</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>August 2026</td>
+              <td>26 Cars</td>
+              <td>$2,140,000</td>
+              <td>Timor Ventura V2</td>
+              <td><span class="status-tag status-confirmed">98.4%</span></td>
+            </tr>
+            <tr>
+              <td>July 2026</td>
+              <td>22 Cars</td>
+              <td>$1,890,000</td>
+              <td>Mercedes-Benz AMG GT</td>
+              <td><span class="status-tag status-confirmed">97.8%</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- Admin Add Car Modal -->
+<div id="adminAddCarModal" class="dash-modal-overlay">
+  <div class="dash-modal-box">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+      <h3 style="font-size:1.3rem; font-weight:700;"><i class="fas fa-car" style="color:var(--primary);"></i> Add Vehicle to Yard Inventory</h3>
+      <button onclick="closeAddCarModal()" style="background:none; border:none; color:#fff; font-size:20px; cursor:pointer;">&times;</button>
+    </div>
+    <form id="newCarForm" onsubmit="handleAddNewCar(event)">
+      <div class="form-group">
+        <label class="form-label"><i class="fas fa-car"></i> Vehicle Model Name</label>
+        <div class="dash-input-wrap">
+          <i class="fas fa-tag dash-input-icon"></i>
+          <input type="text" id="addCarModel" class="form-input" placeholder="Enter vehicle model name (e.g. Audi Q8 Quattro)" required/>
+        </div>
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:14px;">
+        <div class="form-group" style="margin-bottom:0;">
+          <label class="form-label"><i class="fas fa-industry"></i> Make</label>
+          <div class="dash-input-wrap">
+            <i class="fas fa-certificate dash-input-icon"></i>
+            <input type="text" id="addCarMake" class="form-input" placeholder="Enter vehicle make (e.g. Audi)" required/>
+          </div>
+        </div>
+        <div class="form-group" style="margin-bottom:0;">
+          <label class="form-label"><i class="fas fa-car-side"></i> Body Type</label>
+          <div class="dash-input-wrap">
+            <i class="fas fa-car dash-input-icon"></i>
+            <select id="addCarType" class="form-input">
+              <option>Sedan</option>
+              <option>SUV</option>
+              <option>Coupe</option>
+              <option>Convertible</option>
+              <option>Hatchback</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:14px;">
+        <div class="form-group" style="margin-bottom:0;">
+          <label class="form-label"><i class="fas fa-dollar-sign"></i> Net Price ($)</label>
+          <div class="dash-input-wrap">
+            <i class="fas fa-dollar-sign dash-input-icon"></i>
+            <input type="number" id="addCarPrice" class="form-input" placeholder="Enter price in USD (e.g. 85000)" required/>
+          </div>
+        </div>
+        <div class="form-group" style="margin-bottom:0;">
+          <label class="form-label"><i class="fas fa-shield-alt"></i> Condition</label>
+          <div class="dash-input-wrap">
+            <i class="fas fa-check dash-input-icon"></i>
+            <select id="addCarCond" class="form-input">
+              <option>New</option>
+              <option>Certified Pre-Owned</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex; justify-content:flex-end; gap:12px; margin-top:24px;">
+        <button type="button" onclick="closeAddCarModal()" class="btn btn-outline btn-sm">Cancel</button>
+        <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> Add Vehicle</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div id="dashToast" class="dash-toast"><i class="fas fa-check-circle"></i> <span id="toastMsg">Action completed!</span></div>
+
+
+
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Our Services &ndash; Stackly</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<!-- ==============================================================================
+     STACKLY CINEMATIC 3-SECOND PHOTOREALISTIC SUPERCAR PRELOADER
+     ============================================================================== -->
+<div id="stacklyPreloader" class="stackly-preloader-overlay">
+  <div class="preloader-cinematic-stage">
+    <div class="preloader-top-brand">
+      <img src="stackly-logo.svg" alt="Stackly" class="preloader-cinematic-logo"/>
+      <div class="preloader-salem-badge"><i class="fas fa-star" style="color:var(--accent-cyan); font-size:10px;"></i> Luxury Automotive Experience <i class="fas fa-star" style="color:var(--accent-cyan); font-size:10px;"></i></div>
+    </div>
+    <div class="preloader-hud-display">
+      <div class="hud-item">
+        <span class="hud-label">GEAR</span>
+        <span class="hud-value" id="hudGear">1ST GEAR</span>
+      </div>
+      <div class="hud-item hud-center">
+        <span class="hud-label">SPEEDOMETER</span>
+        <span class="hud-value-large"><span id="hudSpeed">0</span> <small>KM/H</small></span>
+      </div>
+      <div class="hud-item">
+        <span class="hud-label">POWERTRAIN</span>
+        <span class="hud-value" id="hudPower">V8 BI-TURBO</span>
+      </div>
+    </div>
+    <div class="preloader-highway-stage" id="preloaderTrack">
+      <div class="speed-streaks-layer">
+        <span class="streak streak-1"></span>
+        <span class="streak streak-2"></span>
+        <span class="streak streak-3"></span>
+        <span class="streak streak-4"></span>
+      </div>
+      <div class="preloader-supercar-wrapper" id="preloaderCar">
+        <div class="supercar-headlight-cone"></div>
+        <div class="supercar-underglow-neon"></div>
+        <img src="assets/supercar-loader.webp" alt="Stackly Supercar" class="preloader-supercar-img"/>
+        <div class="supercar-nitro-exhaust"><span class="nitro-flame"></span></div>
+      </div>
+      <div class="preloader-highway-road"><div class="highway-dashes"></div></div>
+    </div>
+    <div class="preloader-progress-console">
+      <div class="progress-track-neon"><div class="progress-bar-neon" id="preloaderProgressBar"></div></div>
+      <div class="progress-info-row">
+        <span class="progress-status-msg" id="preloaderStatus"><i class="fas fa-tachometer-alt" style="color:var(--accent-pink);"></i> Igniting Twin-Turbo V8 Powertrain...</span>
+        <span class="progress-percent-val" id="preloaderPercent">0%</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<header id="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="logo-link">
+      <img src="stackly-logo.svg" alt="Stackly"/>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="">Home</a></li>
+      <li><a href="about.html" class="">About Us</a></li>
+      <li><a href="service.html" class="active">Service</a></li>
+      <li class="has-dropdown">
+        <a href="listing.html" class="">Listing Car</a>
+        <ul class="dropdown-panel">
+          <li><a href="detail.html"><i class="fas fa-car-side"></i> Car Detail Page</a></li>
+          <li><a href="financing.html"><i class="fas fa-calculator"></i> Financing &amp; Loan</a></li>
+        </ul>
+      </li>
+      <li><a href="team.html" class="">Team</a></li>
+      <li><a href="blog.html" class="">Blog</a></li>
+      <li><a href="contact.html" class="">Contact</a></li>
+    </ul>
+    <div class="header-cta">
+      <a href="login.html" id="authNavBtn" class="btn btn-outline btn-sm" style="border-color:var(--primary); color:var(--primary);"><i class="fas fa-sign-in-alt"></i> Login / Register</a>
+      <a href="listing.html" class="btn btn-primary btn-sm">Inventory</a>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle Navigation"><i class="fas fa-bars"></i></button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-drawer-backdrop" id="mobileDrawerBackdrop"></div>
+<div class="mobile-nav-drawer" id="mobileNavDrawer">
+  <div class="mobile-drawer-header">
+    <a href="index.html" class="drawer-logo">
+      <img src="stackly-logo.svg" alt="Stackly" style="height:32px;"/>
+    </a>
+    <button class="drawer-close" id="drawerClose" aria-label="Close Menu">&times;</button>
+  </div>
+
+  <div class="mobile-drawer-body">
+    <nav class="mobile-menu-list">
+      <a href="index.html" class="mobile-menu-link"><i class="fas fa-home"></i> Home</a>
+      <a href="about.html" class="mobile-menu-link"><i class="fas fa-info-circle"></i> About Us</a>
+      <a href="service.html" class="mobile-menu-link"><i class="fas fa-cogs"></i> Services</a>
+      <a href="listing.html" class="mobile-menu-link"><i class="fas fa-car"></i> Listing Car</a>
+      <div class="mobile-submenu">
+        <a href="detail.html" class="mobile-sublink"><i class="fas fa-angle-right"></i> Car Detail Page</a>
+        <a href="financing.html" class="mobile-sublink"><i class="fas fa-angle-right"></i> Financing &amp; Loan</a>
+      </div>
+      <a href="team.html" class="mobile-menu-link"><i class="fas fa-users"></i> Team</a>
+      <a href="blog.html" class="mobile-menu-link"><i class="fas fa-newspaper"></i> Blog</a>
+      <a href="contact.html" class="mobile-menu-link"><i class="fas fa-envelope"></i> Contact</a>
+    </nav>
+
+    <div class="mobile-drawer-actions">
+      <a href="login.html" class="btn btn-outline btn-sm mobile-action-btn" style="border-color:var(--primary); color:var(--primary); width:100%; justify-content:center;">
+        <i class="fas fa-user-circle"></i> Login / Register
+      </a>
+      <a href="listing.html" class="btn btn-primary btn-sm mobile-action-btn" style="width:100%; justify-content:center;">
+        <i class="fas fa-warehouse"></i> Browse Inventory
+      </a>
+    </div>
+
+    <div class="mobile-drawer-contact">
+      <div class="drawer-contact-item">
+        <i class="fas fa-phone-alt"></i>
+        <div>
+          <small style="display:block; color:var(--text-muted); font-size:11px;">Helpline</small>
+          <strong style="color:#fff; font-size:13px;">+91 98427 12345</strong>
+        </div>
+      </div>
+      <div class="drawer-contact-item">
+        <i class="fas fa-map-marker-alt"></i>
+        <div>
+          <small style="display:block; color:var(--text-muted); font-size:11px;">Showroom</small>
+          <span style="color:#fff; font-size:13px;">Meyyanur Main Rd, Salem</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="mobile-drawer-social">
+      <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="https://x.com" target="_blank" rel="noopener noreferrer" aria-label="X"><i class="fab fa-x-twitter"></i></a>
+      <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+      <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+    </div>
+  </div>
+</div>
+
+<div class="page-hero-banner">
+  <div class="container banner-content">
+    <h1 class="section-title">Our Services</h1>
+    <div class="breadcrumbs">
+      <a href="index.html">Home</a>
+      <span>/</span>
+      <span>Service</span>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 1: CORE 6 SERVICES -->
+<section class="section-pad">
+  <div class="container">
+    <div style="text-align: center; max-width: 650px; margin: 0 auto 50px;" class="reveal-on-scroll">
+      <span class="badge-tag">What We Do</span>
+      <h2 class="section-title">Comprehensive Automotive Services</h2>
+      <p class="section-desc">From sourcing your dream four-wheeler to master maintenance, trade-ins, and flexible financing in Salem, we handle every detail.</p>
+    </div>
+
+    <div class="features-grid-3">
+      <div class="feature-box-glass reveal-on-scroll stagger-1" style="padding:0; overflow:hidden;">
+        <div class="card-thumb-wrap">
+          <img src="assets/photo-1503376780353-7e6692767b70-bd819.webp" alt="New Car Sales" loading="lazy"/>
+          <span class="card-thumb-badge">Factory Spec</span>
+        </div>
+        <div style="padding:24px 22px;">
+          <h3 style="font-size:1.25rem; margin-bottom:8px;">New Car Sales</h3>
+          <p class="section-desc" style="font-size:14px; margin-bottom:14px;">Explore newest luxury brand arrivals with full factory warranty, bespoke trim configurations, and prompt Salem RTO registration.</p>
+          <a href="listing.html" class="btn btn-outline-primary btn-sm">Explore Models <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <div class="feature-box-glass reveal-on-scroll stagger-2" style="padding:0; overflow:hidden;">
+        <div class="card-thumb-wrap">
+          <img src="assets/photo-1555215695-3004980ad54e-b8d80.webp" alt="Certified Pre-Owned" loading="lazy"/>
+          <span class="card-thumb-badge">150-Pt Checked</span>
+        </div>
+        <div style="padding:24px 22px;">
+          <h3 style="font-size:1.25rem; margin-bottom:8px;">Certified Pre-Owned</h3>
+          <p class="section-desc" style="font-size:14px; margin-bottom:14px;">Pre-owned vehicles inspected with surgical precision, clean titles, verified non-accidental history, and guaranteed buyback options.</p>
+          <a href="listing.html" class="btn btn-outline-primary btn-sm">View Certified <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <div class="feature-box-glass reveal-on-scroll stagger-3" style="padding:0; overflow:hidden;">
+        <div class="card-thumb-wrap">
+          <img src="assets/photo-1580273916550-e323be2ae537-c8782.webp" alt="Instant Trade-In" loading="lazy"/>
+          <span class="card-thumb-badge">Instant Valuation</span>
+        </div>
+        <div style="padding:24px 22px;">
+          <h3 style="font-size:1.25rem; margin-bottom:8px;">Instant Trade-In</h3>
+          <p class="section-desc" style="font-size:14px; margin-bottom:14px;">Receive top-dollar market value for your existing car. We manage title transfer and apply value directly as your down payment.</p>
+          <a href="contact.html" class="btn btn-outline-primary btn-sm">Value My Car <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <div class="feature-box-glass reveal-on-scroll stagger-1" style="padding:0; overflow:hidden;">
+        <div class="card-thumb-wrap">
+          <img src="assets/photo-1551522435-a13afa10f103-c3489.webp" alt="Financing & Lease" loading="lazy"/>
+          <span class="card-thumb-badge">Low APR 7.2%</span>
+        </div>
+        <div style="padding:24px 22px;">
+          <h3 style="font-size:1.25rem; margin-bottom:8px;">Financing &amp; Lease</h3>
+          <p class="section-desc" style="font-size:14px; margin-bottom:14px;">Low APR automotive loans and flexible terms tailored to your personal credit profile with rapid 15-minute digital pre-approval.</p>
+          <a href="financing.html" class="btn btn-outline-primary btn-sm">Calculate EMI <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <div class="feature-box-glass reveal-on-scroll stagger-2" style="padding:0; overflow:hidden;">
+        <div class="card-thumb-wrap">
+          <img src="assets/photo-1517524008697-84bbe3c3fd98-23199.webp" alt="Certified Maintenance" loading="lazy"/>
+          <span class="card-thumb-badge">OEM Genuine</span>
+        </div>
+        <div style="padding:24px 22px;">
+          <h3 style="font-size:1.25rem; margin-bottom:8px;">Certified Maintenance</h3>
+          <p class="section-desc" style="font-size:14px; margin-bottom:14px;">Factory-trained technicians using genuine OEM parts, computerized OBD scanners, and synthetic manufacturer fluids.</p>
+          <a href="contact.html" class="btn btn-outline-primary btn-sm">Book Service <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <div class="feature-box-glass reveal-on-scroll stagger-3" style="padding:0; overflow:hidden;">
+        <div class="card-thumb-wrap">
+          <img src="assets/photo-1492144534655-ae79c964c9d7-7a2a0.webp" alt="VIP Doorstep Drives" loading="lazy"/>
+          <span class="card-thumb-badge">Doorstep Concierge</span>
+        </div>
+        <div style="padding:24px 22px;">
+          <h3 style="font-size:1.25rem; margin-bottom:8px;">VIP Doorstep Test Drives</h3>
+          <p class="section-desc" style="font-size:14px; margin-bottom:14px;">Test drive any car at our Meyyanur showroom or request a concierge test drive at your residence anywhere in Salem district.</p>
+          <a href="detail.html" class="btn btn-outline-primary btn-sm">Schedule Drive <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2: THE 4-STEP BUYING PROCESS -->
+<section class="section-pad" style="background: var(--bg-darker);">
+  <div class="container">
+    <div style="text-align: center; margin-bottom: 50px;" class="reveal-on-scroll">
+      <span class="badge-tag">Simple Process</span>
+      <h2 class="section-title">How To Get Your Car in 4 Steps</h2>
+      <p class="section-desc">We eliminate paperwork stress so you can focus on the thrill of driving.</p>
+    </div>
+
+    <div class="stat-counter-strip" style="grid-template-columns: repeat(4, 1fr);">
+      <div class="stat-box-card reveal-on-scroll stagger-1">
+        <div class="stat-number">01</div>
+        <div class="stat-title">Select Car</div>
+        <p class="section-desc" style="font-size: 13px; margin-top: 8px;">Explore our Salem inventory and pick your preferred model.</p>
+      </div>
+      <div class="stat-box-card reveal-on-scroll stagger-2">
+        <div class="stat-number">02</div>
+        <div class="stat-title">Test Drive</div>
+        <p class="section-desc" style="font-size: 13px; margin-top: 8px;">Experience comfort, acceleration, and handling first-hand.</p>
+      </div>
+      <div class="stat-box-card reveal-on-scroll stagger-3">
+        <div class="stat-number">03</div>
+        <div class="stat-title">Fast Approval</div>
+        <p class="section-desc" style="font-size: 13px; margin-top: 8px;">Complete instant financing with clear rates and zero hidden charges.</p>
+      </div>
+      <div class="stat-box-card reveal-on-scroll stagger-4">
+        <div class="stat-number">04</div>
+        <div class="stat-title">Drive Away</div>
+        <p class="section-desc" style="font-size: 13px; margin-top: 8px;">Collect your keys at Stackly Tower and start your journey.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3: 150-POINT INSPECTION CHECKLIST BREAKDOWN -->
+<section class="section-pad">
+  <div class="container">
+    <div style="text-align:center; max-width:650px; margin:0 auto 48px;" class="reveal-on-scroll">
+      <span class="badge-tag">Quality Assurance</span>
+      <h2 class="section-title">Inside Our 150-Point Certification</h2>
+      <p class="section-desc">Our multi-stage inspection leaves nothing to chance before any vehicle is approved for delivery.</p>
+    </div>
+    <div class="features-grid-3">
+      <div class="feature-box-glass reveal-on-scroll stagger-1">
+        <div class="feature-box-icon"><i class="fas fa-cogs"></i></div>
+        <h3 style="font-size:1.2rem; margin-bottom:12px;">Engine &amp; Drivetrain</h3>
+        <p style="font-size:14px; color:var(--text-muted); line-height:1.7;">Compression check, transmission fluid health, turbo spool calibration, radiator thermal test, and exhaust emissions compliance.</p>
+      </div>
+      <div class="feature-box-glass reveal-on-scroll stagger-2">
+        <div class="feature-box-icon"><i class="fas fa-microchip"></i></div>
+        <h3 style="font-size:1.2rem; margin-bottom:12px;">Electrical &amp; Computer Diagnostic</h3>
+        <p style="font-size:14px; color:var(--text-muted); line-height:1.7;">Complete ECU fault scan, battery cell resistance, radar adaptive sensors, airbag deployments, and climate system calibration.</p>
+      </div>
+      <div class="feature-box-glass reveal-on-scroll stagger-3">
+        <div class="feature-box-icon"><i class="fas fa-car-crash"></i></div>
+        <h3 style="font-size:1.2rem; margin-bottom:12px;">Chassis &amp; Body Frame</h3>
+        <p style="font-size:14px; color:var(--text-muted); line-height:1.7;">Digital laser frame alignment, suspension strut dampers, brake rotor thickness, tire tread depths, and underbody rust protection.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4: SERVICE PACKAGES & MAINTENANCE PLANS -->
+<section class="section-pad" style="background: var(--bg-darker);">
+  <div class="container">
+    <div style="text-align:center; max-width:650px; margin:0 auto 50px;" class="reveal-on-scroll">
+      <span class="badge-tag">Service Plans</span>
+      <h2 class="section-title">Scheduled Care Packages in Salem</h2>
+      <p class="section-desc">Affordable, transparent maintenance plans that maintain your manufacturer warranty.</p>
+    </div>
+    <div class="features-grid-3">
+      <div class="pricing-plan-card reveal-on-scroll stagger-1" style="padding-top:0; overflow:hidden;">
+        <div class="card-thumb-wrap" style="height:140px; margin:0 -30px 20px -30px; width:calc(100% + 60px);">
+          <img src="assets/photo-1517524008697-84bbe3c3fd98-23199.webp" alt="Standard Care"/>
+        </div>
+        <h3 style="font-size:1.3rem; margin-bottom:8px;">Standard Care</h3>
+        <p style="font-size:13px; color:var(--text-muted);">Periodic Service (10,000 km)</p>
+        <div class="plan-price-large">$149 <span>/ visit</span></div>
+        <ul class="plan-features-list">
+          <li><i class="fas fa-check"></i> Synthetic Engine Oil &amp; Filter</li>
+          <li><i class="fas fa-check"></i> 50-Point Safety Check</li>
+          <li><i class="fas fa-check"></i> Brake Inspection &amp; Cleaning</li>
+          <li><i class="fas fa-check"></i> Fluid Top-Off &amp; Tire Rotation</li>
+        </ul>
+        <a href="contact.html" class="btn btn-outline btn-sm" style="width:100%;">Book Service</a>
+      </div>
+
+      <div class="pricing-plan-card featured reveal-on-scroll stagger-2" style="padding-top:0; overflow:hidden;">
+        <div class="card-thumb-wrap" style="height:140px; margin:0 -30px 20px -30px; width:calc(100% + 60px);">
+          <img src="assets/photo-1563720223185-11003d516935-e55d4.webp" alt="Premium Shield"/>
+        </div>
+        <span class="plan-badge">Most Popular</span>
+        <h3 style="font-size:1.3rem; margin-bottom:8px;">Premium Shield</h3>
+        <p style="font-size:13px; color:var(--text-muted);">Major Annual Service</p>
+        <div class="plan-price-large">$299 <span>/ visit</span></div>
+        <ul class="plan-features-list">
+          <li><i class="fas fa-check"></i> Everything in Standard Care</li>
+          <li><i class="fas fa-check"></i> Complete OBD-II ECU Scan</li>
+          <li><i class="fas fa-check"></i> Wheel Alignment &amp; Dynamic Balancing</li>
+          <li><i class="fas fa-check"></i> AC Evaporator Deep Sanitize</li>
+          <li><i class="fas fa-check"></i> Valet Pickup &amp; Delivery in Salem</li>
+        </ul>
+        <a href="contact.html" class="btn btn-primary btn-sm" style="width:100%;">Book Service</a>
+      </div>
+
+      <div class="pricing-plan-card reveal-on-scroll stagger-3" style="padding-top:0; overflow:hidden;">
+        <div class="card-thumb-wrap" style="height:140px; margin:0 -30px 20px -30px; width:calc(100% + 60px);">
+          <img src="assets/photo-1618843479313-40f8afb4b4d8-b4ad2.webp" alt="Executive Care"/>
+        </div>
+        <h3 style="font-size:1.3rem; margin-bottom:8px;">Executive Care</h3>
+        <p style="font-size:13px; color:var(--text-muted);">Complete Year-Round Warranty</p>
+        <div class="plan-price-large">$599 <span>/ year</span></div>
+        <ul class="plan-features-list">
+          <li><i class="fas fa-check"></i> 2 Major Services Included</li>
+          <li><i class="fas fa-check"></i> Unlimited 24/7 Roadside Assist</li>
+          <li><i class="fas fa-check"></i> Free Battery &amp; Tire Replacement</li>
+          <li><i class="fas fa-check"></i> Priority Lounge &amp; Free Loaner Car</li>
+        </ul>
+        <a href="contact.html" class="btn btn-outline btn-sm" style="width:100%;">Book Service</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 5: ROADSIDE ASSISTANCE & CALL-TO-ACTION -->
+<section class="section-pad">
+  <div class="container">
+    <div class="features-grid-2">
+      <div class="reveal-left">
+        <span class="badge-tag">24/7 Support</span>
+        <h2 class="section-title">24/7 Emergency Breakdown Assistance</h2>
+        <p class="section-desc">Stuck on the NH-44 highway or around Salem district? Our rapid-response flatbed towing and emergency mobile mechanics are dispatched within 20 minutes.</p>
+        <div style="margin:24px 0; display:flex; flex-direction:column; gap:12px;">
+          <div style="display:flex; align-items:center; gap:12px;"><i class="fas fa-check-circle" style="color:var(--accent-cyan);"></i> <span>Battery jumpstart and lock-out recovery</span></div>
+          <div style="display:flex; align-items:center; gap:12px;"><i class="fas fa-check-circle" style="color:var(--accent-cyan);"></i> <span>Flat tire roadside assistance &amp; fuel delivery</span></div>
+          <div style="display:flex; align-items:center; gap:12px;"><i class="fas fa-check-circle" style="color:var(--accent-cyan);"></i> <span>Zero-cost towing to Stackly Salem Service Hub</span></div>
+        </div>
+        <a href="tel:+914272448900" class="btn btn-primary"><i class="fas fa-phone-alt"></i> Call Breakdown SOS</a>
+      </div>
+      <div class="reveal-right">
+        <div class="feature-box-glass" style="text-align:center; padding:48px 32px;">
+          <div class="feature-box-icon" style="margin:0 auto 20px; width:70px; height:70px; font-size:32px;"><i class="fas fa-headset"></i></div>
+          <h3 style="font-size:1.4rem; margin-bottom:10px;">Emergency Help Line</h3>
+          <div style="font-size:2rem; font-weight:900; color:var(--primary); margin-bottom:12px;">+91 427 244 8999</div>
+          <p style="color:var(--text-muted); font-size:14px;">Dedicated 24 hours a day, 365 days a year across Salem and surrounding Tamil Nadu highways.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="site-footer">
+  <div class="container footer-content-wrap">
+    <div class="footer-columns-grid">
+      <div>
+        <div class="footer-logo">
+          <img src="stackly-logo.svg" alt="Stackly"/>
+        </div>
+        <p class="footer-about-text">Stackly is a premier automotive experience provider. We offer transparent pricing, 150-point certified inspections, and customer-first service across Tamil Nadu.</p>
+        <div class="footer-social-icons">
+          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://x.com" target="_blank" rel="noopener noreferrer" aria-label="X"><i class="fab fa-x-twitter"></i></a>
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <div>
+        <h4 class="footer-col-header">Navigation</h4>
+        <ul class="footer-nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="service.html">Services</a></li>
+          <li><a href="listing.html">Car Listings</a></li>
+          <li><a href="team.html">Our Team</a></li>
+          <li><a href="blog.html">Blog &amp; News</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-col-header">Portals &amp; Tools</h4>
+        <ul class="footer-nav-links">
+          <li><a href="detail.html">Car Detail Page</a></li>
+          <li><a href="financing.html">Loan Calculator</a></li>
+          <li><a href="login.html">Login &amp; Sign Up</a></li>
+          <li><a href="customer-dashboard.html">Customer Portal</a></li>
+          <li><a href="admin-dashboard.html">Admin Management</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-col-header">Salem Head Office</h4>
+        <ul class="footer-contact-items">
+          <li><i class="fas fa-map-marker-alt"></i><span>Stackly Tower, Meyyanur Main Road, Salem - 636004, Tamil Nadu, India</span></li>
+          <li><i class="fas fa-phone-alt"></i><span>+91 427 244 8900 / +91 98427 12345</span></li>
+          <li><i class="fas fa-envelope"></i><span>contact@stackly.com</span></li>
+          <li><i class="fas fa-clock"></i><span>Mon &ndash; Sat: 8:00 AM &ndash; 7:00 PM</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-copyright-bar">
+      <span>&copy; 2026 Stackly Pvt. Ltd. All Rights Reserved.</span>
+      <span><a href="#">Privacy Policy</a> &middot; <a href="#">Terms &amp; Conditions</a></span>
+    </div>
+  </div>
+</footer>
+
+<button id="scrollTopBtn" aria-label="Scroll to top"><i class="fas fa-arrow-up"></i></button>
+
+<div id="videoModalWrapper">
+  <div class="video-modal-inner">
+    <button class="video-close-trigger" id="videoCloseTrigger">&times; Close</button>
+    <iframe id="videoFrame" width="100%" height="100%" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen style="border-radius:10px;"></iframe>
+  </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>

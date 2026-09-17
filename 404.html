@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Page Not Found &ndash; Stackly</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<!-- ==============================================================================
+     STACKLY CINEMATIC 3-SECOND PHOTOREALISTIC SUPERCAR PRELOADER
+     ============================================================================== -->
+<div id="stacklyPreloader" class="stackly-preloader-overlay">
+  <div class="preloader-cinematic-stage">
+    <div class="preloader-top-brand">
+      <img src="stackly-logo.svg" alt="Stackly" class="preloader-cinematic-logo"/>
+      <div class="preloader-salem-badge"><i class="fas fa-star" style="color:var(--accent-cyan); font-size:10px;"></i> Luxury Automotive Experience <i class="fas fa-star" style="color:var(--accent-cyan); font-size:10px;"></i></div>
+    </div>
+    <div class="preloader-hud-display">
+      <div class="hud-item">
+        <span class="hud-label">GEAR</span>
+        <span class="hud-value" id="hudGear">1ST GEAR</span>
+      </div>
+      <div class="hud-item hud-center">
+        <span class="hud-label">SPEEDOMETER</span>
+        <span class="hud-value-large"><span id="hudSpeed">0</span> <small>KM/H</small></span>
+      </div>
+      <div class="hud-item">
+        <span class="hud-label">POWERTRAIN</span>
+        <span class="hud-value" id="hudPower">V8 BI-TURBO</span>
+      </div>
+    </div>
+    <div class="preloader-highway-stage" id="preloaderTrack">
+      <div class="speed-streaks-layer">
+        <span class="streak streak-1"></span>
+        <span class="streak streak-2"></span>
+        <span class="streak streak-3"></span>
+        <span class="streak streak-4"></span>
+      </div>
+      <div class="preloader-supercar-wrapper" id="preloaderCar">
+        <div class="supercar-headlight-cone"></div>
+        <div class="supercar-underglow-neon"></div>
+        <img src="assets/supercar-loader.webp" alt="Stackly Supercar" class="preloader-supercar-img"/>
+        <div class="supercar-nitro-exhaust"><span class="nitro-flame"></span></div>
+      </div>
+      <div class="preloader-highway-road"><div class="highway-dashes"></div></div>
+    </div>
+    <div class="preloader-progress-console">
+      <div class="progress-track-neon"><div class="progress-bar-neon" id="preloaderProgressBar"></div></div>
+      <div class="progress-info-row">
+        <span class="progress-status-msg" id="preloaderStatus"><i class="fas fa-tachometer-alt" style="color:var(--accent-pink);"></i> Igniting Twin-Turbo V8 Powertrain...</span>
+        <span class="progress-percent-val" id="preloaderPercent">0%</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<header id="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="logo-link">
+      <img src="stackly-logo.svg" alt="Stackly"/>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="">Home</a></li>
+      <li><a href="about.html" class="">About Us</a></li>
+      <li><a href="service.html" class="">Service</a></li>
+      <li class="has-dropdown">
+        <a href="listing.html" class="">Listing Car</a>
+        <ul class="dropdown-panel">
+          <li><a href="detail.html"><i class="fas fa-car-side"></i> Car Detail Page</a></li>
+          <li><a href="financing.html"><i class="fas fa-calculator"></i> Financing &amp; Loan</a></li>
+        </ul>
+      </li>
+      <li><a href="team.html" class="">Team</a></li>
+      <li><a href="blog.html" class="">Blog</a></li>
+      <li><a href="contact.html" class="">Contact</a></li>
+    </ul>
+    <div class="header-cta">
+      <a href="login.html" id="authNavBtn" class="btn btn-outline btn-sm" style="border-color:var(--primary); color:var(--primary);"><i class="fas fa-sign-in-alt"></i> Login / Register</a>
+      <a href="listing.html" class="btn btn-primary btn-sm">Inventory</a>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle Navigation"><i class="fas fa-bars"></i></button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-drawer-backdrop" id="mobileDrawerBackdrop"></div>
+<div class="mobile-nav-drawer" id="mobileNavDrawer">
+  <div class="mobile-drawer-header">
+    <a href="index.html" class="drawer-logo">
+      <img src="stackly-logo.svg" alt="Stackly" style="height:32px;"/>
+    </a>
+    <button class="drawer-close" id="drawerClose" aria-label="Close Menu">&times;</button>
+  </div>
+
+  <div class="mobile-drawer-body">
+    <nav class="mobile-menu-list">
+      <a href="index.html" class="mobile-menu-link"><i class="fas fa-home"></i> Home</a>
+      <a href="about.html" class="mobile-menu-link"><i class="fas fa-info-circle"></i> About Us</a>
+      <a href="service.html" class="mobile-menu-link"><i class="fas fa-cogs"></i> Services</a>
+      <a href="listing.html" class="mobile-menu-link"><i class="fas fa-car"></i> Listing Car</a>
+      <div class="mobile-submenu">
+        <a href="detail.html" class="mobile-sublink"><i class="fas fa-angle-right"></i> Car Detail Page</a>
+        <a href="financing.html" class="mobile-sublink"><i class="fas fa-angle-right"></i> Financing &amp; Loan</a>
+      </div>
+      <a href="team.html" class="mobile-menu-link"><i class="fas fa-users"></i> Team</a>
+      <a href="blog.html" class="mobile-menu-link"><i class="fas fa-newspaper"></i> Blog</a>
+      <a href="contact.html" class="mobile-menu-link"><i class="fas fa-envelope"></i> Contact</a>
+    </nav>
+
+    <div class="mobile-drawer-actions">
+      <a href="login.html" class="btn btn-outline btn-sm mobile-action-btn" style="border-color:var(--primary); color:var(--primary); width:100%; justify-content:center;">
+        <i class="fas fa-user-circle"></i> Login / Register
+      </a>
+      <a href="listing.html" class="btn btn-primary btn-sm mobile-action-btn" style="width:100%; justify-content:center;">
+        <i class="fas fa-warehouse"></i> Browse Inventory
+      </a>
+    </div>
+
+    <div class="mobile-drawer-contact">
+      <div class="drawer-contact-item">
+        <i class="fas fa-phone-alt"></i>
+        <div>
+          <small style="display:block; color:var(--text-muted); font-size:11px;">Helpline</small>
+          <strong style="color:#fff; font-size:13px;">+91 98427 12345</strong>
+        </div>
+      </div>
+      <div class="drawer-contact-item">
+        <i class="fas fa-map-marker-alt"></i>
+        <div>
+          <small style="display:block; color:var(--text-muted); font-size:11px;">Showroom</small>
+          <span style="color:#fff; font-size:13px;">Meyyanur Main Rd, Salem</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="mobile-drawer-social">
+      <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="https://x.com" target="_blank" rel="noopener noreferrer" aria-label="X"><i class="fab fa-x-twitter"></i></a>
+      <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+      <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+    </div>
+  </div>
+</div>
+
+
+
+  
+
+
+
+</header>
+
+
+
+  
+<div class="page-hero-banner">
+  <div class="container banner-content">
+    <h1 class="section-title">Error 404</h1>
+    <div class="breadcrumbs">
+      <a href="index.html">Home</a>
+      <span>/</span>
+      <span>404 Not Found</span>
+    </div>
+  </div>
+</div>
+
+<section style="padding: 110px 0; text-align: center;">
+  <div class="container">
+    <div style="font-size: clamp(6rem, 15vw, 10rem); font-weight: 900; color: var(--primary); line-height: 1; text-shadow: 0 10px 40px rgba(254, 76, 40, 0.4);">404</div>
+    <h2 class="section-title" style="margin-top: 14px;">Oops! Lost In The Route?</h2>
+    <p class="section-desc" style="max-width: 500px; margin: 0 auto 36px;">The road you are looking for has taken a detour or does not exist. Let us navigate you safely back to our showroom.</p>
+    <div style="display:flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+      <a href="index.html" class="btn btn-primary"><i class="fas fa-home"></i> Return To Home</a>
+      <a href="listing.html" class="btn btn-outline"><i class="fas fa-car"></i> View Inventory</a>
+    </div>
+  </div>
+</section>
+
+  
+<footer id="site-footer">
+  <div class="container footer-content-wrap">
+    <div class="footer-columns-grid">
+      <div>
+        <div class="footer-logo">
+          <img src="stackly-logo.svg" alt="Stackly"/>
+        </div>
+        <p class="footer-about-text">Stackly is a premier automotive experience provider. We offer transparent pricing, 150-point certified inspections, and customer-first service across Tamil Nadu.</p>
+        <div class="footer-social-icons">
+          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://x.com" target="_blank" rel="noopener noreferrer" aria-label="X"><i class="fab fa-x-twitter"></i></a>
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <div>
+        <h4 class="footer-col-header">Quick Links</h4>
+        <ul class="footer-nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="service.html">Services</a></li>
+          <li><a href="listing.html">Inventory</a></li>
+          <li><a href="blog.html">Latest News</a></li>
+          <li><a href="financing.html">Financing</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-col-header">Our Services</h4>
+        <ul class="footer-nav-links">
+          <li><a href="listing.html">New Car Sales</a></li>
+          <li><a href="listing.html">Certified Pre-Owned</a></li>
+          <li><a href="service.html">Vehicle Trade-In</a></li>
+          <li><a href="financing.html">Auto Financing</a></li>
+          <li><a href="service.html">Certified Maintenance</a></li>
+          <li><a href="detail.html">VIP Test Drive</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-col-header">Salem Head Office</h4>
+        <ul class="footer-contact-items">
+          <li><i class="fas fa-map-marker-alt"></i><span>Stackly Tower, Meyyanur Main Road, Salem - 636004, Tamil Nadu, India</span></li>
+          <li><i class="fas fa-phone-alt"></i><span>+91 427 244 8900 / +91 98427 12345</span></li>
+          <li><i class="fas fa-envelope"></i><span>contact@stackly.com</span></li>
+          <li><i class="fas fa-clock"></i><span>Mon &ndash; Sat: 8:00 AM &ndash; 7:00 PM</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-copyright-bar">
+      <span>&copy; 2026 Stackly Pvt. Ltd. All Rights Reserved.</span>
+      <span><a href="#">Privacy Policy</a> &middot; <a href="#">Terms &amp; Conditions</a></span>
+    </div>
+  </div>
+</footer>
+
+<button id="scrollTopBtn" aria-label="Scroll to top"><i class="fas fa-arrow-up"></i></button>
+
+<div id="videoModalWrapper">
+  <div class="video-modal-inner">
+    <button class="video-close-trigger" id="videoCloseTrigger">&times; Close</button>
+    <iframe id="videoFrame" width="100%" height="100%" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen style="border-radius:10px;"></iframe>
+  </div>
+</div>
+
+  <script src="script.js"></script>
+</body>
+</html>

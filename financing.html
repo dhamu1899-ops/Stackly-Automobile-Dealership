@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Auto Financing &ndash; Stackly</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<!-- ==============================================================================
+     STACKLY CINEMATIC 3-SECOND PHOTOREALISTIC SUPERCAR PRELOADER
+     ============================================================================== -->
+<div id="stacklyPreloader" class="stackly-preloader-overlay">
+  <div class="preloader-cinematic-stage">
+    <div class="preloader-top-brand">
+      <img src="stackly-logo.svg" alt="Stackly" class="preloader-cinematic-logo"/>
+      <div class="preloader-salem-badge"><i class="fas fa-star" style="color:var(--accent-cyan); font-size:10px;"></i> Luxury Automotive Experience <i class="fas fa-star" style="color:var(--accent-cyan); font-size:10px;"></i></div>
+    </div>
+    <div class="preloader-hud-display">
+      <div class="hud-item">
+        <span class="hud-label">GEAR</span>
+        <span class="hud-value" id="hudGear">1ST GEAR</span>
+      </div>
+      <div class="hud-item hud-center">
+        <span class="hud-label">SPEEDOMETER</span>
+        <span class="hud-value-large"><span id="hudSpeed">0</span> <small>KM/H</small></span>
+      </div>
+      <div class="hud-item">
+        <span class="hud-label">POWERTRAIN</span>
+        <span class="hud-value" id="hudPower">V8 BI-TURBO</span>
+      </div>
+    </div>
+    <div class="preloader-highway-stage" id="preloaderTrack">
+      <div class="speed-streaks-layer">
+        <span class="streak streak-1"></span>
+        <span class="streak streak-2"></span>
+        <span class="streak streak-3"></span>
+        <span class="streak streak-4"></span>
+      </div>
+      <div class="preloader-supercar-wrapper" id="preloaderCar">
+        <div class="supercar-headlight-cone"></div>
+        <div class="supercar-underglow-neon"></div>
+        <img src="assets/supercar-loader.webp" alt="Stackly Supercar" class="preloader-supercar-img"/>
+        <div class="supercar-nitro-exhaust"><span class="nitro-flame"></span></div>
+      </div>
+      <div class="preloader-highway-road"><div class="highway-dashes"></div></div>
+    </div>
+    <div class="preloader-progress-console">
+      <div class="progress-track-neon"><div class="progress-bar-neon" id="preloaderProgressBar"></div></div>
+      <div class="progress-info-row">
+        <span class="progress-status-msg" id="preloaderStatus"><i class="fas fa-tachometer-alt" style="color:var(--accent-pink);"></i> Igniting Twin-Turbo V8 Powertrain...</span>
+        <span class="progress-percent-val" id="preloaderPercent">0%</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<header id="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="logo-link">
+      <img src="stackly-logo.svg" alt="Stackly"/>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="">Home</a></li>
+      <li><a href="about.html" class="">About Us</a></li>
+      <li><a href="service.html" class="">Service</a></li>
+      <li class="has-dropdown">
+        <a href="listing.html" class="active">Listing Car</a>
+        <ul class="dropdown-panel">
+          <li><a href="detail.html"><i class="fas fa-car-side"></i> Car Detail Page</a></li>
+          <li><a href="financing.html"><i class="fas fa-calculator"></i> Financing &amp; Loan</a></li>
+        </ul>
+      </li>
+      <li><a href="team.html" class="">Team</a></li>
+      <li><a href="blog.html" class="">Blog</a></li>
+      <li><a href="contact.html" class="">Contact</a></li>
+    </ul>
+    <div class="header-cta">
+      <a href="login.html" id="authNavBtn" class="btn btn-outline btn-sm" style="border-color:var(--primary); color:var(--primary);"><i class="fas fa-sign-in-alt"></i> Login / Register</a>
+      <a href="listing.html" class="btn btn-primary btn-sm">Inventory</a>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle Navigation"><i class="fas fa-bars"></i></button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-drawer-backdrop" id="mobileDrawerBackdrop"></div>
+<div class="mobile-nav-drawer" id="mobileNavDrawer">
+  <div class="mobile-drawer-header">
+    <a href="index.html" class="drawer-logo">
+      <img src="stackly-logo.svg" alt="Stackly" style="height:32px;"/>
+    </a>
+    <button class="drawer-close" id="drawerClose" aria-label="Close Menu">&times;</button>
+  </div>
+
+  <div class="mobile-drawer-body">
+    <nav class="mobile-menu-list">
+      <a href="index.html" class="mobile-menu-link"><i class="fas fa-home"></i> Home</a>
+      <a href="about.html" class="mobile-menu-link"><i class="fas fa-info-circle"></i> About Us</a>
+      <a href="service.html" class="mobile-menu-link"><i class="fas fa-cogs"></i> Services</a>
+      <a href="listing.html" class="mobile-menu-link"><i class="fas fa-car"></i> Listing Car</a>
+      <div class="mobile-submenu">
+        <a href="detail.html" class="mobile-sublink"><i class="fas fa-angle-right"></i> Car Detail Page</a>
+        <a href="financing.html" class="mobile-sublink"><i class="fas fa-angle-right"></i> Financing &amp; Loan</a>
+      </div>
+      <a href="team.html" class="mobile-menu-link"><i class="fas fa-users"></i> Team</a>
+      <a href="blog.html" class="mobile-menu-link"><i class="fas fa-newspaper"></i> Blog</a>
+      <a href="contact.html" class="mobile-menu-link"><i class="fas fa-envelope"></i> Contact</a>
+    </nav>
+
+    <div class="mobile-drawer-actions">
+      <a href="login.html" class="btn btn-outline btn-sm mobile-action-btn" style="border-color:var(--primary); color:var(--primary); width:100%; justify-content:center;">
+        <i class="fas fa-user-circle"></i> Login / Register
+      </a>
+      <a href="listing.html" class="btn btn-primary btn-sm mobile-action-btn" style="width:100%; justify-content:center;">
+        <i class="fas fa-warehouse"></i> Browse Inventory
+      </a>
+    </div>
+
+    <div class="mobile-drawer-contact">
+      <div class="drawer-contact-item">
+        <i class="fas fa-phone-alt"></i>
+        <div>
+          <small style="display:block; color:var(--text-muted); font-size:11px;">Helpline</small>
+          <strong style="color:#fff; font-size:13px;">+91 98427 12345</strong>
+        </div>
+      </div>
+      <div class="drawer-contact-item">
+        <i class="fas fa-map-marker-alt"></i>
+        <div>
+          <small style="display:block; color:var(--text-muted); font-size:11px;">Showroom</small>
+          <span style="color:#fff; font-size:13px;">Meyyanur Main Rd, Salem</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="mobile-drawer-social">
+      <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="https://x.com" target="_blank" rel="noopener noreferrer" aria-label="X"><i class="fab fa-x-twitter"></i></a>
+      <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+      <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+    </div>
+  </div>
+</div>
+
+<div class="page-hero-banner">
+  <div class="container banner-content">
+    <h1 class="section-title">Auto Financing &amp; Loans</h1>
+    <div class="breadcrumbs">
+      <a href="index.html">Home</a>
+      <span>/</span>
+      <a href="listing.html">Listing Car</a>
+      <span>/</span>
+      <span>Financing</span>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 1: SMART PAYMENT CALCULATOR MODULE -->
+<section class="section-pad">
+  <div class="container">
+    <div class="about-duo-grid">
+      <div class="reveal-left">
+        <span class="badge-tag">Smart Loan Calculator</span>
+        <h2 class="section-title">Calculate Your Monthly Installment</h2>
+        <p class="section-desc" style="margin-bottom: 30px;">Customize your down payment, interest rate, and loan term duration to determine a comfortable monthly budget in Salem.</p>
+
+        <div class="why-compact-card">
+          <div class="why-icon-box"><i class="fas fa-percentage"></i></div>
+          <div>
+            <h4 style="font-size:1.1rem; font-weight:700; margin-bottom:6px;">Low Competitive Rates</h4>
+            <p class="section-desc" style="font-size:14px;">Direct financing partnerships with tier-1 national lenders including HDFC, SBI, and ICICI.</p>
+          </div>
+        </div>
+
+        <div class="why-compact-card">
+          <div class="why-icon-box"><i class="fas fa-bolt"></i></div>
+          <div>
+            <h4 style="font-size:1.1rem; font-weight:700; margin-bottom:6px;">Pre-Approval In 15 Mins</h4>
+            <p class="section-desc" style="font-size:14px;">Instant digital qualification without impacting your CIBIL or credit score.</p>
+          </div>
+        </div>
+
+        <div class="why-compact-card">
+          <div class="why-icon-box"><i class="fas fa-sync"></i></div>
+          <div>
+            <h4 style="font-size:1.1rem; font-weight:700; margin-bottom:6px;">Trade-In Equity Rollover</h4>
+            <p class="section-desc" style="font-size:14px;">Use your old vehicle's valuation directly as your zero-cash down payment.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal-right">
+        <div class="calc-module-card">
+          <h3 style="font-size: 1.35rem; font-weight: 800; margin-bottom: 24px;"><i class="fas fa-calculator" style="color:var(--primary);"></i> Loan Estimator</h3>
+          <div class="form-field-group">
+            <label>Vehicle Price ($ USD)</label>
+            <input type="number" id="calcPrice" value="35000" step="500" placeholder="Enter vehicle price (e.g. 35000)"/>
+          </div>
+          <div class="form-field-group">
+            <label>Down Payment ($ USD)</label>
+            <input type="number" id="calcDown" value="5000" step="500" placeholder="Enter down payment (e.g. 5000)"/>
+          </div>
+          <div class="form-field-group">
+            <label>Interest Rate (% APR)</label>
+            <input type="number" id="calcRate" value="5.9" step="0.1" placeholder="Enter interest rate (e.g. 5.9)"/>
+          </div>
+          <div class="form-field-group">
+            <label>Loan Duration</label>
+            <select id="calcMonths">
+              <option value="36">36 Months (3 Years)</option>
+              <option value="48">48 Months (4 Years)</option>
+              <option value="60" selected>60 Months (5 Years)</option>
+              <option value="72">72 Months (6 Years)</option>
+            </select>
+          </div>
+
+          <button id="calcTrigger" class="btn btn-primary" style="width: 100%; margin-top: 10px;"><i class="fas fa-calculator"></i> Calculate Payment</button>
+
+          <div class="calc-output-display">
+            <span style="font-size: 12px; text-transform: uppercase; color: var(--text-muted); letter-spacing: 1px;">Estimated Installment</span>
+            <div class="monthly-result-text" id="calcMonthlyOut">$578.68 / mo</div>
+            <span id="calcTotalOut" style="font-size: 13px; color: var(--accent-cyan); font-weight: 600;">Total Loan: $34,721</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2: 3-STEP INSTANT ONLINE PRE-APPROVAL -->
+<section class="section-pad" style="background: var(--bg-darker);">
+  <div class="container">
+    <div style="text-align:center; max-width:650px; margin:0 auto 50px;" class="reveal-on-scroll">
+      <span class="badge-tag">Rapid Clearance</span>
+      <h2 class="section-title">How To Get Pre-Approved in 3 Easy Steps</h2>
+    </div>
+    <div class="features-grid-3">
+      <div class="stat-box-card reveal-on-scroll stagger-1">
+        <div class="stat-number">01</div>
+        <div class="stat-title">Digital Application</div>
+        <p class="section-desc" style="font-size:14px; margin-top:8px;">Fill our basic 2-minute form with your employment and income details.</p>
+      </div>
+      <div class="stat-box-card reveal-on-scroll stagger-2">
+        <div class="stat-number">02</div>
+        <div class="stat-title">Instant Bank Offer</div>
+        <p class="section-desc" style="font-size:14px; margin-top:8px;">Receive customized interest rate proposals from multiple lender partners.</p>
+      </div>
+      <div class="stat-box-card reveal-on-scroll stagger-3">
+        <div class="stat-number">03</div>
+        <div class="stat-title">Sign &amp; Drive</div>
+        <p class="section-desc" style="font-size:14px; margin-top:8px;">Finalize paperwork digitally or at our Salem showroom and collect keys.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3: PARTNER BANK LENDERS IN SALEM -->
+<section class="section-pad">
+  <div class="container">
+    <div style="text-align:center; max-width:650px; margin:0 auto 48px;" class="reveal-on-scroll">
+      <span class="badge-tag">Bank Consortium</span>
+      <h2 class="section-title">Our Trusted Lending Partners</h2>
+      <p class="section-desc">We work with India's largest financial institutions to bring you rock-bottom interest rates.</p>
+    </div>
+    <div class="features-grid-4">
+      <div class="feature-box-glass reveal-on-scroll stagger-1" style="text-align:center;">
+        <i class="fas fa-university" style="font-size:32px; color:var(--primary); margin-bottom:12px;"></i>
+        <h4 style="font-size:1.15rem; margin-bottom:4px;">HDFC Bank</h4>
+        <span style="color:#2ecc71; font-size:13px; font-weight:700;">Starting at 7.2% APR</span>
+        <p style="font-size:13px; color:var(--text-muted); margin-top:8px;">Instant disbursement with zero foreclosure penalties after 12 months.</p>
+      </div>
+      <div class="feature-box-glass reveal-on-scroll stagger-2" style="text-align:center;">
+        <i class="fas fa-landmark" style="font-size:32px; color:var(--accent-cyan); margin-bottom:12px;"></i>
+        <h4 style="font-size:1.15rem; margin-bottom:4px;">State Bank of India</h4>
+        <span style="color:#2ecc71; font-size:13px; font-weight:700;">Starting at 7.4% APR</span>
+        <p style="font-size:13px; color:var(--text-muted); margin-top:8px;">Maximum loan tenure up to 84 months for salaried and self-employed.</p>
+      </div>
+      <div class="feature-box-glass reveal-on-scroll stagger-3" style="text-align:center;">
+        <i class="fas fa-building-columns" style="font-size:32px; color:var(--accent-pink); margin-bottom:12px;"></i>
+        <h4 style="font-size:1.15rem; margin-bottom:4px;">ICICI Auto Loan</h4>
+        <span style="color:#2ecc71; font-size:13px; font-weight:700;">Starting at 7.35% APR</span>
+        <p style="font-size:13px; color:var(--text-muted); margin-top:8px;">100% on-road funding including registration and comprehensive insurance.</p>
+      </div>
+      <div class="feature-box-glass reveal-on-scroll stagger-4" style="text-align:center;">
+        <i class="fas fa-money-check-alt" style="font-size:32px; color:#f39c12; margin-bottom:12px;"></i>
+        <h4 style="font-size:1.15rem; margin-bottom:4px;">Axis Auto Capital</h4>
+        <span style="color:#2ecc71; font-size:13px; font-weight:700;">Starting at 7.5% APR</span>
+        <p style="font-size:13px; color:var(--text-muted); margin-top:8px;">Specialized customized lease plans for business owners and corporate fleets.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4: LEASE VS BUY COMPARISON -->
+<section class="section-pad" style="background: var(--bg-darker);">
+  <div class="container">
+    <div style="text-align:center; max-width:650px; margin:0 auto 48px;" class="reveal-on-scroll">
+      <span class="badge-tag">Financial Guidance</span>
+      <h2 class="section-title">Should You Buy or Lease?</h2>
+    </div>
+    <div class="features-grid-2">
+      <div class="feature-box-glass reveal-left" style="padding:0; overflow:hidden;">
+        <div class="card-thumb-wrap" style="height:180px;">
+          <img src="assets/photo-1618843479313-40f8afb4b4d8-b4ad2.webp" alt="Purchase"/>
+          <span class="card-thumb-badge">Full Ownership</span>
+        </div>
+        <div style="padding:28px 26px;">
+          <div style="display:flex; align-items:center; gap:12px; margin-bottom:14px;">
+            <i class="fas fa-key" style="font-size:24px; color:var(--primary);"></i>
+            <h3 style="font-size:1.3rem;">Traditional Purchase (Ownership)</h3>
+          </div>
+          <ul class="plan-features-list" style="margin:0;">
+            <li><i class="fas fa-check"></i> You own the vehicle outright after loan payoff</li>
+            <li><i class="fas fa-check"></i> Unlimited mileage with zero wear-and-tear penalties</li>
+            <li><i class="fas fa-check"></i> Free to customize rims, trims, and exhaust systems</li>
+            <li><i class="fas fa-check"></i> Highest long-term economic equity return in Salem</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="feature-box-glass reveal-right" style="padding:0; overflow:hidden;">
+        <div class="card-thumb-wrap" style="height:180px;">
+          <img src="assets/photo-1549399542-7e3f8b79c341-bda15.webp" alt="Lease"/>
+          <span class="card-thumb-badge">Low Monthly EMI</span>
+        </div>
+        <div style="padding:28px 26px;">
+          <div style="display:flex; align-items:center; gap:12px; margin-bottom:14px;">
+            <i class="fas fa-calendar-alt" style="font-size:24px; color:var(--accent-cyan);"></i>
+            <h3 style="font-size:1.3rem;">Flexible Dealership Lease</h3>
+          </div>
+          <ul class="plan-features-list" style="margin:0;">
+            <li><i class="fas fa-check"></i> Significantly lower monthly installments</li>
+            <li><i class="fas fa-check"></i> Upgrade to a brand new model every 24 or 36 months</li>
+            <li><i class="fas fa-check"></i> 100% covered under continuous manufacturer warranty</li>
+            <li><i class="fas fa-check"></i> Tax deduction benefits for registered business owners</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 5: APPLY FOR PRE-APPROVAL FORM -->
+<section class="section-pad">
+  <div class="container" style="max-width:780px;">
+    <div class="contact-form-wrapper reveal-on-scroll">
+      <span class="badge-tag">Online Submission</span>
+      <h2 style="font-size:1.8rem; font-weight:800; margin:8px 0 20px;">Apply For Pre-Approved Financing</h2>
+      <form id="financingApplicationForm" onsubmit="handleFinancingSubmit(event)">
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+          <div class="form-field-group">
+            <label>Full Legal Name</label>
+            <input type="text" id="finName" placeholder="Enter your full legal name (e.g. Rajesh Kumar)" required/>
+          </div>
+          <div class="form-field-group">
+            <label>Mobile Number</label>
+            <input type="tel" id="finPhone" placeholder="Enter your mobile number (e.g. +91 98427 00000)" required/>
+          </div>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+          <div class="form-field-group">
+            <label>Employment Type</label>
+            <select id="finEmp">
+              <option>Salaried (Private / Govt)</option>
+              <option>Self-Employed / Business Owner</option>
+              <option>Professional (Doctor / Lawyer / CA)</option>
+            </select>
+          </div>
+          <div class="form-field-group">
+            <label>Monthly Take-Home Income</label>
+            <input type="text" id="finIncome" placeholder="Enter monthly income (e.g. INR 85,000 or $1,500)" required/>
+          </div>
+        </div>
+        <div class="form-field-group">
+          <label>Interested Vehicle</label>
+          <select id="finCar">
+            <option>Timor Ventura Premium ($124,495)</option>
+            <option>Mercedes-Benz AMG GT ($89,500)</option>
+            <option>BMW M4 Competition ($78,900)</option>
+            <option>Audi RS7 Sportback ($105,000)</option>
+            <option>Porsche 911 Carrera S ($138,000)</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%; padding:14px; margin-top:10px;"><i class="fas fa-paper-plane"></i> Submit Pre-Approval Request</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer id="site-footer">
+  <div class="container footer-content-wrap">
+    <div class="footer-columns-grid">
+      <div>
+        <div class="footer-logo">
+          <img src="stackly-logo.svg" alt="Stackly"/>
+        </div>
+        <p class="footer-about-text">Stackly is a premier automotive experience provider. We offer transparent pricing, 150-point certified inspections, and customer-first service across Tamil Nadu.</p>
+        <div class="footer-social-icons">
+          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://x.com" target="_blank" rel="noopener noreferrer" aria-label="X"><i class="fab fa-x-twitter"></i></a>
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <div>
+        <h4 class="footer-col-header">Navigation</h4>
+        <ul class="footer-nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="service.html">Services</a></li>
+          <li><a href="listing.html">Car Listings</a></li>
+          <li><a href="team.html">Our Team</a></li>
+          <li><a href="blog.html">Blog &amp; News</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-col-header">Portals &amp; Tools</h4>
+        <ul class="footer-nav-links">
+          <li><a href="detail.html">Car Detail Page</a></li>
+          <li><a href="financing.html">Loan Calculator</a></li>
+          <li><a href="login.html">Login &amp; Sign Up</a></li>
+          <li><a href="customer-dashboard.html">Customer Portal</a></li>
+          <li><a href="admin-dashboard.html">Admin Management</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-col-header">Salem Head Office</h4>
+        <ul class="footer-contact-items">
+          <li><i class="fas fa-map-marker-alt"></i><span>Stackly Tower, Meyyanur Main Road, Salem - 636004, Tamil Nadu, India</span></li>
+          <li><i class="fas fa-phone-alt"></i><span>+91 427 244 8900 / +91 98427 12345</span></li>
+          <li><i class="fas fa-envelope"></i><span>contact@stackly.com</span></li>
+          <li><i class="fas fa-clock"></i><span>Mon &ndash; Sat: 8:00 AM &ndash; 7:00 PM</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-copyright-bar">
+      <span>&copy; 2026 Stackly Pvt. Ltd. All Rights Reserved.</span>
+      <span><a href="#">Privacy Policy</a> &middot; <a href="#">Terms &amp; Conditions</a></span>
+    </div>
+  </div>
+</footer>
+
+<button id="scrollTopBtn" aria-label="Scroll to top"><i class="fas fa-arrow-up"></i></button>
+
+<div id="videoModalWrapper">
+  <div class="video-modal-inner">
+    <button class="video-close-trigger" id="videoCloseTrigger">&times; Close</button>
+    <iframe id="videoFrame" width="100%" height="100%" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen style="border-radius:10px;"></iframe>
+  </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>

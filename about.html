@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About Us &ndash; Stackly</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<!-- ==============================================================================
+     STACKLY CINEMATIC 3-SECOND PHOTOREALISTIC SUPERCAR PRELOADER
+     ============================================================================== -->
+<div id="stacklyPreloader" class="stackly-preloader-overlay">
+  <div class="preloader-cinematic-stage">
+    <div class="preloader-top-brand">
+      <img src="stackly-logo.svg" alt="Stackly" class="preloader-cinematic-logo"/>
+      <div class="preloader-salem-badge"><i class="fas fa-star" style="color:var(--accent-cyan); font-size:10px;"></i> Luxury Automotive Experience <i class="fas fa-star" style="color:var(--accent-cyan); font-size:10px;"></i></div>
+    </div>
+    <div class="preloader-hud-display">
+      <div class="hud-item">
+        <span class="hud-label">GEAR</span>
+        <span class="hud-value" id="hudGear">1ST GEAR</span>
+      </div>
+      <div class="hud-item hud-center">
+        <span class="hud-label">SPEEDOMETER</span>
+        <span class="hud-value-large"><span id="hudSpeed">0</span> <small>KM/H</small></span>
+      </div>
+      <div class="hud-item">
+        <span class="hud-label">POWERTRAIN</span>
+        <span class="hud-value" id="hudPower">V8 BI-TURBO</span>
+      </div>
+    </div>
+    <div class="preloader-highway-stage" id="preloaderTrack">
+      <div class="speed-streaks-layer">
+        <span class="streak streak-1"></span>
+        <span class="streak streak-2"></span>
+        <span class="streak streak-3"></span>
+        <span class="streak streak-4"></span>
+      </div>
+      <div class="preloader-supercar-wrapper" id="preloaderCar">
+        <div class="supercar-headlight-cone"></div>
+        <div class="supercar-underglow-neon"></div>
+        <img src="assets/supercar-loader.webp" alt="Stackly Supercar" class="preloader-supercar-img"/>
+        <div class="supercar-nitro-exhaust"><span class="nitro-flame"></span></div>
+      </div>
+      <div class="preloader-highway-road"><div class="highway-dashes"></div></div>
+    </div>
+    <div class="preloader-progress-console">
+      <div class="progress-track-neon"><div class="progress-bar-neon" id="preloaderProgressBar"></div></div>
+      <div class="progress-info-row">
+        <span class="progress-status-msg" id="preloaderStatus"><i class="fas fa-tachometer-alt" style="color:var(--accent-pink);"></i> Igniting Twin-Turbo V8 Powertrain...</span>
+        <span class="progress-percent-val" id="preloaderPercent">0%</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<header id="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="logo-link">
+      <img src="stackly-logo.svg" alt="Stackly"/>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="">Home</a></li>
+      <li><a href="about.html" class="active">About Us</a></li>
+      <li><a href="service.html" class="">Service</a></li>
+      <li class="has-dropdown">
+        <a href="listing.html" class="">Listing Car</a>
+        <ul class="dropdown-panel">
+          <li><a href="detail.html"><i class="fas fa-car-side"></i> Car Detail Page</a></li>
+          <li><a href="financing.html"><i class="fas fa-calculator"></i> Financing &amp; Loan</a></li>
+        </ul>
+      </li>
+      <li><a href="team.html" class="">Team</a></li>
+      <li><a href="blog.html" class="">Blog</a></li>
+      <li><a href="contact.html" class="">Contact</a></li>
+    </ul>
+    <div class="header-cta">
+      <a href="login.html" id="authNavBtn" class="btn btn-outline btn-sm" style="border-color:var(--primary); color:var(--primary);"><i class="fas fa-sign-in-alt"></i> Login / Register</a>
+      <a href="listing.html" class="btn btn-primary btn-sm">Inventory</a>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle Navigation"><i class="fas fa-bars"></i></button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-drawer-backdrop" id="mobileDrawerBackdrop"></div>
+<div class="mobile-nav-drawer" id="mobileNavDrawer">
+  <div class="mobile-drawer-header">
+    <a href="index.html" class="drawer-logo">
+      <img src="stackly-logo.svg" alt="Stackly" style="height:32px;"/>
+    </a>
+    <button class="drawer-close" id="drawerClose" aria-label="Close Menu">&times;</button>
+  </div>
+
+  <div class="mobile-drawer-body">
+    <nav class="mobile-menu-list">
+      <a href="index.html" class="mobile-menu-link"><i class="fas fa-home"></i> Home</a>
+      <a href="about.html" class="mobile-menu-link"><i class="fas fa-info-circle"></i> About Us</a>
+      <a href="service.html" class="mobile-menu-link"><i class="fas fa-cogs"></i> Services</a>
+      <a href="listing.html" class="mobile-menu-link"><i class="fas fa-car"></i> Listing Car</a>
+      <div class="mobile-submenu">
+        <a href="detail.html" class="mobile-sublink"><i class="fas fa-angle-right"></i> Car Detail Page</a>
+        <a href="financing.html" class="mobile-sublink"><i class="fas fa-angle-right"></i> Financing &amp; Loan</a>
+      </div>
+      <a href="team.html" class="mobile-menu-link"><i class="fas fa-users"></i> Team</a>
+      <a href="blog.html" class="mobile-menu-link"><i class="fas fa-newspaper"></i> Blog</a>
+      <a href="contact.html" class="mobile-menu-link"><i class="fas fa-envelope"></i> Contact</a>
+    </nav>
+
+    <div class="mobile-drawer-actions">
+      <a href="login.html" class="btn btn-outline btn-sm mobile-action-btn" style="border-color:var(--primary); color:var(--primary); width:100%; justify-content:center;">
+        <i class="fas fa-user-circle"></i> Login / Register
+      </a>
+      <a href="listing.html" class="btn btn-primary btn-sm mobile-action-btn" style="width:100%; justify-content:center;">
+        <i class="fas fa-warehouse"></i> Browse Inventory
+      </a>
+    </div>
+
+    <div class="mobile-drawer-contact">
+      <div class="drawer-contact-item">
+        <i class="fas fa-phone-alt"></i>
+        <div>
+          <small style="display:block; color:var(--text-muted); font-size:11px;">Helpline</small>
+          <strong style="color:#fff; font-size:13px;">+91 98427 12345</strong>
+        </div>
+      </div>
+      <div class="drawer-contact-item">
+        <i class="fas fa-map-marker-alt"></i>
+        <div>
+          <small style="display:block; color:var(--text-muted); font-size:11px;">Showroom</small>
+          <span style="color:#fff; font-size:13px;">Meyyanur Main Rd, Salem</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="mobile-drawer-social">
+      <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="https://x.com" target="_blank" rel="noopener noreferrer" aria-label="X"><i class="fab fa-x-twitter"></i></a>
+      <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+      <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+    </div>
+  </div>
+</div>
+
+<div class="page-hero-banner">
+  <div class="container banner-content">
+    <h1 class="section-title">About Us</h1>
+    <div class="breadcrumbs">
+      <a href="index.html">Home</a>
+      <span>/</span>
+      <span>About Us</span>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 1: WHO WE ARE (ORIGINAL HERO SECTION) -->
+<section class="section-pad">
+  <div class="container">
+    <div class="about-duo-grid">
+      <div class="about-img-frame reveal-left">
+        <div class="experience-tag-box">
+          <strong>15+</strong>
+          <span>Years Experience</span>
+        </div>
+        <div class="about-main-img">
+          <img src="assets/successful-men-and-his-luxury-exotic-car-b22d9.webp" alt="About Stackly"/>
+        </div>
+        <div class="play-video-circle" id="videoOpenTrigger" title="Watch Video">
+          <i class="fas fa-play"></i>
+        </div>
+      </div>
+      <div class="reveal-right">
+        <span class="badge-tag">Who We Are</span>
+        <h2 class="section-title">A New Way To Buy Cars Safely in Salem</h2>
+        <p class="section-desc">Founded with a vision to redefine the automotive buying experience, Stackly has evolved into the premier dealership offering a curated collection of new and certified pre-owned vehicles in Salem with unmatched price transparency.</p>
+        <p class="section-desc" style="margin-top: 14px;">Every vehicle on our showroom floor undergoes an exhaustive 150-point inspection covering mechanical integrity, electronic diagnosis, frame alignment, and multi-speed road testing.</p>
+        
+        <div class="stat-counter-strip">
+          <div class="stat-box-card">
+            <div class="stat-number" data-target="365">0</div>
+            <div class="stat-title">Certified Experts</div>
+          </div>
+          <div class="stat-box-card">
+            <div class="stat-number" data-target="7215">0</div>
+            <div class="stat-title">Happy Owners</div>
+          </div>
+          <div class="stat-box-card">
+            <div class="stat-number" data-target="8271">0</div>
+            <div class="stat-title">Delivered Cars</div>
+          </div>
+        </div>
+
+        <a href="listing.html" class="btn btn-primary"><i class="fas fa-car"></i> Explore Showroom Cars</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2: CORE VALUE PILLARS -->
+<section class="section-pad" style="background: var(--bg-darker);">
+  <div class="container">
+    <div style="text-align: center; margin-bottom: 50px;" class="reveal-on-scroll">
+      <span class="badge-tag">Our Pillars</span>
+      <h2 class="section-title">The Stackly Commitment</h2>
+      <p class="section-desc">Four cornerstones that set our Salem dealership above traditional car sellers.</p>
+    </div>
+    <div class="features-grid-4">
+      <div class="feature-box-glass reveal-on-scroll stagger-1">
+        <div class="feature-box-icon"><i class="fas fa-handshake"></i></div>
+        <h3 style="font-size:1.2rem; margin-bottom:12px;">100% Price Transparency</h3>
+        <p class="section-desc" style="font-size:14px;">No hidden dealer fees, mandatory add-ons, or surprise paperwork charges. The price on the sticker is your real drive-away cost.</p>
+      </div>
+      <div class="feature-box-glass reveal-on-scroll stagger-2">
+        <div class="feature-box-icon"><i class="fas fa-award"></i></div>
+        <h3 style="font-size:1.2rem; margin-bottom:12px;">150-Point Certified</h3>
+        <p class="section-desc" style="font-size:14px;">Rigorous mechanical, chassis, safety system, and electronic diagnostics performed by ASE-certified master mechanics.</p>
+      </div>
+      <div class="feature-box-glass reveal-on-scroll stagger-3">
+        <div class="feature-box-icon"><i class="fas fa-shield-alt"></i></div>
+        <h3 style="font-size:1.2rem; margin-bottom:12px;">Extended Warranty</h3>
+        <p class="section-desc" style="font-size:14px;">Enjoy up to 36 months of bumper-to-bumper and comprehensive powertrain protection backed across Tamil Nadu.</p>
+      </div>
+      <div class="feature-box-glass reveal-on-scroll stagger-4">
+        <div class="feature-box-icon"><i class="fas fa-undo"></i></div>
+        <h3 style="font-size:1.2rem; margin-bottom:12px;">7-Day Money Back</h3>
+        <p class="section-desc" style="font-size:14px;">Drive with total peace of mind. If the vehicle doesn't match your lifestyle, exchange or return it within 7 days.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3: TIMELINE / OUR JOURNEY -->
+<section class="section-pad">
+  <div class="container">
+    <div style="text-align:center; margin-bottom:50px;" class="reveal-on-scroll">
+      <span class="badge-tag">Our History</span>
+      <h2 class="section-title">The Evolution of Stackly</h2>
+      <p class="section-desc">From our humble beginnings in Meyyanur to Salem's most trusted automotive destination.</p>
+    </div>
+    
+    <div class="features-grid-4">
+      <div class="timeline-card-box reveal-on-scroll stagger-1">
+        <img src="assets/photo-1560958089-b8a1929cea89-baeb3.webp" alt="Founding 2010" class="timeline-card-media"/>
+        <div class="timeline-card-body">
+          <span style="font-size:11px; color:var(--primary); font-weight:800; letter-spacing:1px; text-transform:uppercase;">2010 &bull; FOUNDED</span>
+          <h4 style="font-size:1.15rem; margin:6px 0 8px;">Salem Showroom</h4>
+          <p style="font-size:13.5px; color:var(--text-muted); line-height:1.6;">Established our first Meyyanur facility with a revolutionary zero-hidden-fee pricing pledge.</p>
+        </div>
+      </div>
+
+      <div class="timeline-card-box reveal-on-scroll stagger-2">
+        <img src="assets/photo-1517524008697-84bbe3c3fd98-23199.webp" alt="Inspection Lab 2016" class="timeline-card-media"/>
+        <div class="timeline-card-body">
+          <span style="font-size:11px; color:var(--primary); font-weight:800; letter-spacing:1px; text-transform:uppercase;">2016 &bull; LAB EXPANSION</span>
+          <h4 style="font-size:1.15rem; margin:6px 0 8px;">150-Point Certified Lab</h4>
+          <p style="font-size:13.5px; color:var(--text-muted); line-height:1.6;">Constructed our Kondalampatti bypass diagnostic bay with laser frame alignment rigs.</p>
+        </div>
+      </div>
+
+      <div class="timeline-card-box reveal-on-scroll stagger-3">
+        <img src="assets/photo-1503376780353-7e6692767b70-bd819.webp" alt="Stackly Tower 2021" class="timeline-card-media"/>
+        <div class="timeline-card-body">
+          <span style="font-size:11px; color:var(--primary); font-weight:800; letter-spacing:1px; text-transform:uppercase;">2021 &bull; LUXURY WING</span>
+          <h4 style="font-size:1.15rem; margin:6px 0 8px;">Stackly Tower</h4>
+          <p style="font-size:13.5px; color:var(--text-muted); line-height:1.6;">Inaugurated our multi-story climate-controlled luxury sports coupe and sedan flagship tower.</p>
+        </div>
+      </div>
+
+      <div class="timeline-card-box reveal-on-scroll stagger-4">
+        <img src="assets/photo-1551522435-a13afa10f103-c3489.webp" alt="Digital Dealership 2026" class="timeline-card-media"/>
+        <div class="timeline-card-body">
+          <span style="font-size:11px; color:var(--primary); font-weight:800; letter-spacing:1px; text-transform:uppercase;">2026 &bull; DIGITAL SUITE</span>
+          <h4 style="font-size:1.15rem; margin:6px 0 8px;">Smart Online Dealership</h4>
+          <p style="font-size:13.5px; color:var(--text-muted); line-height:1.6;">Launched live online car reservations, instant pre-approvals, and concierge home test drive delivery.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4: LEADERSHIP & EXECUTIVE PROFILES -->
+<section class="section-pad" style="background: var(--bg-darker);">
+  <div class="container">
+    <div style="text-align:center; max-width:650px; margin:0 auto 50px;" class="reveal-on-scroll">
+      <span class="badge-tag">Executive Board</span>
+      <h2 class="section-title">Leadership Behind Stackly Salem</h2>
+      <p class="section-desc">Guided by four industry veterans with over 50 combined years in high-performance automotive dealership management.</p>
+    </div>
+    <div class="team-deck-grid">
+      <div class="team-profile-card reveal-on-scroll stagger-1">
+        <div class="team-avatar-box">
+          <img src="assets/businessman-portrait-e1623127853804-fdb0e.webp" alt="Marcus Vance"/>
+        </div>
+        <div class="team-details-box">
+          <h4 style="font-size:1.15rem; font-weight:700; margin-bottom:4px;">Marcus Vance</h4>
+          <span style="font-size:13px; color:var(--primary); font-weight:600; margin-bottom:8px;">Managing Director &amp; Founder</span>
+          <p style="font-size:13px; color:var(--text-muted); margin:0;">Founder of Stackly with a vision for zero hidden fees.</p>
+        </div>
+      </div>
+
+      <div class="team-profile-card reveal-on-scroll stagger-2">
+        <div class="team-avatar-box">
+          <img src="assets/asian-businesswoman-e1623128079158-e97b3.webp" alt="Heather N. Wilkins"/>
+        </div>
+        <div class="team-details-box">
+          <h4 style="font-size:1.15rem; font-weight:700; margin-bottom:4px;">Heather N. Wilkins</h4>
+          <span style="font-size:13px; color:var(--primary); font-weight:600; margin-bottom:8px;">VP of Vehicle Acquisition</span>
+          <p style="font-size:13px; color:var(--text-muted); margin:0;">Curates rare and certified luxury inventory across South India.</p>
+        </div>
+      </div>
+
+      <div class="team-profile-card reveal-on-scroll stagger-3">
+        <div class="team-avatar-box">
+          <img src="assets/happy-young-businesswoman-in-suit-looking-at-camera-with-crossed-arms-isolated-on-white-e1623128154534-73c41.webp" alt="Lynn J. Roberts"/>
+        </div>
+        <div class="team-details-box">
+          <h4 style="font-size:1.15rem; font-weight:700; margin-bottom:4px;">Lynn J. Roberts</h4>
+          <span style="font-size:13px; color:var(--primary); font-weight:600; margin-bottom:8px;">Chief Financial Officer</span>
+          <p style="font-size:13px; color:var(--text-muted); margin:0;">Leads bank partnerships and low APR credit solutions.</p>
+        </div>
+      </div>
+
+      <div class="team-profile-card reveal-on-scroll stagger-4">
+        <div class="team-avatar-box">
+          <img src="assets/photo-1560250097-0b93528c311a-df05d.webp" alt="Keith A. Connolly"/>
+        </div>
+        <div class="team-details-box">
+          <h4 style="font-size:1.15rem; font-weight:700; margin-bottom:4px;">Keith A. Connolly</h4>
+          <span style="font-size:13px; color:var(--primary); font-weight:600; margin-bottom:8px;">Head of Technical Operations</span>
+          <p style="font-size:13px; color:var(--text-muted); margin:0;">Master Engineer overseeing our 150-Point Certified Lab in Salem.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 5: OFFICIAL BRAND ALLIANCES (PREMIUM CARDS) -->
+<section class="section-pad">
+  <div class="container">
+    <div style="text-align:center; max-width:650px; margin:0 auto 40px;" class="reveal-on-scroll">
+      <span class="badge-tag">Global Automotive Network</span>
+      <h2 class="section-title">Official Brand Sourcing Alliances</h2>
+      <p class="section-desc">Direct factory relationships and certified distributor partnerships ensuring 100% genuine vehicle sourcing.</p>
+    </div>
+    
+    <div class="brand-partner-grid-6">
+      <div class="brand-card-premium reveal-on-scroll stagger-1">
+        <div class="brand-card-icon"><i class="fas fa-gem"></i></div>
+        <div class="brand-card-name">Mercedes-Benz</div>
+        <div class="brand-card-origin">Stuttgart &bull; AMG Division</div>
+      </div>
+      <div class="brand-card-premium reveal-on-scroll stagger-2">
+        <div class="brand-card-icon"><i class="fas fa-tachometer-alt"></i></div>
+        <div class="brand-card-name">BMW M Series</div>
+        <div class="brand-card-origin">Munich &bull; Motorsport</div>
+      </div>
+      <div class="brand-card-premium reveal-on-scroll stagger-3">
+        <div class="brand-card-icon"><i class="fas fa-ring"></i></div>
+        <div class="brand-card-name">Audi Sport</div>
+        <div class="brand-card-origin">Ingolstadt &bull; Quattro</div>
+      </div>
+      <div class="brand-card-premium reveal-on-scroll stagger-4">
+        <div class="brand-card-icon"><i class="fas fa-horse-head"></i></div>
+        <div class="brand-card-name">Porsche</div>
+        <div class="brand-card-origin">Zuffenhausen &bull; GT / Turbo</div>
+      </div>
+      <div class="brand-card-premium reveal-on-scroll stagger-1">
+        <div class="brand-card-icon"><i class="fas fa-mountain"></i></div>
+        <div class="brand-card-name">Land Rover</div>
+        <div class="brand-card-origin">Gaydon &bull; Dynamic SUV</div>
+      </div>
+      <div class="brand-card-premium reveal-on-scroll stagger-2">
+        <div class="brand-card-icon"><i class="fas fa-leaf"></i></div>
+        <div class="brand-card-name">Toyota Hybrid</div>
+        <div class="brand-card-origin">Nagoya &bull; Hybrid Synergy</div>
+      </div>
+    </div>
+
+    <div style="margin-top:45px; text-align:center;">
+      <a href="listing.html" class="btn btn-primary"><i class="fas fa-car"></i> View Current In-Stock Inventory</a>
+      <a href="contact.html" class="btn btn-outline" style="margin-left:14px;"><i class="fas fa-search"></i> Request Custom Sourcing</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- SECTION: SALEM SHOWROOM FACILITY GALLERY -->
+<section class="section-pad" style="background: var(--bg-dark);">
+  <div class="container">
+    <div style="text-align:center; max-width:650px; margin:0 auto 36px;" class="reveal-on-scroll">
+      <span class="badge-tag">Salem World-Class Facilities</span>
+      <h2 class="section-title">Inside Stackly</h2>
+      <p class="section-desc">Experience our 25,000 sq.ft state-of-the-art facility featuring climate-controlled showrooms, private client consultation suites, and precision inspection bays.</p>
+    </div>
+    <div class="gallery-grid-4 reveal-on-scroll">
+      <div class="gallery-card-item">
+        <img src="assets/photo-1560958089-b8a1929cea89-3442a.webp" alt="Main Showroom Floor"/>
+        <div class="gallery-card-overlay">
+          <div class="gallery-card-title">Main Showroom Floor</div>
+          <div class="gallery-card-sub">Climate-Controlled Display</div>
+        </div>
+      </div>
+      <div class="gallery-card-item">
+        <img src="assets/photo-1617788138017-80ad40651399-ec564.webp" alt="VIP Client Lounge"/>
+        <div class="gallery-card-overlay">
+          <div class="gallery-card-title">VIP Client Lounge</div>
+          <div class="gallery-card-sub">Private Consultation Suites</div>
+        </div>
+      </div>
+      <div class="gallery-card-item">
+        <img src="assets/photo-1517524008697-84bbe3c3fd98-bbd29.webp" alt="Diagnostic & Service Bay"/>
+        <div class="gallery-card-overlay">
+          <div class="gallery-card-title">Diagnostic &amp; Service Bay</div>
+          <div class="gallery-card-sub">Laser 150-Point Rigs</div>
+        </div>
+      </div>
+      <div class="gallery-card-item">
+        <img src="assets/photo-1571127236794-81c0bbfe1ce3-6099d.webp" alt="Delivery Pavilion"/>
+        <div class="gallery-card-overlay">
+          <div class="gallery-card-title">Delivery Pavilion</div>
+          <div class="gallery-card-sub">Celebratory Handover</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<footer id="site-footer">
+  <div class="container footer-content-wrap">
+    <div class="footer-columns-grid">
+      <div>
+        <div class="footer-logo">
+          <img src="stackly-logo.svg" alt="Stackly"/>
+        </div>
+        <p class="footer-about-text">Stackly is a premier automotive experience provider. We offer transparent pricing, 150-point certified inspections, and customer-first service across Tamil Nadu.</p>
+        <div class="footer-social-icons">
+          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://x.com" target="_blank" rel="noopener noreferrer" aria-label="X"><i class="fab fa-x-twitter"></i></a>
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <div>
+        <h4 class="footer-col-header">Navigation</h4>
+        <ul class="footer-nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="service.html">Services</a></li>
+          <li><a href="listing.html">Car Listings</a></li>
+          <li><a href="team.html">Our Team</a></li>
+          <li><a href="blog.html">Blog &amp; News</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-col-header">Portals &amp; Tools</h4>
+        <ul class="footer-nav-links">
+          <li><a href="detail.html">Car Detail Page</a></li>
+          <li><a href="financing.html">Loan Calculator</a></li>
+          <li><a href="login.html">Login &amp; Sign Up</a></li>
+          <li><a href="customer-dashboard.html">Customer Portal</a></li>
+          <li><a href="admin-dashboard.html">Admin Management</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-col-header">Salem Head Office</h4>
+        <ul class="footer-contact-items">
+          <li><i class="fas fa-map-marker-alt"></i><span>Stackly Tower, Meyyanur Main Road, Salem - 636004, Tamil Nadu, India</span></li>
+          <li><i class="fas fa-phone-alt"></i><span>+91 427 244 8900 / +91 98427 12345</span></li>
+          <li><i class="fas fa-envelope"></i><span>contact@stackly.com</span></li>
+          <li><i class="fas fa-clock"></i><span>Mon &ndash; Sat: 8:00 AM &ndash; 7:00 PM</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-copyright-bar">
+      <span>&copy; 2026 Stackly Pvt. Ltd. All Rights Reserved.</span>
+      <span><a href="#">Privacy Policy</a> &middot; <a href="#">Terms &amp; Conditions</a></span>
+    </div>
+  </div>
+</footer>
+
+<button id="scrollTopBtn" aria-label="Scroll to top"><i class="fas fa-arrow-up"></i></button>
+
+<div id="videoModalWrapper">
+  <div class="video-modal-inner">
+    <button class="video-close-trigger" id="videoCloseTrigger">&times; Close</button>
+    <iframe id="videoFrame" width="100%" height="100%" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen style="border-radius:10px;"></iframe>
+  </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact Us &ndash; Stackly</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<!-- ==============================================================================
+     STACKLY CINEMATIC 3-SECOND PHOTOREALISTIC SUPERCAR PRELOADER
+     ============================================================================== -->
+<div id="stacklyPreloader" class="stackly-preloader-overlay">
+  <div class="preloader-cinematic-stage">
+    <div class="preloader-top-brand">
+      <img src="stackly-logo.svg" alt="Stackly" class="preloader-cinematic-logo"/>
+      <div class="preloader-salem-badge"><i class="fas fa-star" style="color:var(--accent-cyan); font-size:10px;"></i> Luxury Automotive Experience <i class="fas fa-star" style="color:var(--accent-cyan); font-size:10px;"></i></div>
+    </div>
+    <div class="preloader-hud-display">
+      <div class="hud-item">
+        <span class="hud-label">GEAR</span>
+        <span class="hud-value" id="hudGear">1ST GEAR</span>
+      </div>
+      <div class="hud-item hud-center">
+        <span class="hud-label">SPEEDOMETER</span>
+        <span class="hud-value-large"><span id="hudSpeed">0</span> <small>KM/H</small></span>
+      </div>
+      <div class="hud-item">
+        <span class="hud-label">POWERTRAIN</span>
+        <span class="hud-value" id="hudPower">V8 BI-TURBO</span>
+      </div>
+    </div>
+    <div class="preloader-highway-stage" id="preloaderTrack">
+      <div class="speed-streaks-layer">
+        <span class="streak streak-1"></span>
+        <span class="streak streak-2"></span>
+        <span class="streak streak-3"></span>
+        <span class="streak streak-4"></span>
+      </div>
+      <div class="preloader-supercar-wrapper" id="preloaderCar">
+        <div class="supercar-headlight-cone"></div>
+        <div class="supercar-underglow-neon"></div>
+        <img src="assets/supercar-loader.webp" alt="Stackly Supercar" class="preloader-supercar-img"/>
+        <div class="supercar-nitro-exhaust"><span class="nitro-flame"></span></div>
+      </div>
+      <div class="preloader-highway-road"><div class="highway-dashes"></div></div>
+    </div>
+    <div class="preloader-progress-console">
+      <div class="progress-track-neon"><div class="progress-bar-neon" id="preloaderProgressBar"></div></div>
+      <div class="progress-info-row">
+        <span class="progress-status-msg" id="preloaderStatus"><i class="fas fa-tachometer-alt" style="color:var(--accent-pink);"></i> Igniting Twin-Turbo V8 Powertrain...</span>
+        <span class="progress-percent-val" id="preloaderPercent">0%</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<header id="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="logo-link">
+      <img src="stackly-logo.svg" alt="Stackly"/>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="">Home</a></li>
+      <li><a href="about.html" class="">About Us</a></li>
+      <li><a href="service.html" class="">Service</a></li>
+      <li class="has-dropdown">
+        <a href="listing.html" class="">Listing Car</a>
+        <ul class="dropdown-panel">
+          <li><a href="detail.html"><i class="fas fa-car-side"></i> Car Detail Page</a></li>
+          <li><a href="financing.html"><i class="fas fa-calculator"></i> Financing &amp; Loan</a></li>
+        </ul>
+      </li>
+      <li><a href="team.html" class="">Team</a></li>
+      <li><a href="blog.html" class="">Blog</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+    </ul>
+    <div class="header-cta">
+      <a href="login.html" id="authNavBtn" class="btn btn-outline btn-sm" style="border-color:var(--primary); color:var(--primary);"><i class="fas fa-sign-in-alt"></i> Login / Register</a>
+      <a href="listing.html" class="btn btn-primary btn-sm">Inventory</a>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle Navigation"><i class="fas fa-bars"></i></button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-drawer-backdrop" id="mobileDrawerBackdrop"></div>
+<div class="mobile-nav-drawer" id="mobileNavDrawer">
+  <div class="mobile-drawer-header">
+    <a href="index.html" class="drawer-logo">
+      <img src="stackly-logo.svg" alt="Stackly" style="height:32px;"/>
+    </a>
+    <button class="drawer-close" id="drawerClose" aria-label="Close Menu">&times;</button>
+  </div>
+
+  <div class="mobile-drawer-body">
+    <nav class="mobile-menu-list">
+      <a href="index.html" class="mobile-menu-link"><i class="fas fa-home"></i> Home</a>
+      <a href="about.html" class="mobile-menu-link"><i class="fas fa-info-circle"></i> About Us</a>
+      <a href="service.html" class="mobile-menu-link"><i class="fas fa-cogs"></i> Services</a>
+      <a href="listing.html" class="mobile-menu-link"><i class="fas fa-car"></i> Listing Car</a>
+      <div class="mobile-submenu">
+        <a href="detail.html" class="mobile-sublink"><i class="fas fa-angle-right"></i> Car Detail Page</a>
+        <a href="financing.html" class="mobile-sublink"><i class="fas fa-angle-right"></i> Financing &amp; Loan</a>
+      </div>
+      <a href="team.html" class="mobile-menu-link"><i class="fas fa-users"></i> Team</a>
+      <a href="blog.html" class="mobile-menu-link"><i class="fas fa-newspaper"></i> Blog</a>
+      <a href="contact.html" class="mobile-menu-link"><i class="fas fa-envelope"></i> Contact</a>
+    </nav>
+
+    <div class="mobile-drawer-actions">
+      <a href="login.html" class="btn btn-outline btn-sm mobile-action-btn" style="border-color:var(--primary); color:var(--primary); width:100%; justify-content:center;">
+        <i class="fas fa-user-circle"></i> Login / Register
+      </a>
+      <a href="listing.html" class="btn btn-primary btn-sm mobile-action-btn" style="width:100%; justify-content:center;">
+        <i class="fas fa-warehouse"></i> Browse Inventory
+      </a>
+    </div>
+
+    <div class="mobile-drawer-contact">
+      <div class="drawer-contact-item">
+        <i class="fas fa-phone-alt"></i>
+        <div>
+          <small style="display:block; color:var(--text-muted); font-size:11px;">Helpline</small>
+          <strong style="color:#fff; font-size:13px;">+91 98427 12345</strong>
+        </div>
+      </div>
+      <div class="drawer-contact-item">
+        <i class="fas fa-map-marker-alt"></i>
+        <div>
+          <small style="display:block; color:var(--text-muted); font-size:11px;">Showroom</small>
+          <span style="color:#fff; font-size:13px;">Meyyanur Main Rd, Salem</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="mobile-drawer-social">
+      <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="https://x.com" target="_blank" rel="noopener noreferrer" aria-label="X"><i class="fab fa-x-twitter"></i></a>
+      <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+      <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+    </div>
+  </div>
+</div>
+
+<div class="page-hero-banner">
+  <div class="container banner-content">
+    <h1 class="section-title">Contact Us</h1>
+    <div class="breadcrumbs">
+      <a href="index.html">Home</a>
+      <span>/</span>
+      <span>Contact</span>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 1: CONTACT FORM & SHOWROOM DETAILS -->
+<section class="section-pad">
+  <div class="container">
+    <div class="contact-grid-split">
+      <div class="reveal-left">
+        <span class="badge-tag">Get In Touch</span>
+        <h2 class="section-title">We'd Love To Hear From You</h2>
+        <p class="section-desc" style="margin-bottom: 32px;">Have questions about vehicle inventory, financing, trade-in valuation, or booking a showroom visit? Reach out to our Salem concierge team anytime.</p>
+
+        <div class="contact-badge-card">
+          <div class="contact-icon-squircle"><i class="fas fa-map-marker-alt"></i></div>
+          <div>
+            <h4 style="font-size: 1.05rem; margin-bottom: 4px;">Main Showroom &amp; Headquarters</h4>
+            <p class="section-desc" style="font-size: 14px;">Stackly Tower, Meyyanur Main Road, Near New Bus Stand, Salem - 636004, Tamil Nadu, India</p>
+          </div>
+        </div>
+
+        <div class="contact-badge-card">
+          <div class="contact-icon-squircle"><i class="fas fa-phone-alt"></i></div>
+          <div>
+            <h4 style="font-size: 1.05rem; margin-bottom: 4px;">Direct Dealership Lines</h4>
+            <p class="section-desc" style="font-size: 14px;"><a href="tel:+914272448900">+91 427 244 8900</a> &bull; <a href="tel:+919842712345">+91 98427 12345</a></p>
+          </div>
+        </div>
+
+        <div class="contact-badge-card">
+          <div class="contact-icon-squircle"><i class="fas fa-envelope"></i></div>
+          <div>
+            <h4 style="font-size: 1.05rem; margin-bottom: 4px;">Email Support</h4>
+            <p class="section-desc" style="font-size: 14px;"><a href="mailto:contact@stackly.com">contact@stackly.com</a> &bull; <a href="mailto:sales@stackly.com">sales@stackly.com</a></p>
+          </div>
+        </div>
+
+        <div class="contact-badge-card">
+          <div class="contact-icon-squircle"><i class="fas fa-clock"></i></div>
+          <div>
+            <h4 style="font-size: 1.05rem; margin-bottom: 4px;">Working Hours</h4>
+            <p class="section-desc" style="font-size: 14px;">Monday &ndash; Saturday: 8:00 AM &ndash; 7:00 PM<br/>Sunday: 10:00 AM &ndash; 4:00 PM</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal-right">
+        <div class="contact-form-wrapper">
+          <h3 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 24px;">Send A Direct Message</h3>
+          <form id="contactFormMain" onsubmit="handleContactSubmit(event)">
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+              <div class="form-field-group">
+                <label>First Name</label>
+                <input type="text" id="contactFirstName" placeholder="Enter your first name (e.g. Jane)" required/>
+              </div>
+              <div class="form-field-group">
+                <label>Last Name</label>
+                <input type="text" id="contactLastName" placeholder="Enter your last name (e.g. Doe)" required/>
+              </div>
+            </div>
+
+            <div class="form-field-group">
+              <label>Email Address</label>
+              <input type="email" id="contactEmail" placeholder="Enter your email address (e.g. jane@example.com)" required/>
+            </div>
+
+            <div class="form-field-group">
+              <label>Phone Number</label>
+              <input type="tel" id="contactPhone" placeholder="Enter your phone number (e.g. +91 98427 00000)" required/>
+            </div>
+
+            <div class="form-field-group">
+              <label>Subject</label>
+              <select id="contactSubject">
+                <option>New Car Sales Inquiry</option>
+                <option>Pre-Owned Certification Check</option>
+                <option>Trade-In Valuation Estimate</option>
+                <option>Financing &amp; Loan Options</option>
+                <option>VIP Test Drive Request in Salem</option>
+              </select>
+            </div>
+
+            <div class="form-field-group">
+              <label>Message</label>
+              <textarea id="contactMessage" rows="4" placeholder="Enter your message or vehicle requirements here..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%; padding: 14px;"><i class="fas fa-paper-plane"></i> Send Inquiry</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2: INTERACTIVE SALEM MAP LOCATION -->
+<section class="section-pad" style="background: var(--bg-darker); padding-top:0;">
+  <div class="container">
+    <div style="text-align:center; max-width:650px; margin:0 auto 36px;" class="reveal-on-scroll">
+      <span class="badge-tag">Showroom Location</span>
+      <h2 class="section-title">Visit Us in Salem, Tamil Nadu</h2>
+      <p class="section-desc">Conveniently situated along Meyyanur Main Road, just 3 minutes from the Salem New Central Bus Terminus with dedicated valet customer parking.</p>
+    </div>
+    <div class="contact-map-wrapper reveal-on-scroll">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3907.391696472421!2d78.13470487570954!3d11.666614488541946!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3babf04746816521%3A0x6a1a1f0a28f7ff27!2sMeyyanur%20Main%20Rd%2C%20Salem%2C%20Tamil%20Nadu!5e0!3m2!1sen!2sin!4v1716123456789!5m2!1sen!2sin" width="100%" height="460" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3: SALEM REGIONAL BRANCH NETWORK -->
+<section class="section-pad">
+  <div class="container">
+    <div style="text-align:center; max-width:650px; margin:0 auto 48px;" class="reveal-on-scroll">
+      <span class="badge-tag">Showroom Network</span>
+      <h2 class="section-title">Our Salem Touchpoints</h2>
+      <p class="section-desc">Visit any of our specialized service lounges and display yards across Salem city.</p>
+    </div>
+    <div class="features-grid-3">
+      <div class="feature-box-glass reveal-on-scroll stagger-1" style="padding:0; overflow:hidden;">
+        <div class="card-thumb-wrap">
+          <img src="assets/photo-1560958089-b8a1929cea89-baeb3.webp" alt="Flagship Showroom"/>
+          <span class="card-thumb-badge">Meyyanur Flagship</span>
+        </div>
+        <div style="padding:22px 20px;">
+          <h3 style="font-size:1.25rem; margin-bottom:8px;">Flagship Showroom</h3>
+          <p style="font-size:14px; color:var(--text-muted); margin-bottom:12px;">Stackly Tower, Meyyanur Main Road, Salem &ndash; 636004</p>
+          <p style="font-size:13px; color:var(--accent-cyan);"><i class="fas fa-phone"></i> +91 427 244 8900</p>
+          <span class="status-tag status-confirmed" style="margin-top:12px;">New Cars &bull; VIP Lounge</span>
+        </div>
+      </div>
+
+      <div class="feature-box-glass reveal-on-scroll stagger-2" style="padding:0; overflow:hidden;">
+        <div class="card-thumb-wrap">
+          <img src="assets/photo-1503376780353-7e6692767b70-bd819.webp" alt="Certified Pre-Owned Yard"/>
+          <span class="card-thumb-badge">5 Roads Hub</span>
+        </div>
+        <div style="padding:22px 20px;">
+          <h3 style="font-size:1.25rem; margin-bottom:8px;">Certified Pre-Owned Yard</h3>
+          <p style="font-size:14px; color:var(--text-muted); margin-bottom:12px;">5 Roads Junction, Omalur Main Road, Salem &ndash; 636009</p>
+          <p style="font-size:13px; color:var(--accent-cyan);"><i class="fas fa-phone"></i> +91 98427 12345</p>
+          <span class="status-tag status-confirmed" style="margin-top:12px;">Trade-In &bull; Instant Valuation</span>
+        </div>
+      </div>
+
+      <div class="feature-box-glass reveal-on-scroll stagger-3" style="padding:0; overflow:hidden;">
+        <div class="card-thumb-wrap">
+          <img src="assets/photo-1517524008697-84bbe3c3fd98-23199.webp" alt="Service & Diagnostic Hub"/>
+          <span class="card-thumb-badge">NH-44 Bypass</span>
+        </div>
+        <div style="padding:22px 20px;">
+          <h3 style="font-size:1.25rem; margin-bottom:8px;">Service &amp; Diagnostic Hub</h3>
+          <p style="font-size:14px; color:var(--text-muted); margin-bottom:12px;">NH-44 Bypass Highway, Kondalampatti, Salem &ndash; 636010</p>
+          <p style="font-size:13px; color:var(--accent-cyan);"><i class="fas fa-phone"></i> +91 427 244 8999</p>
+          <span class="status-tag status-confirmed" style="margin-top:12px;">150-Pt Check &bull; Genuine Parts</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4: SHOWROOM CONCIERGE & TEST DRIVE PICKUP -->
+<section class="section-pad" style="background: var(--bg-darker);">
+  <div class="container">
+    <div class="features-grid-2">
+      <div class="reveal-left">
+        <span class="badge-tag">VIP Concierge</span>
+        <h2 class="section-title">Home Test Drive Delivery Across Salem</h2>
+        <p class="section-desc">Can't visit our showroom in Meyyanur? We will bring any car from our inventory directly to your residence or workplace in Salem, Namakkal, or Dharmapuri for a private test drive.</p>
+        <div style="margin:24px 0; display:flex; flex-direction:column; gap:12px;">
+          <div style="display:flex; align-items:center; gap:12px;"><i class="fas fa-check-circle" style="color:var(--accent-cyan);"></i> <span>Sanitized vehicles with personal product specialist</span></div>
+          <div style="display:flex; align-items:center; gap:12px;"><i class="fas fa-check-circle" style="color:var(--accent-cyan);"></i> <span>Flexible morning or evening time slots</span></div>
+          <div style="display:flex; align-items:center; gap:12px;"><i class="fas fa-check-circle" style="color:var(--accent-cyan);"></i> <span>Zero commitment trade-in estimate at your doorstep</span></div>
+        </div>
+        <a href="detail.html" class="btn btn-primary"><i class="fas fa-calendar-check"></i> Book Doorstep Drive</a>
+      </div>
+      <div class="reveal-right">
+        <div class="video-showcase-box">
+          <img src="assets/successful-men-and-his-luxury-exotic-car-b22d9.webp" alt="Concierge Experience"/>
+          <div class="video-play-btn-large" id="videoOpenTrigger"><i class="fas fa-play"></i></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 5: FREQUENTLY ASKED QUESTIONS -->
+<section class="section-pad">
+  <div class="container" style="max-width:860px;">
+    <div style="text-align:center; margin-bottom:48px;" class="reveal-on-scroll">
+      <span class="badge-tag">Common Queries</span>
+      <h2 class="section-title">Frequently Asked Questions</h2>
+      <p class="section-desc">Everything you need to know about visiting, booking, and financing at Stackly Salem.</p>
+    </div>
+    
+    <div class="faq-accordion-item active">
+      <div class="faq-header" onclick="toggleFaq(this)">
+        <span>What documents do I need to bring for a test drive?</span>
+        <i class="fas fa-chevron-down"></i>
+      </div>
+      <div class="faq-body">
+        All you need is a valid Indian driving license and a government-issued photo ID (Aadhaar or Voter ID). Our sales specialist will accompany you on a curated city and highway route in Salem.
+      </div>
+    </div>
+
+    <div class="faq-accordion-item">
+      <div class="faq-header" onclick="toggleFaq(this)">
+        <span>Can I exchange or trade-in my current car for a new one?</span>
+        <i class="fas fa-chevron-down"></i>
+      </div>
+      <div class="faq-body">
+        Yes! We offer on-the-spot vehicle appraisals with our certified master evaluators. We inspect your car, give you a guaranteed fair market quote in under 30 minutes, and transfer the equity toward your new purchase.
+      </div>
+    </div>
+
+    <div class="faq-accordion-item">
+      <div class="faq-header" onclick="toggleFaq(this)">
+        <span>Do you offer bank financing for customers outside Salem district?</span>
+        <i class="fas fa-chevron-down"></i>
+      </div>
+      <div class="faq-body">
+        Absolutely. We are authorized partners with HDFC, State Bank of India, ICICI, and Axis Bank. We process low-interest automotive loans for buyers across all districts of Tamil Nadu with rapid digital approvals.
+      </div>
+    </div>
+
+    <div class="faq-accordion-item">
+      <div class="faq-header" onclick="toggleFaq(this)">
+        <span>Where is your main service and parts center located?</span>
+        <i class="fas fa-chevron-down"></i>
+      </div>
+      <div class="faq-body">
+        Our state-of-the-art diagnostic and service center is situated along the Kondalampatti NH-44 highway bypass, fully equipped with automated alignment bays, paint booths, and computerized dyno testers.
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="site-footer">
+  <div class="container footer-content-wrap">
+    <div class="footer-columns-grid">
+      <div>
+        <div class="footer-logo">
+          <img src="stackly-logo.svg" alt="Stackly"/>
+        </div>
+        <p class="footer-about-text">Stackly is a premier automotive experience provider. We offer transparent pricing, 150-point certified inspections, and customer-first service across Tamil Nadu.</p>
+        <div class="footer-social-icons">
+          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://x.com" target="_blank" rel="noopener noreferrer" aria-label="X"><i class="fab fa-x-twitter"></i></a>
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <div>
+        <h4 class="footer-col-header">Navigation</h4>
+        <ul class="footer-nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="service.html">Services</a></li>
+          <li><a href="listing.html">Car Listings</a></li>
+          <li><a href="team.html">Our Team</a></li>
+          <li><a href="blog.html">Blog &amp; News</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-col-header">Portals &amp; Tools</h4>
+        <ul class="footer-nav-links">
+          <li><a href="detail.html">Car Detail Page</a></li>
+          <li><a href="financing.html">Loan Calculator</a></li>
+          <li><a href="login.html">Login &amp; Sign Up</a></li>
+          <li><a href="customer-dashboard.html">Customer Portal</a></li>
+          <li><a href="admin-dashboard.html">Admin Management</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-col-header">Salem Head Office</h4>
+        <ul class="footer-contact-items">
+          <li><i class="fas fa-map-marker-alt"></i><span>Stackly Tower, Meyyanur Main Road, Salem - 636004, Tamil Nadu, India</span></li>
+          <li><i class="fas fa-phone-alt"></i><span>+91 427 244 8900 / +91 98427 12345</span></li>
+          <li><i class="fas fa-envelope"></i><span>contact@stackly.com</span></li>
+          <li><i class="fas fa-clock"></i><span>Mon &ndash; Sat: 8:00 AM &ndash; 7:00 PM</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-copyright-bar">
+      <span>&copy; 2026 Stackly Pvt. Ltd. All Rights Reserved.</span>
+      <span><a href="#">Privacy Policy</a> &middot; <a href="#">Terms &amp; Conditions</a></span>
+    </div>
+  </div>
+</footer>
+
+<button id="scrollTopBtn" aria-label="Scroll to top"><i class="fas fa-arrow-up"></i></button>
+
+<div id="videoModalWrapper">
+  <div class="video-modal-inner">
+    <button class="video-close-trigger" id="videoCloseTrigger">&times; Close</button>
+    <iframe id="videoFrame" width="100%" height="100%" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen style="border-radius:10px;"></iframe>
+  </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
