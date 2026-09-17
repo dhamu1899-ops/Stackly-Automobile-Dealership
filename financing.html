@@ -196,12 +196,12 @@
         <div class="calc-module-card">
           <h3 style="font-size: 1.35rem; font-weight: 800; margin-bottom: 24px;"><i class="fas fa-calculator" style="color:var(--primary);"></i> Loan Estimator</h3>
           <div class="form-field-group">
-            <label>Vehicle Price ($ USD)</label>
-            <input type="number" id="calcPrice" value="35000" step="500" placeholder="Enter vehicle price (e.g. 35000)"/>
+            <label>Vehicle Price (₹ INR)</label>
+            <input type="number" id="calcPrice" value="3500000" step="50000" placeholder="Enter vehicle price (e.g. 3500000)"/>
           </div>
           <div class="form-field-group">
-            <label>Down Payment ($ USD)</label>
-            <input type="number" id="calcDown" value="5000" step="500" placeholder="Enter down payment (e.g. 5000)"/>
+            <label>Down Payment (₹ INR)</label>
+            <input type="number" id="calcDown" value="500000" step="25000" placeholder="Enter down payment (e.g. 500000)"/>
           </div>
           <div class="form-field-group">
             <label>Interest Rate (% APR)</label>
@@ -221,8 +221,8 @@
 
           <div class="calc-output-display">
             <span style="font-size: 12px; text-transform: uppercase; color: var(--text-muted); letter-spacing: 1px;">Estimated Installment</span>
-            <div class="monthly-result-text" id="calcMonthlyOut">$578.68 / mo</div>
-            <span id="calcTotalOut" style="font-size: 13px; color: var(--accent-cyan); font-weight: 600;">Total Loan: $34,721</span>
+            <div class="monthly-result-text" id="calcMonthlyOut">₹48,250 / mo</div>
+            <span id="calcTotalOut" style="font-size: 13px; color: var(--accent-cyan); font-weight: 600;">Total Loan: ₹28,95,000</span>
           </div>
         </div>
       </div>
@@ -371,17 +371,17 @@
           </div>
           <div class="form-field-group">
             <label>Monthly Take-Home Income</label>
-            <input type="text" id="finIncome" placeholder="Enter monthly income (e.g. INR 85,000 or $1,500)" required/>
+            <input type="text" id="finIncome" placeholder="Enter monthly income (e.g. ₹85,000 or ₹1,50,000)" required/>
           </div>
         </div>
         <div class="form-field-group">
           <label>Interested Vehicle</label>
           <select id="finCar">
-            <option>Timor Ventura Premium ($124,495)</option>
-            <option>Mercedes-Benz AMG GT ($89,500)</option>
-            <option>BMW M4 Competition ($78,900)</option>
-            <option>Audi RS7 Sportback ($105,000)</option>
-            <option>Porsche 911 Carrera S ($138,000)</option>
+            <option>Timor Ventura Premium (₹1,24,49,000)</option>
+            <option>Mercedes-Benz AMG GT (₹89,50,000)</option>
+            <option>BMW M4 Competition (₹78,90,000)</option>
+            <option>Audi RS7 Sportback (₹1,05,00,000)</option>
+            <option>Porsche 911 Carrera S (₹1,38,00,000)</option>
           </select>
         </div>
         <button type="submit" class="btn btn-primary" style="width:100%; padding:14px; margin-top:10px;"><i class="fas fa-paper-plane"></i> Submit Pre-Approval Request</button>
@@ -450,7 +450,7 @@
 <div id="videoModalWrapper">
   <div class="video-modal-inner">
     <button class="video-close-trigger" id="videoCloseTrigger">&times; Close</button>
-    <iframe id="videoFrame" width="100%" height="100%" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen style="border-radius:10px;"></iframe>
+    <iframe id="videoFrame" width="100%" height="100%" src="about:blank" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen style="border-radius:10px;"></iframe>
   </div>
 </div>
 <script src="script.js"></script>

@@ -3,6 +3,7 @@
 // STACKLY - CORE SCRIPT
 // Single-Line Navbar, Scroll Animations, Inventory Filters & Role Dashboards
 // ==============================================================================
+var preloaderStarted = false;
 
 // 1. Sticky Header Scroll Effect
 const siteHeader = document.getElementById('site-header');
@@ -49,9 +50,40 @@ if (mobileNavDrawer) {
   });
 }
 
+// ==============================================================================
+// 2B. DASHBOARD MOBILE DRAWER NAVIGATION
+// ==============================================================================
+const dashMobileToggle = document.getElementById('dashMobileToggle');
+const dashMobileDrawer = document.getElementById('dashMobileDrawer');
+const dashDrawerClose  = document.getElementById('dashDrawerClose');
+const dashDrawerBackdrop = document.getElementById('dashDrawerBackdrop');
+
+function openDashDrawer() {
+  if (dashMobileDrawer)   dashMobileDrawer.classList.add('open');
+  if (dashDrawerBackdrop) dashDrawerBackdrop.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeDashDrawer() {
+  if (dashMobileDrawer)   dashMobileDrawer.classList.remove('open');
+  if (dashDrawerBackdrop) dashDrawerBackdrop.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+if (dashMobileToggle)   dashMobileToggle.addEventListener('click', openDashDrawer);
+if (dashDrawerClose)    dashDrawerClose.addEventListener('click', closeDashDrawer);
+if (dashDrawerBackdrop) dashDrawerBackdrop.addEventListener('click', closeDashDrawer);
+
+// Close drawer on Escape key
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeDashDrawer();
+});
+
 // 3. High-Impact Scroll Reveal Animations for Sections & Elements
 function initScrollReveal() {
-  // A. Top Neon Page Scroll Progress Indicator Line (0% to 100% as you scroll down the page)
+  let vh = window.innerHeight;
+
+  // ── A. Top neon scroll progress line ──────────────────────────────────────
   let scrollLine = document.getElementById('pageScrollProgressLine');
   if (!scrollLine) {
     scrollLine = document.createElement('div');
@@ -59,199 +91,182 @@ function initScrollReveal() {
     scrollLine.className = 'page-scroll-progress-line';
     document.body.prepend(scrollLine);
   }
-
   function updatePageScrollProgress() {
-    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    if (docHeight > 0) {
-      const scrollPercent = Math.min(100, Math.max(0, (window.scrollY / docHeight) * 100));
-      if (scrollLine) scrollLine.style.width = scrollPercent + '%';
+    const docH = document.documentElement.scrollHeight - window.innerHeight;
+    if (docH > 0) {
+      scrollLine.style.width = Math.min(100, (window.scrollY / docH) * 100).toFixed(2) + '%';
     }
   }
 
-  // B. Setup Section Scroll Animations (Visibly animate each section as user scrolls)
-  const isDashboardPage = document.querySelector('.dash-wrapper') || document.body.classList.contains('dash-page');
-  const allSections = document.querySelectorAll('section, .page-hero-banner, footer#site-footer');
-
-  if (isDashboardPage) {
-    allSections.forEach(sec => sec.classList.add('section-active'));
-    document.querySelectorAll('.reveal-on-scroll, .reveal-left, .reveal-right').forEach(el => el.classList.add('revealed'));
+  // ── B. Dashboard pages: skip all scroll animation, show everything ─────────
+  if (document.querySelector('.dash-wrapper')) {
+    document.querySelectorAll('section, .page-hero-banner, footer#site-footer')
+      .forEach(s => s.classList.add('section-active'));
+    document.querySelectorAll('.reveal-on-scroll, .reveal-left, .reveal-right')
+      .forEach(e => e.classList.add('revealed'));
+    window.addEventListener('scroll', updatePageScrollProgress, { passive: true });
+    updatePageScrollProgress();
     return;
   }
 
-  allSections.forEach(sec => {
-    const rect = sec.getBoundingClientRect();
-    if (rect.top > window.innerHeight * 0.75) {
-      sec.classList.add('scroll-section-effect');
-    } else {
-      sec.classList.add('section-active');
-    }
-  });
+  // ── C. Gather all animatable sections ─────────────────────────────────────
+  const allSections = Array.from(
+    document.querySelectorAll('section, .page-hero-banner, footer#site-footer')
+  );
 
-  // C. Inner card/content element selectors
+  // ── D. Mark elements that need reveal classes ──────────────────────────────
   const targetSelectors = [
-    '.section-title',
-    '.section-desc',
-    '.badge-tag',
-    '.stat-card',
-    '.service-card',
-    '.car-inventory-tile',
-    '.kpi-card',
-    '.team-card',
-    '.blog-card',
-    '.partner-logo-item',
-    '.feature-box',
-    '.benefit-item',
-    '.faq-accordion-item',
-    '.pricing-card',
-    '.about-grid > div',
-    '.contact-grid > div',
-    '.gallery-preview-grid',
-    '.finance-calc-box',
-    '.features-grid-3 > div',
-    '.features-grid-2 > div',
-    '.features-grid-4 > div',
-    '.premium-card',
-    '.team-profile-card',
-    '.brand-card-premium',
-    '.timeline-card-box',
-    '.news-tile',
-    '.feature-box-glass',
+    '.section-title', '.section-desc', '.badge-tag',
+    '.stat-card', '.stat-box-card',
+    '.service-card', '.car-inventory-tile', '.kpi-card',
+    '.team-card', '.blog-card', '.partner-logo-item',
+    '.feature-box', '.benefit-item', '.faq-accordion-item',
+    '.pricing-card', '.premium-card',
+    '.about-grid > div', '.contact-grid > div',
+    '.gallery-preview-grid', '.finance-calc-box',
+    '.features-grid-3 > div', '.features-grid-2 > div', '.features-grid-4 > div',
+    '.team-profile-card', '.brand-card-premium', '.timeline-card-box',
+    '.news-tile', '.feature-box-glass', '.promo-car-card',
     '.footer-columns-grid > div'
   ];
 
-  const elements = document.querySelectorAll(targetSelectors.join(', '));
-
-  // Assign cascading stagger classes to children of all grid/row containers
-  const containerSelectors = [
-    '.services-grid',
-    '.inventory-grid',
-    '.stats-grid',
-    '.team-grid',
-    '.blog-grid',
-    '.kpi-grid',
-    '.footer-columns-grid',
-    '.brand-alliances-grid',
-    '.faq-accordion',
-    '.pricing-plans-grid',
-    '.about-grid',
-    '.contact-grid',
-    '.features-grid-3',
-    '.features-grid-2',
-    '.features-grid-4'
-  ];
-  
-  containerSelectors.forEach(sel => {
+  // Stagger children of grid containers
+  [
+    '.services-grid', '.inventory-grid', '.stats-grid', '.team-grid',
+    '.blog-grid', '.kpi-grid', '.footer-columns-grid', '.brand-alliances-grid',
+    '.faq-accordion', '.pricing-plans-grid', '.about-grid', '.contact-grid',
+    '.features-grid-3', '.features-grid-2', '.features-grid-4',
+    '.promo-cards-grid', '.partner-logos-strip', '.stat-counter-strip'
+  ].forEach(sel => {
     document.querySelectorAll(sel).forEach(grid => {
       Array.from(grid.children).forEach((child, idx) => {
-        const staggerNum = (idx % 6) + 1;
-        child.classList.add('stagger-' + staggerNum);
+        child.classList.add('stagger-' + ((idx % 8) + 1));
       });
     });
   });
 
-  elements.forEach(el => {
+  // Two-column content grids get directional reveals
+  document.querySelectorAll('.about-duo-grid, .detail-duo-grid, .content-split-grid').forEach(grid => {
+    Array.from(grid.children).forEach((child, idx) => {
+      if (!child.classList.contains('reveal-left') && !child.classList.contains('reveal-right') && !child.classList.contains('reveal-on-scroll')) {
+        child.classList.add(idx % 2 === 0 ? 'reveal-left' : 'reveal-right');
+      }
+    });
+  });
+
+  // Add reveal-on-scroll to all target elements not already classed
+  document.querySelectorAll(targetSelectors.join(', ')).forEach(el => {
     if (!el.classList.contains('reveal-on-scroll') && !el.classList.contains('reveal-left') && !el.classList.contains('reveal-right')) {
       el.classList.add('reveal-on-scroll');
     }
   });
 
-  // Real-time animation check for sections and inner cards
-  function checkScrollAnimations() {
-    const viewHeight = window.innerHeight || document.documentElement.clientHeight;
-    
-    // Animate sections into place
+  // ── E. Core reveal function ────────────────────────────────────────────────
+  // Called on every scroll tick. Reveals sections + their children as they enter view.
+  function checkAndReveal() {
+    vh = window.innerHeight;
+
     allSections.forEach(sec => {
       const r = sec.getBoundingClientRect();
-      if (r.top <= viewHeight * 0.90 && r.bottom >= 0) {
-        sec.classList.add('section-active');
-        sec.querySelectorAll('.reveal-on-scroll, .reveal-left, .reveal-right').forEach(child => {
-          child.classList.add('revealed');
-        });
+      // Section enters viewport from below
+      if (r.top < vh * 0.92 && r.bottom > 0) {
+        if (!sec.classList.contains('section-active')) {
+          sec.classList.add('section-active');
+        }
       }
     });
 
-    // Animate inner content items
-    const allAnimated = document.querySelectorAll('.reveal-on-scroll:not(.revealed), .reveal-left:not(.revealed), .reveal-right:not(.revealed)');
-    allAnimated.forEach(el => {
-      const rect = el.getBoundingClientRect();
-      if (rect.top <= viewHeight + 80 && rect.bottom >= -50) {
-        el.classList.add('revealed');
-      }
-    });
+    // Reveal individual inner elements as they enter viewport
+    document.querySelectorAll('.reveal-on-scroll:not(.revealed), .reveal-left:not(.revealed), .reveal-right:not(.revealed)')
+      .forEach(el => {
+        const r = el.getBoundingClientRect();
+        // Element top must be within viewport (strict: not below the fold)
+        if (r.top < vh * 0.95 && r.bottom > 0) {
+          el.classList.add('revealed');
+        }
+      });
 
     updatePageScrollProgress();
   }
 
+  // ── F. IntersectionObserver (preferred, accurate) ─────────────────────────
   if ('IntersectionObserver' in window) {
-    const sectionObserver = new IntersectionObserver((entries, obs) => {
+
+    // Section observer — triggers section rise-up
+    const secObs = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('section-active');
-          const innerEls = entry.target.querySelectorAll('.reveal-on-scroll, .reveal-left, .reveal-right');
-          innerEls.forEach((child, idx) => {
-            setTimeout(() => {
-              child.classList.add('revealed');
-            }, Math.min(idx * 50, 350));
+          // Cascade inner elements with micro-stagger
+          const inner = entry.target.querySelectorAll(
+            '.reveal-on-scroll:not(.revealed), .reveal-left:not(.revealed), .reveal-right:not(.revealed)'
+          );
+          inner.forEach((child, i) => {
+            setTimeout(() => child.classList.add('revealed'), Math.min(i * 60, 400));
           });
-          obs.unobserve(entry.target);
+          secObs.unobserve(entry.target);
         }
       });
-    }, {
-      threshold: 0.05,
-      rootMargin: '80px 0px -40px 0px'
-    });
-    allSections.forEach(sec => sectionObserver.observe(sec));
+    }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
 
-    const elementObserver = new IntersectionObserver((entries, obs) => {
+    // Element observer — triggers individual card animations
+    const elObs = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('revealed');
-          obs.unobserve(entry.target);
+          elObs.unobserve(entry.target);
         }
       });
-    }, {
-      threshold: 0.01,
-      rootMargin: '100px 0px 30px 0px'
+    }, { threshold: 0.05, rootMargin: '0px 0px -30px 0px' });
+
+    // Mark sections NOT yet in view with the hidden state
+    allSections.forEach(sec => {
+      const r = sec.getBoundingClientRect();
+      if (r.top >= vh * 0.95) {
+        // Not in initial viewport — set hidden + observe
+        sec.classList.add('scroll-section-effect');
+        secObs.observe(sec);
+      } else {
+        // Already in view on load — reveal immediately
+        sec.classList.add('section-active');
+        sec.querySelectorAll('.reveal-on-scroll, .reveal-left, .reveal-right')
+          .forEach(child => child.classList.add('revealed'));
+      }
     });
 
+    // Observe all child reveal elements
     document.querySelectorAll('.reveal-on-scroll, .reveal-left, .reveal-right').forEach(el => {
-      elementObserver.observe(el);
+      const r = el.getBoundingClientRect();
+      if (r.top >= vh * 0.95) {
+        elObs.observe(el);
+      } else {
+        el.classList.add('revealed'); // already on screen
+      }
     });
+
   } else {
-    // Immediate fallback
-    allSections.forEach(sec => sec.classList.add('section-active'));
-    document.querySelectorAll('.reveal-on-scroll, .reveal-left, .reveal-right').forEach(el => {
-      el.classList.add('revealed');
-    });
+    // No IntersectionObserver — reveal everything immediately
+    allSections.forEach(s => s.classList.add('section-active'));
+    document.querySelectorAll('.reveal-on-scroll, .reveal-left, .reveal-right')
+      .forEach(e => e.classList.add('revealed'));
   }
 
-  // Smooth real-time scroll listener
-  let scrollTicking = false;
+  // ── G. Scroll & resize listeners ──────────────────────────────────────────
+  let ticking = false;
   window.addEventListener('scroll', () => {
-    if (!scrollTicking) {
-      window.requestAnimationFrame(() => {
-        checkScrollAnimations();
-        scrollTicking = false;
-      });
-      scrollTicking = true;
+    if (!ticking) {
+      requestAnimationFrame(() => { checkAndReveal(); ticking = false; });
+      ticking = true;
     }
   }, { passive: true });
 
-  window.addEventListener('resize', checkScrollAnimations, { passive: true });
+  window.addEventListener('resize', () => {
+    vh = window.innerHeight;
+    checkAndReveal();
+  }, { passive: true });
 
-  // Initial immediate pass
-  checkScrollAnimations();
-
-  // Safety fallback timers
-  setTimeout(checkScrollAnimations, 500);
-  setTimeout(checkScrollAnimations, 1200);
-  setTimeout(checkScrollAnimations, 3200);
-  setTimeout(() => {
-    allSections.forEach(sec => sec.classList.add('section-active'));
-    document.querySelectorAll('.reveal-on-scroll, .reveal-left, .reveal-right').forEach(el => {
-      el.classList.add('revealed');
-    });
-  }, 4000);
+  // Run once immediately for the initial viewport
+  checkAndReveal();
 }
 
 // 4. Hero Slideshow
@@ -392,20 +407,20 @@ document.addEventListener('keydown', (e) => {
 const calcTrigger = document.getElementById('calcTrigger');
 if (calcTrigger) {
   calcTrigger.addEventListener('click', () => {
-    const price = +document.getElementById('calcPrice').value || 35000;
-    const down = +document.getElementById('calcDown').value || 5000;
+    const price = +document.getElementById('calcPrice').value || 3500000;
+    const down = +document.getElementById('calcDown').value || 500000;
     const rate = (+document.getElementById('calcRate').value || 5.9) / 100 / 12;
     const months = +document.getElementById('calcMonths').value || 60;
     const principal = price - down;
 
     if (principal <= 0) {
-      document.getElementById('calcMonthlyOut').textContent = '$0.00 / mo';
+      document.getElementById('calcMonthlyOut').textContent = '₹0 / mo';
       return;
     }
 
     const monthly = principal * (rate * Math.pow(1 + rate, months)) / (Math.pow(1 + rate, months) - 1);
-    document.getElementById('calcMonthlyOut').textContent = '$' + monthly.toFixed(2) + ' / mo';
-    document.getElementById('calcTotalOut').textContent = 'Total Loan: $' + (monthly * months).toFixed(0);
+    document.getElementById('calcMonthlyOut').textContent = '₹' + Math.round(monthly).toLocaleString('en-IN') + ' / mo';
+    document.getElementById('calcTotalOut').textContent = 'Total Loan: ₹' + Math.round(monthly * months).toLocaleString('en-IN');
   });
 }
 
@@ -810,7 +825,7 @@ function handleAddNewCar(e) {
   const model = document.getElementById('addCarModel')?.value || 'New Vehicle';
   const make = document.getElementById('addCarMake')?.value || 'Custom';
   const type = document.getElementById('addCarType')?.value || 'Sedan';
-  const price = +document.getElementById('addCarPrice')?.value || 50000;
+  const price = +document.getElementById('addCarPrice')?.value || 5000000;
   const cond = document.getElementById('addCarCond')?.value || 'New';
 
   const tbody = document.getElementById('adminQuickInventoryBody');
@@ -822,7 +837,7 @@ function handleAddNewCar(e) {
       <td><strong>${model}</strong></td>
       <td>${type}</td>
       <td>STK-${Math.floor(100000 + Math.random() * 900000)}</td>
-      <td>$${price.toLocaleString()}</td>
+      <td>₹${price.toLocaleString('en-IN')}</td>
       <td><span class="status-tag status-confirmed">Ready for Delivery</span></td>
       <td><button onclick="deleteCarRow('${rowId}')" class="btn btn-outline btn-sm" style="color:#e74c3c; border-color:rgba(231,76,60,0.3); padding:4px 8px; font-size:11px;"><i class="fas fa-trash"></i></button></td>
     `;
@@ -897,10 +912,10 @@ function filterStockTable() {
 
 function exportReportCSV() {
   const csvContent = "data:text/csv;charset=utf-8," 
-    + "Month,Units Sold,Gross Revenue,Top Model,Satisfaction\n"
-    + "August 2026,26,$2140000,Timor Ventura V2,98.4%\n"
-    + "July 2026,22,$1890000,Mercedes-Benz AMG GT,97.8%\n"
-    + "June 2026,19,$1650000,Porsche 911,99.1%\n";
+    + "Month,Units Sold,Gross Revenue (INR),Top Model,Satisfaction\n"
+    + "August 2026,26,INR 17800000,Timor Ventura V2,98.4%\n"
+    + "July 2026,22,INR 15700000,Mercedes-Benz AMG GT,97.8%\n"
+    + "June 2026,19,INR 13700000,Porsche 911,99.1%\n";
   const encodedUri = encodeURI(csvContent);
   const link = document.createElement("a");
   link.setAttribute("href", encodedUri);
@@ -917,18 +932,18 @@ function populateStockRegistry() {
   if (!fullTbody) return;
 
   const cars = [
-    { name: 'Mercedes-Benz AMG GT Coupe', make: 'Mercedes-Benz', type: 'Coupe', price: '$89,500', miles: '1,450 km', status: 'Available' },
-    { name: 'BMW M4 Competition', make: 'BMW', type: 'Sports Sedan', price: '$78,900', miles: '8,200 km', status: 'Available' },
-    { name: 'Audi RS7 Sportback Quattro', make: 'Audi', type: 'Sportback', price: '$105,000', miles: '520 km', status: 'Available' },
-    { name: 'Range Rover Sport Dynamic', make: 'Land Rover', type: 'SUV', price: '$94,500', miles: '14,800 km', status: 'Available' },
-    { name: 'Porsche 911 Carrera S', make: 'Porsche', type: 'Convertible', price: '$138,000', miles: '4,100 km', status: 'Reserved' },
-    { name: 'Ford Mustang GT Fastback', make: 'Ford', type: 'Fastback', price: '$56,800', miles: '850 km', status: 'Available' },
-    { name: 'Timor Hatchback V2', make: 'Timor', type: 'Hatchback', price: '$24,495', miles: '7,215 km', status: 'Available' },
-    { name: 'Timor Ventura V2', make: 'Timor', type: 'Sedan', price: '$24,495', miles: '7,215 km', status: 'Available' },
-    { name: 'Toyota Convertible', make: 'Toyota', type: 'Convertible', price: '$64,495', miles: '7,215 km', status: 'Inspection' },
-    { name: 'Mobilist Greenia', make: 'Mobilist', type: 'Hybrid', price: '$124,495', miles: '212 km', status: 'Available' },
-    { name: 'Mobilist Loka', make: 'Mobilist', type: 'Smart Coupe', price: '$64,495', miles: '7,215 km', status: 'Available' },
-    { name: 'Timor Ventura Sport', make: 'Timor', type: 'Coupe', price: '$124,495', miles: '212 km', status: 'Available' }
+    { name: 'Mercedes-Benz AMG GT Coupe', make: 'Mercedes-Benz', type: 'Coupe', price: '₹89,50,000', miles: '1,450 km', status: 'Available' },
+    { name: 'BMW M4 Competition', make: 'BMW', type: 'Sports Sedan', price: '₹78,90,000', miles: '8,200 km', status: 'Available' },
+    { name: 'Audi RS7 Sportback Quattro', make: 'Audi', type: 'Sportback', price: '₹1,05,00,000', miles: '520 km', status: 'Available' },
+    { name: 'Range Rover Sport Dynamic', make: 'Land Rover', type: 'SUV', price: '₹94,50,000', miles: '14,800 km', status: 'Available' },
+    { name: 'Porsche 911 Carrera S', make: 'Porsche', type: 'Convertible', price: '₹1,38,00,000', miles: '4,100 km', status: 'Reserved' },
+    { name: 'Ford Mustang GT Fastback', make: 'Ford', type: 'Fastback', price: '₹56,80,000', miles: '850 km', status: 'Available' },
+    { name: 'Timor Hatchback V2', make: 'Timor', type: 'Hatchback', price: '₹24,49,000', miles: '7,215 km', status: 'Available' },
+    { name: 'Timor Ventura V2', make: 'Timor', type: 'Sedan', price: '₹24,49,000', miles: '7,215 km', status: 'Available' },
+    { name: 'Toyota Convertible', make: 'Toyota', type: 'Convertible', price: '₹64,49,000', miles: '7,215 km', status: 'Inspection' },
+    { name: 'Mobilist Greenia', make: 'Mobilist', type: 'Hybrid', price: '₹1,24,49,000', miles: '212 km', status: 'Available' },
+    { name: 'Mobilist Loka', make: 'Mobilist', type: 'Smart Coupe', price: '₹64,49,000', miles: '7,215 km', status: 'Available' },
+    { name: 'Timor Ventura Sport', make: 'Timor', type: 'Coupe', price: '₹1,24,49,000', miles: '212 km', status: 'Available' }
   ];
 
   fullTbody.innerHTML = cars.map((c, i) => `
@@ -947,74 +962,97 @@ function populateStockRegistry() {
   `).join('');
 }
 
+// 12 Dealership Inventory Cars Data
+var custInventoryData = [
+  { name: 'Mercedes-Benz AMG GT Coupe', make: 'Mercedes-Benz', type: 'Coupe', price: '₹89,50,000', emi: '₹1,12,000/mo', hp: '523 HP', miles: '1,450 km', status: 'Available', img: 'assets/luxury-silver-sports-car-241de.webp' },
+  { name: 'BMW M4 Competition', make: 'BMW', type: 'Coupe', price: '₹78,90,000', emi: '₹98,500/mo', hp: '503 HP', miles: '8,200 km', status: 'Available', img: 'assets/sport-car-1-e1623321077599-2b4e7.webp' },
+  { name: 'Audi RS7 Sportback Quattro', make: 'Audi', type: 'Sedan', price: '₹1,05,00,000', emi: '₹1,30,000/mo', hp: '591 HP', miles: '520 km', status: 'Available', img: 'assets/car-3-e1623321014259-83cf6.webp' },
+  { name: 'Range Rover Sport Dynamic', make: 'Land Rover', type: 'SUV', price: '₹94,50,000', emi: '₹1,18,000/mo', hp: '395 HP', miles: '14,800 km', status: 'Available', img: 'assets/brand-new-vehicle-on-dealership-display-e1623320551734-ea3c7.webp' },
+  { name: 'Porsche 911 Carrera S', make: 'Porsche', type: 'Convertible', price: '₹1,38,00,000', emi: '₹1,71,000/mo', hp: '443 HP', miles: '4,100 km', status: 'Reserved', img: 'assets/studio-shot-of-three-dimensional-yellow-convertible-fd38c.webp' },
+  { name: 'Ford Mustang GT Fastback', make: 'Ford', type: 'Coupe', price: '₹56,80,000', emi: '₹71,000/mo', hp: '450 HP', miles: '850 km', status: 'Available', img: 'assets/headlight-of-old-car-e1623320588420-1b595.webp' },
+  { name: 'Timor Hatchback V2', make: 'Timor', type: 'Sedan', price: '₹24,49,000', emi: '₹31,000/mo', hp: '180 HP', miles: '7,215 km', status: 'Available', img: 'assets/car-3-e1623321014259-83cf6.webp' },
+  { name: 'Timor Ventura V2', make: 'Timor', type: 'Sedan', price: '₹24,49,000', emi: '₹31,000/mo', hp: '190 HP', miles: '7,215 km', status: 'Available', img: 'assets/sport-car-1-e1623321077599-2b4e7.webp' },
+  { name: 'Toyota Convertible', make: 'Toyota', type: 'Convertible', price: '₹64,49,000', emi: '₹80,000/mo', hp: '301 HP', miles: '7,215 km', status: 'Inspection', img: 'assets/studio-shot-of-three-dimensional-yellow-convertible-fd38c.webp' },
+  { name: 'Mobilist Greenia', make: 'Mobilist', type: 'Hybrid', price: '₹1,24,49,000', emi: '₹1,54,000/mo', hp: '680 HP', miles: '212 km', status: 'Available', img: 'assets/hybrid-car-1-c0f20.webp' },
+  { name: 'Mobilist Loka', make: 'Mobilist', type: 'Hybrid', price: '₹64,49,000', emi: '₹80,000/mo', hp: '290 HP', miles: '7,215 km', status: 'Available', img: 'assets/white-smart-car-07bdf.webp' },
+  { name: 'Timor Ventura Sport', make: 'Timor', type: 'SUV', price: '₹1,24,49,000', emi: '₹1,54,000/mo', hp: '420 HP', miles: '212 km', status: 'Available', img: 'assets/luxury-silver-sports-car-241de.webp' }
+];
+var activeCustCategory = 'all';
+
 // ==============================================================================
 // 14. INITIALIZE ALL ON DOM READY
 // ==============================================================================
 document.addEventListener('DOMContentLoaded', () => {
+  // Always run preloader first so it starts immediately
+  try { initStacklyPreloader(); } catch (e) { console.error('Preloader init error:', e); }
+
   // Global Auth State Handler & Dynamic User Binding
-  const user = JSON.parse(localStorage.getItem('stackly_user') || 'null');
-  const authNavBtn = document.getElementById('authNavBtn');
-  
-  if (user && authNavBtn) {
-    // Show logged-in username and role on navbar across all 14 pages
-    const displayRole = user.role === 'admin' ? 'Admin' : 'Customer';
-    const roleIcon = user.role === 'admin' ? 'fa-user-shield' : 'fa-user-circle';
-    authNavBtn.innerHTML = `<i class="fas ${roleIcon}"></i> ${user.name} (${displayRole})`;
-    authNavBtn.href = user.role === 'admin' ? 'admin-dashboard.html' : 'customer-dashboard.html';
-    authNavBtn.title = `Logged in as ${user.email}. Click to open ${displayRole} Dashboard`;
-    authNavBtn.style.borderColor = user.role === 'admin' ? 'var(--accent-pink)' : 'var(--primary)';
-    authNavBtn.style.color = user.role === 'admin' ? 'var(--accent-pink)' : 'var(--primary)';
+  try {
+    const user = JSON.parse(localStorage.getItem('stackly_user') || 'null');
+    const authNavBtn = document.getElementById('authNavBtn');
+    
+    if (user && authNavBtn) {
+      // Show logged-in username and role on navbar across all 14 pages
+      const displayRole = user.role === 'admin' ? 'Admin' : 'Customer';
+      const roleIcon = user.role === 'admin' ? 'fa-user-shield' : 'fa-user-circle';
+      authNavBtn.innerHTML = `<i class="fas ${roleIcon}"></i> ${user.name} (${displayRole})`;
+      authNavBtn.href = user.role === 'admin' ? 'admin-dashboard.html' : 'customer-dashboard.html';
+      authNavBtn.title = `Logged in as ${user.email}. Click to open ${displayRole} Dashboard`;
+      authNavBtn.style.borderColor = user.role === 'admin' ? 'var(--accent-pink)' : 'var(--primary)';
+      authNavBtn.style.color = user.role === 'admin' ? 'var(--accent-pink)' : 'var(--primary)';
 
-    // Insert quick logout button if on navbar
-    if (authNavBtn.parentElement && !document.getElementById('navLogoutBtn')) {
-      const logoutBtn = document.createElement('a');
-      logoutBtn.id = 'navLogoutBtn';
-      logoutBtn.href = '#';
-      logoutBtn.className = 'btn btn-outline btn-sm';
-      logoutBtn.style.cssText = 'border-color: rgba(231,76,60,0.4); color: #e74c3c; margin-left: 8px; padding: 6px 12px; font-size: 12px;';
-      logoutBtn.innerHTML = '<i class="fas fa-sign-out-alt"></i> Logout';
-      logoutBtn.onclick = (e) => { e.preventDefault(); handleLogout(); };
-      authNavBtn.parentElement.appendChild(logoutBtn);
+      // Insert quick logout button if on navbar
+      if (authNavBtn.parentElement && !document.getElementById('navLogoutBtn')) {
+        const logoutBtn = document.createElement('a');
+        logoutBtn.id = 'navLogoutBtn';
+        logoutBtn.href = '#';
+        logoutBtn.className = 'btn btn-outline btn-sm';
+        logoutBtn.style.cssText = 'border-color: rgba(231,76,60,0.4); color: #e74c3c; margin-left: 8px; padding: 6px 12px; font-size: 12px;';
+        logoutBtn.innerHTML = '<i class="fas fa-sign-out-alt"></i> Logout';
+        logoutBtn.onclick = (e) => { e.preventDefault(); handleLogout(); };
+        authNavBtn.parentElement.appendChild(logoutBtn);
+      }
     }
+
+    // Populate dynamic user info in Customer Dashboard
+    if (user && user.role === 'customer') {
+      const pName = document.getElementById('custProfileName');
+      const pEmail = document.getElementById('custProfileEmail');
+      const pGreet = document.getElementById('welcomeGreeting');
+      const pAvatar = document.getElementById('custAvatar');
+      const settingName = document.getElementById('settingCustName');
+      const settingEmail = document.getElementById('settingCustEmail');
+
+      if (pName && user.name) pName.textContent = user.name;
+      if (pEmail && user.email) pEmail.textContent = user.email;
+      if (pGreet && user.name) pGreet.textContent = 'Welcome back, ' + user.name + '!';
+      if (pAvatar && user.name) pAvatar.innerHTML = '<span style="font-size:1.3rem; font-weight:700;">' + user.name.charAt(0).toUpperCase() + '</span>';
+      if (settingName && user.name) settingName.value = user.name;
+      if (settingEmail && user.email) settingEmail.value = user.email;
+    }
+
+    // Populate dynamic user info in Admin Dashboard
+    if (user && user.role === 'admin') {
+      const aName = document.getElementById('adminProfileName');
+      const aEmail = document.getElementById('adminProfileEmail');
+      const aGreet = document.getElementById('adminWelcomeGreeting');
+      const aAvatar = document.getElementById('adminAvatar');
+
+      if (aName && user.name) aName.textContent = user.name;
+      if (aEmail && user.email) aEmail.textContent = user.email;
+      if (aGreet && user.name) aGreet.textContent = 'Welcome back, ' + user.name + '! (Operations Overview)';
+      if (aAvatar && user.name) aAvatar.innerHTML = '<span style="font-size:1.3rem; font-weight:700;">' + user.name.charAt(0).toUpperCase() + '</span>';
+    }
+  } catch (e) {
+    console.error('Auth handler error:', e);
   }
 
-  // Populate dynamic user info in Customer Dashboard
-  if (user && user.role === 'customer') {
-    const pName = document.getElementById('custProfileName');
-    const pEmail = document.getElementById('custProfileEmail');
-    const pGreet = document.getElementById('welcomeGreeting');
-    const pAvatar = document.getElementById('custAvatar');
-    const settingName = document.getElementById('settingCustName');
-    const settingEmail = document.getElementById('settingCustEmail');
-
-    if (pName && user.name) pName.textContent = user.name;
-    if (pEmail && user.email) pEmail.textContent = user.email;
-    if (pGreet && user.name) pGreet.textContent = 'Welcome back, ' + user.name + '!';
-    if (pAvatar && user.name) pAvatar.innerHTML = '<span style="font-size:1.3rem; font-weight:700;">' + user.name.charAt(0).toUpperCase() + '</span>';
-    if (settingName && user.name) settingName.value = user.name;
-    if (settingEmail && user.email) settingEmail.value = user.email;
-  }
-
-  // Populate dynamic user info in Admin Dashboard
-  if (user && user.role === 'admin') {
-    const aName = document.getElementById('adminProfileName');
-    const aEmail = document.getElementById('adminProfileEmail');
-    const aGreet = document.getElementById('adminWelcomeGreeting');
-    const aAvatar = document.getElementById('adminAvatar');
-
-    if (aName && user.name) aName.textContent = user.name;
-    if (aEmail && user.email) aEmail.textContent = user.email;
-    if (aGreet && user.name) aGreet.textContent = 'Welcome back, ' + user.name + '! (Operations Overview)';
-    if (aAvatar && user.name) aAvatar.innerHTML = '<span style="font-size:1.3rem; font-weight:700;">' + user.name.charAt(0).toUpperCase() + '</span>';
-  }
-
-  initScrollReveal();
-  initInventoryFilters();
-  initDashboardTabs();
-  populateStockRegistry();
-  renderCustInventoryCards();
-  calculateLiveEmi();
-  initStacklyPreloader();
+  try { initScrollReveal(); } catch (e) { console.error('Scroll reveal error:', e); }
+  try { initInventoryFilters(); } catch (e) { console.error('Inventory filters error:', e); }
+  try { initDashboardTabs(); } catch (e) { console.error('Dashboard tabs error:', e); }
+  try { populateStockRegistry(); } catch (e) { console.error('Stock registry error:', e); }
+  try { renderCustInventoryCards(); } catch (e) { console.error('Cust inventory error:', e); }
+  try { calculateLiveEmi(); } catch (e) { console.error('EMI error:', e); }
 });
 
 
@@ -1090,8 +1128,10 @@ function handleNewsletterSubmit(e) {
 // 15. STACKLY CINEMATIC 3-SECOND SUPERCAR PRELOADER & SMOOTH PAGE NAVIGATION
 // ==============================================================================
 function initStacklyPreloader() {
+  if (preloaderStarted) return;
   const preloader = document.getElementById('stacklyPreloader');
   if (!preloader) return;
+  preloaderStarted = true;
 
   const car = document.getElementById('preloaderCar');
   const track = document.getElementById('preloaderTrack');
@@ -1101,7 +1141,7 @@ function initStacklyPreloader() {
   const speedText = document.getElementById('hudSpeed');
   const gearText = document.getElementById('hudGear');
 
-  const DURATION = 3000; // Exactly 3.0 seconds
+  const DURATION = 3000; // Exactly 3.0 seconds loading time
   let startTimestamp = null;
 
   // Explicit initial frame state
@@ -1109,6 +1149,26 @@ function initStacklyPreloader() {
   if (percentText) percentText.textContent = '0%';
   if (speedText) speedText.textContent = '0';
   if (gearText) gearText.textContent = '1ST GEAR';
+
+  // Hard safety timeout: guaranteed fade out after 3.8 seconds if any tab throttle occurs
+  setTimeout(() => {
+    if (preloader && preloader.style.display !== 'none') {
+      preloader.classList.add('fade-out');
+      setTimeout(() => {
+        preloader.style.display = 'none';
+        window.dispatchEvent(new Event('scroll'));
+        window.dispatchEvent(new Event('resize'));
+      }, 550);
+    }
+  }, 3800);
+
+  // bfcache handler: only hide preloader if page was restored via browser back/forward history
+  window.addEventListener('pageshow', (event) => {
+    if (event && event.persisted && preloader) {
+      preloader.classList.add('fade-out');
+      preloader.style.display = 'none';
+    }
+  });
 
   function updatePreloader(currentTime) {
     if (!startTimestamp) startTimestamp = currentTime || performance.now();
@@ -1203,7 +1263,7 @@ function togglePasswordVisibility(inputId, toggleIcon) {
   }
 }
 
-// Smooth Page Navigation handler for seamless transitions
+// Smooth Page Navigation handler for seamless transitions across all pages
 function initSmoothNavigation() {
   document.addEventListener('click', (e) => {
     const link = e.target.closest('a');
@@ -1212,7 +1272,7 @@ function initSmoothNavigation() {
     const href = link.getAttribute('href');
     if (!href) return;
 
-    // Ignore anchors, external links, javascript, tel, mailto, target="_blank"
+    // Ignore anchors, JS actions, mail, phone, new tabs, external URLs
     if (
       href.startsWith('#') ||
       href.startsWith('javascript:') ||
@@ -1225,27 +1285,12 @@ function initSmoothNavigation() {
       return;
     }
 
-    // Intercept internal page navigation (.html)
-    if (href.endsWith('.html') || (!href.includes('://') && !href.startsWith('#'))) {
-      e.preventDefault();
-      const targetUrl = href;
+    // When navigating to another page, smoothly display the supercar loader
+    if (href.endsWith('.html')) {
       const preloader = document.getElementById('stacklyPreloader');
-
       if (preloader) {
-        // Smoothly reveal preloader and navigate
         preloader.style.display = 'flex';
         preloader.classList.remove('fade-out');
-        const car = document.getElementById('preloaderCar');
-        if (car) {
-          car.style.transition = 'none';
-          car.style.transform = 'none';
-          car.style.left = '0px';
-        }
-        setTimeout(() => {
-          window.location.href = targetUrl;
-        }, 220);
-      } else {
-        window.location.href = targetUrl;
       }
     }
   });
@@ -1285,24 +1330,6 @@ function switchCustTab(tabId, navBtn) {
     renderCustInventoryCards();
   }
 }
-
-// 12 Dealership Inventory Cars Data
-const custInventoryData = [
-  { name: 'Mercedes-Benz AMG GT Coupe', make: 'Mercedes-Benz', type: 'Coupe', price: '$89,500', emi: '$1,340/mo', hp: '523 HP', miles: '1,450 km', status: 'Available', img: 'assets/luxury-silver-sports-car-241de.webp' },
-  { name: 'BMW M4 Competition', make: 'BMW', type: 'Coupe', price: '$78,900', emi: '$1,180/mo', hp: '503 HP', miles: '8,200 km', status: 'Available', img: 'assets/sport-car-1-e1623321077599-2b4e7.webp' },
-  { name: 'Audi RS7 Sportback Quattro', make: 'Audi', type: 'Sedan', price: '$105,000', emi: '$1,560/mo', hp: '591 HP', miles: '520 km', status: 'Available', img: 'assets/car-3-e1623321014259-83cf6.webp' },
-  { name: 'Range Rover Sport Dynamic', make: 'Land Rover', type: 'SUV', price: '$94,500', emi: '$1,410/mo', hp: '395 HP', miles: '14,800 km', status: 'Available', img: 'assets/brand-new-vehicle-on-dealership-display-e1623320551734-ea3c7.webp' },
-  { name: 'Porsche 911 Carrera S', make: 'Porsche', type: 'Convertible', price: '$138,000', emi: '$2,050/mo', hp: '443 HP', miles: '4,100 km', status: 'Reserved', img: 'assets/studio-shot-of-three-dimensional-yellow-convertible-fd38c.webp' },
-  { name: 'Ford Mustang GT Fastback', make: 'Ford', type: 'Coupe', price: '$56,800', emi: '$850/mo', hp: '450 HP', miles: '850 km', status: 'Available', img: 'assets/headlight-of-old-car-e1623320588420-1b595.webp' },
-  { name: 'Timor Hatchback V2', make: 'Timor', type: 'Sedan', price: '$24,495', emi: '$370/mo', hp: '180 HP', miles: '7,215 km', status: 'Available', img: 'assets/car-3-e1623321014259-83cf6.webp' },
-  { name: 'Timor Ventura V2', make: 'Timor', type: 'Sedan', price: '$24,495', emi: '$370/mo', hp: '190 HP', miles: '7,215 km', status: 'Available', img: 'assets/sport-car-1-e1623321077599-2b4e7.webp' },
-  { name: 'Toyota Convertible', make: 'Toyota', type: 'Convertible', price: '$64,495', emi: '$960/mo', hp: '301 HP', miles: '7,215 km', status: 'Inspection', img: 'assets/studio-shot-of-three-dimensional-yellow-convertible-fd38c.webp' },
-  { name: 'Mobilist Greenia', make: 'Mobilist', type: 'Hybrid', price: '$124,495', emi: '$1,850/mo', hp: '680 HP', miles: '212 km', status: 'Available', img: 'assets/hybrid-car-1-c0f20.webp' },
-  { name: 'Mobilist Loka', make: 'Mobilist', type: 'Hybrid', price: '$64,495', emi: '$960/mo', hp: '290 HP', miles: '7,215 km', status: 'Available', img: 'assets/white-smart-car-07bdf.webp' },
-  { name: 'Timor Ventura Sport', make: 'Timor', type: 'SUV', price: '$124,495', emi: '$1,850/mo', hp: '420 HP', miles: '212 km', status: 'Available', img: 'assets/luxury-silver-sports-car-241de.webp' }
-];
-
-let activeCustCategory = 'all';
 
 function renderCustInventoryCards(filterText = '') {
   const container = document.getElementById('custInventoryGrid');
@@ -1410,7 +1437,7 @@ function toggleSaveWishlist(carName, btn) {
 
 // Live Real-Time Interactive Loan EMI Calculator
 function calculateLiveEmi() {
-  const loanAmt = +document.getElementById('calcLoanAmt')?.value || 45000;
+  const loanAmt = +document.getElementById('calcLoanAmt')?.value || 3750000;
   const annualRate = +document.getElementById('calcRate')?.value || 7.2;
   const tenureMonths = +document.getElementById('calcTenure')?.value || 60;
 
@@ -1418,7 +1445,7 @@ function calculateLiveEmi() {
   const amtEl = document.getElementById('calcLoanAmtText');
   const rateEl = document.getElementById('calcRateText');
   const tenureEl = document.getElementById('calcTenureText');
-  if (amtEl) amtEl.textContent = '$' + loanAmt.toLocaleString();
+  if (amtEl) amtEl.textContent = '₹' + loanAmt.toLocaleString('en-IN');
   if (rateEl) rateEl.textContent = annualRate.toFixed(1) + '%';
   if (tenureEl) tenureEl.textContent = tenureMonths + ' Months (' + (tenureMonths / 12).toFixed(1) + ' Yrs)';
 
@@ -1432,9 +1459,9 @@ function calculateLiveEmi() {
   const intEl = document.getElementById('calcTotalInterest');
   const payEl = document.getElementById('calcTotalPayment');
 
-  if (emiEl) emiEl.innerHTML = '$' + Math.round(emi).toLocaleString() + ' <small style="font-size:14px; font-weight:500; color:var(--text-muted);">/ mo</small>';
-  if (intEl) intEl.textContent = '$' + Math.round(totalInterest).toLocaleString();
-  if (payEl) payEl.textContent = '$' + Math.round(totalPayment).toLocaleString();
+  if (emiEl) emiEl.innerHTML = '₹' + Math.round(emi).toLocaleString('en-IN') + ' <small style="font-size:14px; font-weight:500; color:var(--text-muted);">/ mo</small>';
+  if (intEl) intEl.textContent = '₹' + Math.round(totalInterest).toLocaleString('en-IN');
+  if (payEl) payEl.textContent = '₹' + Math.round(totalPayment).toLocaleString('en-IN');
 }
 
 function downloadSanctionLetter() {
@@ -1445,7 +1472,7 @@ function downloadSanctionLetter() {
       + "PRE-APPROVED CREDIT FACILITY CERTIFICATE\n"
       + "----------------------------------------------------\n"
       + "Client: " + user.name + "\n"
-      + "Sanctioned Amount: $45,000 USD (INR 37,50,000)\n"
+      + "Sanctioned Amount: ₹37,50,000 INR (Thirty-Seven Lakhs Fifty Thousand Rupees)\n"
       + "Consortium Partners: HDFC Bank & SBI Automotive\n"
       + "Fixed APR: 7.2% for 60 Months\n"
       + "Certificate Ref: STK-VIP-LN-9921\n"
@@ -1461,4 +1488,9 @@ function downloadSanctionLetter() {
 
 function openShowroomRoute() {
   window.open("https://maps.google.com/?q=Stackly+Meyyanur+Salem+Tamil+Nadu", "_blank");
+}
+
+// Start 3-second preloader immediately on script load
+if (document.getElementById('stacklyPreloader')) {
+  try { initStacklyPreloader(); } catch (e) { console.error('Preloader immediate init:', e); }
 }

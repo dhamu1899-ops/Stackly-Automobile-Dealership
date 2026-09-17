@@ -57,6 +57,62 @@
   </div>
 </div>
 
+<!-- ============================================================
+     DASHBOARD MOBILE TOP BAR (visible only on mobile)
+     ============================================================ -->
+<div class="dash-mobile-topbar" id="dashMobileTopbar">
+  <a href="index.html" class="dash-mobile-logo">
+    <img src="stackly-logo.svg" alt="Stackly" style="height:32px;"/>
+  </a>
+  <button class="dash-mobile-toggle" id="dashMobileToggle" aria-label="Open Dashboard Menu">
+    <i class="fas fa-bars"></i>
+  </button>
+</div>
+
+<!-- Dashboard Mobile Drawer Backdrop -->
+<div class="dash-drawer-backdrop" id="dashDrawerBackdrop"></div>
+
+<!-- Dashboard Mobile Sliding Drawer -->
+<div class="dash-mobile-drawer" id="dashMobileDrawer">
+  <div class="dash-drawer-header">
+    <a href="index.html" class="dash-mobile-logo">
+      <img src="stackly-logo.svg" alt="Stackly" style="height:30px;"/>
+    </a>
+    <button class="dash-drawer-close" id="dashDrawerClose" aria-label="Close Menu">&times;</button>
+  </div>
+
+  <div class="dash-drawer-user">
+    <div class="dash-avatar" style="margin:0 auto 10px; background:var(--accent-pink);"><i class="fas fa-user-shield"></i></div>
+    <h4 id="drawerAdminName" style="font-size:1rem; font-weight:700; margin:0;">Super Admin</h4>
+    <span class="status-tag status-confirmed" style="margin-top:6px; display:inline-flex; background:rgba(248,13,118,0.2); color:var(--accent-pink);">General Manager</span>
+    <p id="drawerAdminEmail" style="font-size:12px; color:var(--text-muted); margin:6px 0 0;">admin@stackly.com</p>
+  </div>
+
+  <nav class="dash-drawer-nav">
+    <a href="#analytics" class="dash-drawer-link active" onclick="switchAdminTab('adminAnalytics', this); closeDashDrawer();">
+      <i class="fas fa-chart-line"></i> Operations Overview
+    </a>
+    <a href="#inventory" class="dash-drawer-link" onclick="switchAdminTab('adminInventory', this); closeDashDrawer();">
+      <i class="fas fa-warehouse"></i> Inventory Stock
+    </a>
+    <a href="#leads" class="dash-drawer-link" onclick="switchAdminTab('adminLeads', this); closeDashDrawer();">
+      <i class="fas fa-tasks"></i> Customer Leads
+    </a>
+    <a href="#staff" class="dash-drawer-link" onclick="switchAdminTab('adminStaff', this); closeDashDrawer();">
+      <i class="fas fa-id-badge"></i> Sales Executives
+    </a>
+    <a href="#reports" class="dash-drawer-link" onclick="switchAdminTab('adminReports', this); closeDashDrawer();">
+      <i class="fas fa-receipt"></i> Monthly Reports
+    </a>
+    <a href="index.html" class="dash-drawer-link">
+      <i class="fas fa-external-link-alt"></i> Back to Showroom
+    </a>
+    <a href="javascript:void(0)" class="dash-drawer-link dash-drawer-logout" onclick="handleLogout()">
+      <i class="fas fa-sign-out-alt"></i> Logout
+    </a>
+  </nav>
+</div>
+
 <div class="dash-wrapper">
   <aside class="dash-sidebar">
     <div class="dash-brand-bar">
@@ -111,7 +167,7 @@
         <div class="kpi-card">
           <div class="kpi-icon" style="color:var(--accent-cyan); background:rgba(1,240,221,0.15);"><i class="fas fa-coins"></i></div>
           <div>
-            <div class="kpi-val">$2.85M</div>
+            <div class="kpi-val">₹23.75 Cr</div>
             <div class="kpi-label">Monthly Gross Booked</div>
           </div>
         </div>
@@ -214,7 +270,7 @@
               <td><strong>Mercedes-Benz AMG GT Coupe</strong></td>
               <td>Coupe</td>
               <td>1HGBH41JXMN109186</td>
-              <td>$89,500</td>
+              <td>₹89,50,000</td>
               <td><span class="status-tag status-confirmed">Ready for Delivery</span></td>
               <td><button onclick="deleteCarRow('car-inv-1')" class="btn btn-outline btn-sm" style="color:#e74c3c; border-color:rgba(231,76,60,0.3); padding:4px 8px; font-size:11px;"><i class="fas fa-trash"></i></button></td>
             </tr>
@@ -222,7 +278,7 @@
               <td><strong>BMW M4 Competition</strong></td>
               <td>Sports Sedan</td>
               <td>2T1BR32E8FC109822</td>
-              <td>$78,900</td>
+              <td>₹78,90,000</td>
               <td><span class="status-tag status-confirmed">On Showroom Floor</span></td>
               <td><button onclick="deleteCarRow('car-inv-2')" class="btn btn-outline btn-sm" style="color:#e74c3c; border-color:rgba(231,76,60,0.3); padding:4px 8px; font-size:11px;"><i class="fas fa-trash"></i></button></td>
             </tr>
@@ -230,7 +286,7 @@
               <td><strong>Porsche 911 Carrera S</strong></td>
               <td>Convertible</td>
               <td>3VW2K7AJ0HM289114</td>
-              <td>$138,000</td>
+              <td>₹1,38,00,000</td>
               <td><span class="status-tag status-pending">Inspection Pending</span></td>
               <td><button onclick="deleteCarRow('car-inv-3')" class="btn btn-outline btn-sm" style="color:#e74c3c; border-color:rgba(231,76,60,0.3); padding:4px 8px; font-size:11px;"><i class="fas fa-trash"></i></button></td>
             </tr>
@@ -303,7 +359,7 @@
               <td>+91 98421 11200</td>
               <td>Fairlands, Salem</td>
               <td>BMW M4 Competition</td>
-              <td>$80,000</td>
+              <td>₹67,00,000</td>
               <td><button onclick="showToast('Lead follow-up logged for Anand Venkat!', 'success')" class="btn btn-primary btn-sm" style="padding:4px 10px; font-size:11px;">Call Customer</button></td>
             </tr>
             <tr>
@@ -311,7 +367,7 @@
               <td>+91 97899 55432</td>
               <td>Hasthampatti, Salem</td>
               <td>Range Rover Sport</td>
-              <td>$95,000</td>
+              <td>₹79,00,000</td>
               <td><button onclick="showToast('Test drive confirmed for Kavitha Murugan!', 'success')" class="btn btn-primary btn-sm" style="padding:4px 10px; font-size:11px;">Schedule Drive</button></td>
             </tr>
           </tbody>
@@ -391,14 +447,14 @@
             <tr>
               <td>August 2026</td>
               <td>26 Cars</td>
-              <td>$2,140,000</td>
+              <td>₹17,80,00,000</td>
               <td>Timor Ventura V2</td>
               <td><span class="status-tag status-confirmed">98.4%</span></td>
             </tr>
             <tr>
               <td>July 2026</td>
               <td>22 Cars</td>
-              <td>$1,890,000</td>
+              <td>₹15,70,00,000</td>
               <td>Mercedes-Benz AMG GT</td>
               <td><span class="status-tag status-confirmed">97.8%</span></td>
             </tr>
@@ -448,9 +504,9 @@
       </div>
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:14px;">
         <div class="form-group" style="margin-bottom:0;">
-          <label class="form-label"><i class="fas fa-dollar-sign"></i> Net Price ($)</label>
+          <label class="form-label"><i class="fas fa-rupee-sign"></i> Net Price (₹)</label>
           <div class="dash-input-wrap">
-            <i class="fas fa-dollar-sign dash-input-icon"></i>
+            <i class="fas fa-rupee-sign dash-input-icon"></i>
             <input type="number" id="addCarPrice" class="form-input" placeholder="Enter price in USD (e.g. 85000)" required/>
           </div>
         </div>

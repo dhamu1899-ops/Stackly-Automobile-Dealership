@@ -57,6 +57,65 @@
   </div>
 </div>
 
+<!-- ============================================================
+     DASHBOARD MOBILE TOP BAR (visible only on mobile)
+     ============================================================ -->
+<div class="dash-mobile-topbar" id="dashMobileTopbar">
+  <a href="index.html" class="dash-mobile-logo">
+    <img src="stackly-logo.svg" alt="Stackly" style="height:32px;"/>
+  </a>
+  <button class="dash-mobile-toggle" id="dashMobileToggle" aria-label="Open Dashboard Menu">
+    <i class="fas fa-bars"></i>
+  </button>
+</div>
+
+<!-- Dashboard Mobile Drawer Backdrop -->
+<div class="dash-drawer-backdrop" id="dashDrawerBackdrop"></div>
+
+<!-- Dashboard Mobile Sliding Drawer -->
+<div class="dash-mobile-drawer" id="dashMobileDrawer">
+  <div class="dash-drawer-header">
+    <a href="index.html" class="dash-mobile-logo">
+      <img src="stackly-logo.svg" alt="Stackly" style="height:30px;"/>
+    </a>
+    <button class="dash-drawer-close" id="dashDrawerClose" aria-label="Close Menu">&times;</button>
+  </div>
+
+  <div class="dash-drawer-user">
+    <div class="dash-avatar" style="margin:0 auto 10px;"><i class="fas fa-user"></i></div>
+    <h4 id="drawerProfileName" style="font-size:1rem; font-weight:700; margin:0;">Rajesh Kumar</h4>
+    <span class="status-tag status-confirmed" style="margin-top:6px; display:inline-flex;"><i class="fas fa-shield-alt"></i> Black Diamond VIP</span>
+    <p id="drawerProfileEmail" style="font-size:12px; color:var(--text-muted); margin:6px 0 0;">customer@stackly.in</p>
+  </div>
+
+  <nav class="dash-drawer-nav">
+    <a href="#overview" class="dash-drawer-link active" onclick="switchCustTab('custOverview', this); closeDashDrawer();">
+      <i class="fas fa-th-large"></i> Overview
+    </a>
+    <a href="#inventory" class="dash-drawer-link" onclick="switchCustTab('custInventory', this); closeDashDrawer();">
+      <i class="fas fa-car"></i> Browse Inventory
+    </a>
+    <a href="#testdrives" class="dash-drawer-link" onclick="switchCustTab('custTestDrives', this); closeDashDrawer();">
+      <i class="fas fa-calendar-check"></i> My Test Drives
+    </a>
+    <a href="#favorites" class="dash-drawer-link" onclick="switchCustTab('custFavorites', this); closeDashDrawer();">
+      <i class="fas fa-heart"></i> Saved Vehicles
+    </a>
+    <a href="#financing" class="dash-drawer-link" onclick="switchCustTab('custLoans', this); closeDashDrawer();">
+      <i class="fas fa-file-invoice-dollar"></i> Pre-Approved Loans
+    </a>
+    <a href="#settings" class="dash-drawer-link" onclick="switchCustTab('custSettings', this); closeDashDrawer();">
+      <i class="fas fa-cog"></i> Account Settings
+    </a>
+    <a href="index.html" class="dash-drawer-link">
+      <i class="fas fa-home"></i> Back to Showroom
+    </a>
+    <a href="javascript:void(0)" class="dash-drawer-link dash-drawer-logout" onclick="handleLogout()">
+      <i class="fas fa-sign-out-alt"></i> Logout
+    </a>
+  </nav>
+</div>
+
 <div class="dash-wrapper">
   <!-- SIDEBAR NAVIGATION -->
   <aside class="dash-sidebar">
@@ -144,7 +203,7 @@
         <div class="kpi-card" onclick="switchCustTab('custLoans')" style="cursor:pointer;" title="Click to manage loan">
           <div class="kpi-icon" style="color:var(--accent-cyan); background:rgba(1,240,221,0.15);"><i class="fas fa-file-signature"></i></div>
           <div>
-            <div class="kpi-val">$45,000</div>
+            <div class="kpi-val">₹37,50,000</div>
             <div class="kpi-label">Pre-Approved Credit</div>
             <span style="font-size:11px; color:#2ecc71;"><i class="fas fa-percentage"></i> 7.2% Fixed APR Sanctioned</span>
           </div>
@@ -253,8 +312,8 @@
             <tr id="fav-row-1">
               <td><strong>BMW M4 Competition</strong> (503 HP)</td>
               <td><span class="status-tag status-confirmed">Certified 150-Point</span></td>
-              <td><strong>$78,900</strong></td>
-              <td style="color:var(--accent-cyan);">$1,180 / mo</td>
+              <td><strong>₹78,90,000</strong></td>
+              <td style="color:var(--accent-cyan);">₹98,500 / mo</td>
               <td>
                 <button onclick="bookCarFromWishlist('BMW M4 Competition')" class="btn btn-primary btn-sm" style="padding:4px 10px; font-size:11px;"><i class="fas fa-key"></i> Test Drive</button>
                 <button onclick="removeFavorite('fav-row-1')" class="btn btn-outline btn-sm" style="padding:4px 8px; font-size:11px; margin-left:4px;"><i class="fas fa-trash"></i></button>
@@ -263,8 +322,8 @@
             <tr id="fav-row-2">
               <td><strong>Audi RS7 Sportback Quattro</strong> (591 HP)</td>
               <td><span class="status-tag status-confirmed">New Arrival</span></td>
-              <td><strong>$105,000</strong></td>
-              <td style="color:var(--accent-cyan);">$1,560 / mo</td>
+              <td><strong>₹1,05,00,000</strong></td>
+              <td style="color:var(--accent-cyan);">₹1,30,000 / mo</td>
               <td>
                 <button onclick="bookCarFromWishlist('Audi RS7 Sportback Quattro')" class="btn btn-primary btn-sm" style="padding:4px 10px; font-size:11px;"><i class="fas fa-key"></i> Test Drive</button>
                 <button onclick="removeFavorite('fav-row-2')" class="btn btn-outline btn-sm" style="padding:4px 8px; font-size:11px; margin-left:4px;"><i class="fas fa-trash"></i></button>
@@ -273,8 +332,8 @@
             <tr id="fav-row-3">
               <td><strong>Porsche 911 Carrera S</strong> (443 HP)</td>
               <td><span class="status-tag status-pending">Reserved</span></td>
-              <td><strong>$138,000</strong></td>
-              <td style="color:var(--accent-cyan);">$2,050 / mo</td>
+              <td><strong>₹1,38,00,000</strong></td>
+              <td style="color:var(--accent-cyan);">₹1,71,000 / mo</td>
               <td>
                 <button onclick="bookCarFromWishlist('Porsche 911 Carrera S')" class="btn btn-primary btn-sm" style="padding:4px 10px; font-size:11px;"><i class="fas fa-key"></i> Test Drive</button>
                 <button onclick="removeFavorite('fav-row-3')" class="btn btn-outline btn-sm" style="padding:4px 8px; font-size:11px; margin-left:4px;"><i class="fas fa-trash"></i></button>
@@ -437,12 +496,12 @@
           <div style="padding:18px;">
             <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
               <span class="status-tag status-confirmed">Certified</span>
-              <span style="color:var(--accent-cyan); font-weight:700;">$1,180 / mo</span>
+              <span style="color:var(--accent-cyan); font-weight:700;">₹98,500 / mo</span>
             </div>
             <h3 style="font-size:1.15rem; font-weight:800; color:#fff; margin-bottom:6px;">BMW M4 Competition</h3>
             <p style="font-size:13px; color:var(--text-muted); margin-bottom:14px;">503 HP &bull; 8,200 km &bull; Automatic M Steptronic</p>
             <div style="display:flex; justify-content:space-between; align-items:center;">
-              <strong style="font-size:1.25rem; color:var(--primary);">$78,900</strong>
+              <strong style="font-size:1.25rem; color:var(--primary);">₹78,90,000</strong>
               <div style="display:flex; gap:6px;">
                 <button onclick="bookCarFromWishlist('BMW M4 Competition')" class="btn btn-primary btn-sm" style="font-size:11px; padding:5px 10px;">Test Drive</button>
                 <button onclick="removeFavorite('fav-row-1', 'fav-card-1')" class="btn btn-outline btn-sm" style="padding:5px 8px; font-size:11px;"><i class="fas fa-trash"></i></button>
@@ -457,12 +516,12 @@
           <div style="padding:18px;">
             <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
               <span class="status-tag status-confirmed">New Arrival</span>
-              <span style="color:var(--accent-cyan); font-weight:700;">$1,560 / mo</span>
+              <span style="color:var(--accent-cyan); font-weight:700;">₹1,30,000 / mo</span>
             </div>
             <h3 style="font-size:1.15rem; font-weight:800; color:#fff; margin-bottom:6px;">Audi RS7 Sportback</h3>
             <p style="font-size:13px; color:var(--text-muted); margin-bottom:14px;">591 HP &bull; 520 km &bull; Quattro All-Wheel</p>
             <div style="display:flex; justify-content:space-between; align-items:center;">
-              <strong style="font-size:1.25rem; color:var(--primary);">$105,000</strong>
+              <strong style="font-size:1.25rem; color:var(--primary);">₹1,05,00,000</strong>
               <div style="display:flex; gap:6px;">
                 <button onclick="bookCarFromWishlist('Audi RS7 Sportback Quattro')" class="btn btn-primary btn-sm" style="font-size:11px; padding:5px 10px;">Test Drive</button>
                 <button onclick="removeFavorite('fav-row-2', 'fav-card-2')" class="btn btn-outline btn-sm" style="padding:5px 8px; font-size:11px;"><i class="fas fa-trash"></i></button>
@@ -477,12 +536,12 @@
           <div style="padding:18px;">
             <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
               <span class="status-tag status-pending">Reserved</span>
-              <span style="color:var(--accent-cyan); font-weight:700;">$2,050 / mo</span>
+              <span style="color:var(--accent-cyan); font-weight:700;">₹1,71,000 / mo</span>
             </div>
             <h3 style="font-size:1.15rem; font-weight:800; color:#fff; margin-bottom:6px;">Porsche 911 Carrera S</h3>
             <p style="font-size:13px; color:var(--text-muted); margin-bottom:14px;">443 HP &bull; 4,100 km &bull; Rear-Engine PDK</p>
             <div style="display:flex; justify-content:space-between; align-items:center;">
-              <strong style="font-size:1.25rem; color:var(--primary);">$138,000</strong>
+              <strong style="font-size:1.25rem; color:var(--primary);">₹1,38,00,000</strong>
               <div style="display:flex; gap:6px;">
                 <button onclick="bookCarFromWishlist('Porsche 911 Carrera S')" class="btn btn-primary btn-sm" style="font-size:11px; padding:5px 10px;">Test Drive</button>
                 <button onclick="removeFavorite('fav-row-3', 'fav-card-3')" class="btn btn-outline btn-sm" style="padding:5px 8px; font-size:11px;"><i class="fas fa-trash"></i></button>
@@ -531,9 +590,9 @@
             </tr>
             <tr>
               <td><strong>Monthly Pre-Approved EMI</strong></td>
-              <td style="color:var(--accent-cyan); font-weight:700;">$1,180 / mo</td>
-              <td style="color:var(--accent-cyan); font-weight:700;">$1,560 / mo</td>
-              <td style="color:var(--accent-cyan); font-weight:700;">$2,050 / mo</td>
+              <td style="color:var(--accent-cyan); font-weight:700;">₹98,500 / mo</td>
+              <td style="color:var(--accent-cyan); font-weight:700;">₹1,30,000 / mo</td>
+              <td style="color:var(--accent-cyan); font-weight:700;">₹1,71,000 / mo</td>
             </tr>
             <tr>
               <td><strong>Stackly 150-Point Guarantee</strong></td>
@@ -564,7 +623,7 @@
       <div style="background:linear-gradient(135deg, rgba(1,240,221,0.12) 0%, rgba(15,5,82,0.85) 100%); border:1px solid rgba(1,240,221,0.35); border-radius:14px; padding:26px 28px; margin-bottom:28px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
         <div>
           <span style="font-size:11px; text-transform:uppercase; letter-spacing:2px; color:var(--accent-cyan); font-weight:800;"><i class="fas fa-certificate"></i> Verified Bank Consortium Pre-Approval</span>
-          <h3 style="font-size:1.8rem; font-weight:900; color:#fff; margin:6px 0;">$45,000 <span style="font-size:15px; color:var(--text-muted); font-weight:400;">(INR ~37,50,000)</span></h3>
+          <h3 style="font-size:1.8rem; font-weight:900; color:#fff; margin:6px 0;">₹37,50,000 <span style="font-size:15px; color:var(--text-muted); font-weight:400;">(Pre-Approved Facility)</span></h3>
           <p style="font-size:14px; color:#fff; margin:0;">Sanctioned via <strong>HDFC Bank &amp; State Bank of India Automotive Desk</strong> at <strong>7.2% Fixed APR</strong> for 60 months tenure.</p>
         </div>
         <div style="text-align:right;">
@@ -584,9 +643,9 @@
             <div style="margin-bottom:20px;">
               <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
                 <label style="font-size:13px; font-weight:600;">Loan Amount</label>
-                <strong id="calcLoanAmtText" style="color:var(--primary); font-size:15px;">$45,000</strong>
+                <strong id="calcLoanAmtText" style="color:var(--primary); font-size:15px;">₹37,50,000</strong>
               </div>
-              <input type="range" id="calcLoanAmt" min="10000" max="150000" step="2500" value="45000" oninput="calculateLiveEmi()" style="width:100%; accent-color:var(--primary);"/>
+              <input type="range" id="calcLoanAmt" min="500000" max="10000000" step="100000" value="3750000" oninput="calculateLiveEmi()" style="width:100%; accent-color:var(--primary);"/>
             </div>
 
             <div style="margin-bottom:20px;">
@@ -609,15 +668,15 @@
           <!-- Live Result Display Card -->
           <div style="background:rgba(255,255,255,0.03); border:1px solid var(--border-light); border-radius:12px; padding:24px; text-align:center;">
             <span style="font-size:12px; text-transform:uppercase; letter-spacing:1px; color:var(--text-muted);">Estimated Monthly Payment</span>
-            <div style="font-size:2.4rem; font-weight:900; color:var(--accent-cyan); margin:8px 0;" id="calcMonthlyEmi">$895 <small style="font-size:14px; font-weight:500; color:var(--text-muted);">/ mo</small></div>
+            <div style="font-size:2.4rem; font-weight:900; color:var(--accent-cyan); margin:8px 0;" id="calcMonthlyEmi">₹74,500 <small style="font-size:14px; font-weight:500; color:var(--text-muted);">/ mo</small></div>
             <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; border-top:1px solid var(--border-light); padding-top:16px; margin-top:14px; text-align:left; font-size:13px;">
               <div>
                 <span style="color:var(--text-muted);">Total Interest:</span>
-                <strong style="display:block; color:#fff;" id="calcTotalInterest">$8,700</strong>
+                <strong style="display:block; color:#fff;" id="calcTotalInterest">₹7,25,000</strong>
               </div>
               <div>
                 <span style="color:var(--text-muted);">Total Repayment:</span>
-                <strong style="display:block; color:#fff;" id="calcTotalPayment">$53,700</strong>
+                <strong style="display:block; color:#fff;" id="calcTotalPayment">₹44,75,000</strong>
               </div>
             </div>
             <button onclick="showToast('Pre-approved loan tied to your chosen vehicle!', 'success')" class="btn btn-primary btn-sm" style="width:100%; margin-top:18px;"><i class="fas fa-check"></i> Disburse With Selected Car</button>
@@ -643,17 +702,17 @@
             <tr>
               <td><strong>STK-LN-9921</strong></td>
               <td>HDFC Auto Capital</td>
-              <td>$45,000</td>
+              <td>₹37,50,000</td>
               <td>60 Months</td>
-              <td style="color:var(--accent-cyan); font-weight:700;">$895 / mo</td>
+              <td style="color:var(--accent-cyan); font-weight:700;">₹74,500 / mo</td>
               <td><span class="status-tag status-confirmed"><i class="fas fa-check"></i> Ready to Disburse</span></td>
             </tr>
             <tr>
               <td><strong>STK-LN-8412</strong></td>
               <td>State Bank of India</td>
-              <td>$35,000</td>
+              <td>₹29,00,000</td>
               <td>48 Months</td>
-              <td style="color:var(--accent-cyan); font-weight:700;">$841 / mo</td>
+              <td style="color:var(--accent-cyan); font-weight:700;">₹70,000 / mo</td>
               <td><span class="status-tag status-completed"><i class="fas fa-archive"></i> Archived Offer</span></td>
             </tr>
           </tbody>
@@ -790,18 +849,18 @@
         <div class="dash-input-wrap">
           <i class="fas fa-car dash-input-icon"></i>
           <select id="bookVehicleSelect" class="form-input" required>
-            <option value="Mercedes-Benz AMG GT Coupe">Mercedes-Benz AMG GT Coupe ($89,500)</option>
-            <option value="BMW M4 Competition">BMW M4 Competition ($78,900)</option>
-            <option value="Audi RS7 Sportback Quattro">Audi RS7 Sportback Quattro ($105,000)</option>
-            <option value="Range Rover Sport Dynamic">Range Rover Sport Dynamic ($94,500)</option>
-            <option value="Porsche 911 Carrera S">Porsche 911 Carrera S ($138,000)</option>
-            <option value="Ford Mustang GT Fastback">Ford Mustang GT Fastback ($56,800)</option>
-            <option value="Timor Hatchback V2">Timor Hatchback V2 ($24,495)</option>
-            <option value="Timor Ventura V2">Timor Ventura V2 ($24,495)</option>
-            <option value="Toyota Convertible">Toyota Convertible ($64,495)</option>
-            <option value="Mobilist Greenia">Mobilist Greenia Hybrid ($124,495)</option>
-            <option value="Mobilist Loka">Mobilist Loka ($64,495)</option>
-            <option value="Timor Ventura Sport">Timor Ventura Sport ($124,495)</option>
+            <option value="Mercedes-Benz AMG GT Coupe">Mercedes-Benz AMG GT Coupe (₹89,50,000)</option>
+            <option value="BMW M4 Competition">BMW M4 Competition (₹78,90,000)</option>
+            <option value="Audi RS7 Sportback Quattro">Audi RS7 Sportback Quattro (₹1,05,00,000)</option>
+            <option value="Range Rover Sport Dynamic">Range Rover Sport Dynamic (₹94,50,000)</option>
+            <option value="Porsche 911 Carrera S">Porsche 911 Carrera S (₹1,38,00,000)</option>
+            <option value="Ford Mustang GT Fastback">Ford Mustang GT Fastback (₹56,80,000)</option>
+            <option value="Timor Hatchback V2">Timor Hatchback V2 (₹24,49,000)</option>
+            <option value="Timor Ventura V2">Timor Ventura V2 (₹24,49,000)</option>
+            <option value="Toyota Convertible">Toyota Convertible (₹64,49,000)</option>
+            <option value="Mobilist Greenia">Mobilist Greenia Hybrid (₹1,24,49,000)</option>
+            <option value="Mobilist Loka">Mobilist Loka (₹64,49,000)</option>
+            <option value="Timor Ventura Sport">Timor Ventura Sport (₹1,24,49,000)</option>
           </select>
         </div>
       </div>

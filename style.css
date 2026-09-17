@@ -1649,42 +1649,264 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
   flex-direction: column;
 }
 
-/* Eliminate opacity/translate scroll-reveal bugs inside dashboard */
-.dash-main .reveal-on-scroll,
-.dash-main .reveal-left,
-.dash-main .reveal-right,
-.dash-main .kpi-card,
-.dash-main .dash-table-wrap,
-.dash-main .car-inventory-tile {
-  opacity: 1 !important;
-  transform: none !important;
-  filter: none !important;
-}
 
 @media (max-width: 1100px) {
   .dash-wrapper { grid-template-columns: 240px minmax(0, 1fr); }
   .dash-main { padding: 28px 24px; }
 }
+
+/* ==============================================================================
+   DASHBOARD MOBILE TOP BAR + SLIDING DRAWER NAVIGATION
+   ============================================================================== */
+
+/* Mobile top bar — hidden on desktop, shown on mobile */
+.dash-mobile-topbar {
+  display: none;
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1100;
+  background: rgba(5, 0, 28, 0.97);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(254, 76, 40, 0.25);
+  padding: 12px 20px;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+.dash-mobile-logo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.dash-mobile-toggle {
+  background: rgba(254, 76, 40, 0.12);
+  border: 1px solid rgba(254, 76, 40, 0.35);
+  color: #fff;
+  font-size: 18px;
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s ease;
+}
+.dash-mobile-toggle:hover {
+  background: rgba(254, 76, 40, 0.3);
+  border-color: var(--primary);
+}
+
+/* Backdrop */
+.dash-drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(4, 0, 20, 0.78);
+  backdrop-filter: blur(6px);
+  z-index: 2998;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+}
+.dash-drawer-backdrop.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* Sliding drawer panel */
+.dash-mobile-drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 300px;
+  max-width: 85vw;
+  height: 100dvh;
+  background: rgba(6, 1, 26, 0.98);
+  backdrop-filter: blur(24px);
+  border-right: 1px solid rgba(254, 76, 40, 0.25);
+  box-shadow: 10px 0 40px rgba(0, 0, 0, 0.8);
+  z-index: 2999;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(-100%);
+  transition: transform 0.36s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.dash-mobile-drawer.open {
+  transform: translateX(0);
+}
+
+/* Drawer header row */
+.dash-drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(4, 0, 18, 0.5);
+  flex-shrink: 0;
+}
+.dash-drawer-close {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #fff;
+  font-size: 22px;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  line-height: 1;
+}
+.dash-drawer-close:hover {
+  background: rgba(254, 76, 40, 0.25);
+  border-color: var(--primary);
+  color: #fff;
+}
+
+/* User profile section inside drawer */
+.dash-drawer-user {
+  padding: 24px 20px 20px;
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(255, 255, 255, 0.025);
+  flex-shrink: 0;
+}
+.dash-drawer-user h4 {
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+}
+.dash-drawer-user p {
+  color: var(--text-muted);
+  font-size: 12px;
+  margin: 6px 0 0;
+}
+
+/* Nav links inside the drawer */
+.dash-drawer-nav {
+  display: flex;
+  flex-direction: column;
+  padding: 16px 12px;
+  gap: 4px;
+  flex: 1;
+}
+.dash-drawer-link {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 13px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-muted);
+  border-radius: 10px;
+  border: 1px solid transparent;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+.dash-drawer-link i {
+  width: 18px;
+  text-align: center;
+  font-size: 15px;
+  flex-shrink: 0;
+  color: var(--text-dim);
+  transition: color 0.25s ease;
+}
+.dash-drawer-link:hover,
+.dash-drawer-link.active {
+  background: rgba(254, 76, 40, 0.1);
+  border-color: rgba(254, 76, 40, 0.25);
+  color: #fff;
+}
+.dash-drawer-link:hover i,
+.dash-drawer-link.active i {
+  color: var(--primary);
+}
+.dash-drawer-logout {
+  margin-top: auto;
+  color: #e74c3c;
+  border-color: rgba(231, 76, 60, 0.2);
+}
+.dash-drawer-logout:hover {
+  background: rgba(231, 76, 60, 0.12) !important;
+  border-color: rgba(231, 76, 60, 0.4) !important;
+  color: #ff6b6b !important;
+}
+.dash-drawer-logout i {
+  color: #e74c3c !important;
+}
+
+/* On mobile: hide sidebar, show top bar + full screen content */
 @media (max-width: 900px) {
-  .dash-wrapper { grid-template-columns: 1fr; display: flex; flex-direction: column; }
-  .dash-sidebar { border-right: none; border-bottom: 1px solid var(--border-light); padding: 20px; }
-  .dash-nav { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 8px; }
-  .dash-main { padding: 24px 16px; }
+  .dash-mobile-topbar { display: flex; }
+  .dash-wrapper {
+    grid-template-columns: 1fr;
+    display: block;
+  }
+  .dash-sidebar {
+    display: none !important;
+  }
+  .dash-main {
+    padding: 20px 16px;
+    min-height: calc(100vh - 66px);
+  }
   .dash-header-bar { flex-direction: column; align-items: flex-start; gap: 14px; }
 }
 
+
 /* ==============================================================================
-   PAGE & SECTION-BY-SECTION SCROLL ENTRANCE ANIMATIONS
+   PREMIUM CINEMATIC SCROLL ENTRANCE ANIMATIONS — STACKLY LUXURY AUTOMOTIVE
    ============================================================================== */
+
+/* ── Base keyframe library ─────────────────────────────────────────────────── */
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(48px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeSlideLeft {
+  from { opacity: 0; transform: translateX(-52px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes fadeSlideRight {
+  from { opacity: 0; transform: translateX(52px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes scaleReveal {
+  from { opacity: 0; transform: scale(0.88); filter: blur(4px); }
+  to   { opacity: 1; transform: scale(1);    filter: blur(0); }
+}
+@keyframes glowPop {
+  from { opacity: 0; transform: scale(0.80) translateY(24px); }
+  to   { opacity: 1; transform: scale(1)    translateY(0); }
+}
+@keyframes softFade {
+  from { opacity: 0; transform: translateY(22px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0)    scale(1); }
+}
+@keyframes floatIn {
+  from { opacity: 0; transform: translateY(36px) rotate(-1deg); }
+  to   { opacity: 1; transform: translateY(0)    rotate(0deg); }
+}
+
+/* ── Section-level entrance (whole section rises into view) ───────────────── */
 section.scroll-section-effect,
 .page-hero-banner.scroll-section-effect,
 footer#site-footer.scroll-section-effect {
   opacity: 0;
-  transform: translateY(32px);
-  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(44px);
+  transition:
+    opacity   0.90s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.90s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
 }
-
 section.section-active,
 .page-hero-banner.section-active,
 footer#site-footer.section-active {
@@ -1692,72 +1914,287 @@ footer#site-footer.section-active {
   transform: translateY(0) !important;
 }
 
+/* ── Generic reveal classes ────────────────────────────────────────────────── */
 .reveal-on-scroll {
   opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(36px);
+  transition:
+    opacity   0.72s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.72s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
 }
-
 .reveal-on-scroll.revealed {
   opacity: 1 !important;
   transform: translateY(0) !important;
 }
-
 .reveal-left {
   opacity: 0;
-  transform: translateX(-35px);
-  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateX(-44px);
+  transition:
+    opacity   0.72s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.72s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
 }
-
 .reveal-left.revealed {
   opacity: 1 !important;
   transform: translateX(0) !important;
 }
-
 .reveal-right {
   opacity: 0;
-  transform: translateX(35px);
-  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateX(44px);
+  transition:
+    opacity   0.72s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.72s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
 }
-
 .reveal-right.revealed {
   opacity: 1 !important;
   transform: translateX(0) !important;
 }
 
-/* Fluid cascading stagger classes */
-.stagger-1 { transition-delay: 0.05s; }
-.stagger-2 { transition-delay: 0.12s; }
-.stagger-3 { transition-delay: 0.19s; }
-.stagger-4 { transition-delay: 0.26s; }
-.stagger-5 { transition-delay: 0.33s; }
-.stagger-6 { transition-delay: 0.40s; }
+/* ── Stat / KPI counters — scale-pop with bounce ──────────────────────────── */
+.stat-card.reveal-on-scroll,
+.kpi-card.reveal-on-scroll,
+.stat-box-card.reveal-on-scroll {
+  opacity: 0;
+  transform: scale(0.88) translateY(22px);
+  transition:
+    opacity   0.65s cubic-bezier(0.34, 1.56, 0.64, 1),
+    transform 0.65s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.stat-card.reveal-on-scroll.revealed,
+.kpi-card.reveal-on-scroll.revealed,
+.stat-box-card.reveal-on-scroll.revealed {
+  opacity: 1 !important;
+  transform: scale(1) translateY(0) !important;
+}
 
-/* Dashboard and Auth Portal immunity to prevent layout shifting or hidden tabs */
+/* ── Service & feature cards — float-in with gentle tilt ─────────────────── */
+.service-card.reveal-on-scroll,
+.feature-box.reveal-on-scroll,
+.benefit-item.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(44px) rotate(0.5deg);
+  transition:
+    opacity   0.70s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.70s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.service-card.reveal-on-scroll.revealed,
+.feature-box.reveal-on-scroll.revealed,
+.benefit-item.reveal-on-scroll.revealed {
+  opacity: 1 !important;
+  transform: translateY(0) rotate(0deg) !important;
+}
+
+/* ── Car inventory tiles — scale + blur dissolve ──────────────────────────── */
+.car-inventory-tile.reveal-on-scroll {
+  opacity: 0;
+  transform: scale(0.92) translateY(28px);
+  filter: blur(3px);
+  transition:
+    opacity   0.68s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.68s cubic-bezier(0.16, 1, 0.3, 1),
+    filter    0.60s ease;
+}
+.car-inventory-tile.reveal-on-scroll.revealed {
+  opacity: 1 !important;
+  transform: scale(1) translateY(0) !important;
+  filter: blur(0) !important;
+}
+
+/* ── Blog & news cards — gentle float-in ─────────────────────────────────── */
+.blog-card.reveal-on-scroll,
+.news-tile.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(40px) scale(0.97);
+  transition:
+    opacity   0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    transform 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.blog-card.reveal-on-scroll.revealed,
+.news-tile.reveal-on-scroll.revealed {
+  opacity: 1 !important;
+  transform: translateY(0) scale(1) !important;
+}
+
+/* ── Team cards — rotate-up entrance ─────────────────────────────────────── */
+.team-card.reveal-on-scroll,
+.team-profile-card.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(40px) rotate(-1.2deg);
+  transition:
+    opacity   0.72s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.72s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.team-card.reveal-on-scroll.revealed,
+.team-profile-card.reveal-on-scroll.revealed {
+  opacity: 1 !important;
+  transform: translateY(0) rotate(0deg) !important;
+}
+
+/* ── Glass feature boxes — blur dissolve ─────────────────────────────────── */
+.feature-box-glass.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(32px) scale(0.94);
+  filter: blur(5px);
+  transition:
+    opacity   0.70s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.70s cubic-bezier(0.16, 1, 0.3, 1),
+    filter    0.60s ease;
+}
+.feature-box-glass.reveal-on-scroll.revealed {
+  opacity: 1 !important;
+  transform: translateY(0) scale(1) !important;
+  filter: blur(0) !important;
+}
+
+/* ── Brand / partner logos — scale-pop ───────────────────────────────────── */
+.partner-logo-item.reveal-on-scroll,
+.brand-card-premium.reveal-on-scroll {
+  opacity: 0;
+  transform: scale(0.72);
+  transition:
+    opacity   0.55s cubic-bezier(0.34, 1.56, 0.64, 1),
+    transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.partner-logo-item.reveal-on-scroll.revealed,
+.brand-card-premium.reveal-on-scroll.revealed {
+  opacity: 1 !important;
+  transform: scale(1) !important;
+}
+
+/* ── FAQ items — slide from left ─────────────────────────────────────────── */
+.faq-accordion-item.reveal-on-scroll {
+  opacity: 0;
+  transform: translateX(-30px);
+  transition:
+    opacity   0.60s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.60s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.faq-accordion-item.reveal-on-scroll.revealed {
+  opacity: 1 !important;
+  transform: translateX(0) !important;
+}
+
+/* ── Pricing / premium cards — glow bounce ───────────────────────────────── */
+.pricing-card.reveal-on-scroll,
+.premium-card.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(48px) scale(0.93);
+  transition:
+    opacity   0.75s cubic-bezier(0.34, 1.56, 0.64, 1),
+    transform 0.75s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.pricing-card.reveal-on-scroll.revealed,
+.premium-card.reveal-on-scroll.revealed {
+  opacity: 1 !important;
+  transform: translateY(0) scale(1) !important;
+}
+
+/* ── Timeline boxes — diagonal slide ─────────────────────────────────────── */
+.timeline-card-box.reveal-on-scroll {
+  opacity: 0;
+  transform: translateX(-36px) translateY(20px);
+  transition:
+    opacity   0.68s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.68s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.timeline-card-box.reveal-on-scroll.revealed {
+  opacity: 1 !important;
+  transform: translateX(0) translateY(0) !important;
+}
+
+/* ── Footer columns ──────────────────────────────────────────────────────── */
+.footer-columns-grid > div.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition:
+    opacity   0.60s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    transform 0.60s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.footer-columns-grid > div.reveal-on-scroll.revealed {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* ── Finance / about / contact grid items ────────────────────────────────── */
+.finance-calc-box.reveal-on-scroll,
+.about-grid > div.reveal-on-scroll,
+.contact-grid > div.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(38px) scale(0.97);
+  transition:
+    opacity   0.70s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.70s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.finance-calc-box.reveal-on-scroll.revealed,
+.about-grid > div.reveal-on-scroll.revealed,
+.contact-grid > div.reveal-on-scroll.revealed {
+  opacity: 1 !important;
+  transform: translateY(0) scale(1) !important;
+}
+
+/* ── Promo cards — scale reveal from centre ──────────────────────────────── */
+.promo-car-card.reveal-on-scroll {
+  opacity: 0;
+  transform: scale(0.90) translateY(32px);
+  transition:
+    opacity   0.75s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.promo-car-card.reveal-on-scroll.revealed {
+  opacity: 1 !important;
+  transform: scale(1) translateY(0) !important;
+}
+
+/* ── Fluid cascading stagger classes ─────────────────────────────────────── */
+.stagger-1 { transition-delay: 0.04s; }
+.stagger-2 { transition-delay: 0.11s; }
+.stagger-3 { transition-delay: 0.18s; }
+.stagger-4 { transition-delay: 0.25s; }
+.stagger-5 { transition-delay: 0.32s; }
+.stagger-6 { transition-delay: 0.39s; }
+.stagger-7 { transition-delay: 0.46s; }
+.stagger-8 { transition-delay: 0.52s; }
+
+/* ── Hover micro-lift on revealed cards ──────────────────────────────────── */
+.service-card.reveal-on-scroll.revealed:hover,
+.car-inventory-tile.reveal-on-scroll.revealed:hover,
+.blog-card.reveal-on-scroll.revealed:hover,
+.feature-box-glass.reveal-on-scroll.revealed:hover {
+  transform: translateY(-6px) scale(1.015) !important;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+/* ── Dashboard & Auth immunity — must never animate ─────────────────────── */
+.dash-wrapper,
 .dash-wrapper *,
 .dash-main section,
 .dash-main .reveal-on-scroll,
 .dash-main .reveal-left,
 .dash-main .reveal-right,
-.auth-portal-page *,
-.stackly-preloader-overlay * {
+.auth-portal-page,
+.auth-portal-page * {
   opacity: 1 !important;
   transform: none !important;
+  filter: none !important;
+  animation: none !important;
 }
 
+/* ── Respects user motion preference ────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   section,
   .page-hero-banner,
   footer#site-footer,
   .reveal-on-scroll,
   .reveal-left,
-  .reveal-right {
+  .reveal-right,
+  [class*="stagger-"] {
     opacity: 1 !important;
     transform: none !important;
+    filter: none !important;
     transition: none !important;
+    animation: none !important;
   }
 }
 
@@ -3087,6 +3524,78 @@ footer#site-footer.section-active {
   font-weight: 800;
   font-family: monospace;
   font-size: 16px;
+}
+
+/* ==========================================================================
+   PRELOADER MOBILE RESPONSIVE
+   ========================================================================== */
+@media (max-width: 600px) {
+  .preloader-cinematic-stage {
+    width: 96%;
+    padding: 24px 18px 20px;
+    border-radius: 18px;
+  }
+  .preloader-cinematic-logo {
+    height: 36px;
+  }
+  .preloader-salem-badge {
+    font-size: 10px;
+    letter-spacing: 1px;
+  }
+  .preloader-hud-display {
+    padding: 8px 14px;
+    margin-bottom: 14px;
+  }
+  .hud-value-large {
+    font-size: 18px;
+  }
+  .hud-value {
+    font-size: 11px;
+  }
+  .hud-label {
+    font-size: 9px;
+  }
+  .preloader-highway-stage {
+    height: 90px;
+    margin-bottom: 16px;
+  }
+  .preloader-supercar-wrapper {
+    width: 150px;
+    height: 70px;
+  }
+  .preloader-supercar-img {
+    width: 150px;
+  }
+  .supercar-headlight-cone {
+    width: 55px;
+    right: -40px;
+    top: 26px;
+    height: 30px;
+  }
+  .supercar-nitro-exhaust {
+    top: 38px;
+  }
+  .progress-track-neon {
+    height: 10px;
+  }
+  .progress-bar-neon::after {
+    width: 12px;
+    height: 12px;
+    right: -4px;
+  }
+  .progress-info-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    margin-top: 10px;
+  }
+  .progress-status-msg {
+    font-size: 11px;
+  }
+  .progress-percent-val {
+    font-size: 13px;
+    align-self: flex-end;
+  }
 }
 
 /* ==========================================================================
